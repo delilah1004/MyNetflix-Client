@@ -22,34 +22,16 @@
 	
 	<!-- Custom styles for this template -->
 	<link href="${root}/resources/css/small-business.css" rel="stylesheet">
+	
+	<!-- Custom CSS for topbar.jsp -->
+	<link href="${root}/resources/css/topbar.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">Start Bootstrap</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link" href="#">Home
-							<span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Services</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<%-- <!-- Top Bar -->
+	<jsp:include page="/WEB-INF/template/topbar.jsp" /> --%>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -62,7 +44,7 @@
 			</div>
 			<!-- /.col-lg-8 -->
 			<div class="col-lg-5">
-				<h1 class="font-weight-light">Business Name or Tagline</h1>
+				<h1 class="font-weight-light">${check}</h1>
 				<p>This is a template that is great for small businesses. It
 					doesn't have too much fancy flare to it, but it makes a great use
 					of the standard Bootstrap core components. Feel free to use this

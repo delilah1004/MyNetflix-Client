@@ -21,19 +21,10 @@
 	
 	<!-- Custom styles for this template -->
 	<link href="${root}/resources/css/shop-homepage.css" rel="stylesheet">
-	
-	<!-- Custom CSS for main.jsp -->
-	<link href="${root}/resources/css/main.css" rel="stylesheet">
-	
-	<!-- Custom JavaScript for main.jsp -->
-	<link href="${root}/resources/javascript/main.js" rel="stylesheet">
 
 </head>
 
 <body>
-
-	<!-- Top Bar -->
-	<jsp:include page="/WEB-INF/template/topbar.jsp" />
 
 	<!-- Page Content -->
 	<div class="container">

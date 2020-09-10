@@ -30,7 +30,7 @@ public class TvController extends MultiActionController {
 	}
 	
 	@RequestMapping(value = "/tv/fullView.mn", method = RequestMethod.GET)
-	public ModelAndView fullView(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView tvFullView(HttpServletRequest request, HttpServletResponse response) {
 		
 		System.out.println("tv/fullView.mn");
 		
