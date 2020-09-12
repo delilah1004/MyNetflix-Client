@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: black;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+/* netflix carousel custom css */
+h1 {
+	color: white;
+}
+
+/* .wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 100%);
+} */
+
+/* section {
+	width: 100%;
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(7, auto);
+	
+} */
+
+.carousel-item:hover {
+	margin: 0 40px;
+	transform: scale(1.2);
+}
+
+/* slick carousel custom css */
+.slider {
+	width: 80%;
+	margin: 20px auto;
+}
+
+.slick-slide {
+	margin: 0px 2px;
+	transition: 250ms all;
+	/* transition: all ease-in-out .3s; */
+	opacity: .2;
+}
+
+.slick-slide img {
+	width: 100%;
+}
+
+.slick-prev:before, .slick-next:before {
+	color: black;
+}
+
+.slick-active {
+	opacity: .5;
+}
+
+.slick-current {
+	opacity: 1;
+}

@@ -7,22 +7,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class TVServiceImp implements TVService {
 
 	@Override
-	public void main(ModelAndView mav) {
+	public void tvMain(ModelAndView mav) {
 		
 		String check = "TV 프로그램 메인페이지입니다.";
 		
 		mav.addObject("check", check);
-		mav.setViewName("tv/main");
-		
+		mav.setViewName("tv/main.sh");
 	}
 	
 	@Override
-	public void fullView(ModelAndView mav) {
+	public void tvFullView(ModelAndView mav) {
 
 		String check = "TV 프로그램 상세페이지입니다.";
 		
 		mav.addObject("check", check);
-		mav.setViewName("tv/fullView");
+		mav.setViewName("tv/fullView.hm");
 	}
 	
 }

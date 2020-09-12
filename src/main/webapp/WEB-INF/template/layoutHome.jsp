@@ -4,22 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="UTF-8">
-	<title>Top bar + Content</title>
 	
-	<style>
-		
+	<style type="text/css">
+	
 		#topbar {
-			width: 100%;
-			height: 110px;
+			height: 74px;
 		}
-		
-		#content {
-			width: 100%;
-			background-color: black;
-			min-height: 600px;
-		}
-		
+	
 	</style>
 	
 </head>

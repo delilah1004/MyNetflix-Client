@@ -30,16 +30,17 @@
 		<put-attribute name="content" value="" />
     </definition>
     
+    <!-- content -->
     <definition name="*.sh" extends="search">
-        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute>
     </definition>
  
      <definition name="*/*.sh" extends="search">
-         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
      </definition>
     
     <definition name="*/*/*.sh" extends="search">
-        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
     </definition>        
 
 </tiles-definitions>

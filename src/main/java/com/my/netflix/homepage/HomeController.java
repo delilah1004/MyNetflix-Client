@@ -36,28 +36,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	/**
-     * Tiles를 사용하지 않은 일반적인 형태
-     */    
-    @RequestMapping("/test.mn")
-    public String test() {
-        return "test";
-    }    
-    
-    /**
-     * Tiles를 사용(topbar 포함)
-     */
-    @RequestMapping("/testHome.mn")
-    public String testTemplate() {
-        return "test.hm";
-    }
-    
-    /**
-     * Tiles를 사용(topbar + filter 포함)
-     */    
-    @RequestMapping("/testSearch.mn")
-    public String testEmpty() {
-        return "test.sh";
-    }    
-	
 }

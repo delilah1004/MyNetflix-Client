@@ -5,29 +5,18 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Top bar + Filter + Content</title>
-
+	
 	<style>
+	
 		#topbar {
-			width: 100%;
-			height: 110px;
+			height: 74px;
 		}
 		
 		#filter {
-			float: left;
-			width: 20%;
+			height: 200px;
 			background-color: gray;
 		}
 		
-		#content {
-			float: left;
-			width: 80%;
-			background-color: black;
-		}
-		
-		#filter, #content {
-			min-height: 600px;
-		}
 	</style>
 
 </head>
@@ -37,15 +26,13 @@
 		<tiles:insertAttribute name="topbar" />
 	</div>
 
-	<div class="container">
-		<div id="filter">
-			<tiles:insertAttribute name="filter" />
-		</div>
-
-		<div id="content">
-			<tiles:insertAttribute name="content" />
-		</div>
+	<div id="filter">
+		<tiles:insertAttribute name="filter" />
 	</div>
 
+	<div id="content">
+		<tiles:insertAttribute name="content" />
+	</div>
+	
 </body>
 </html>

@@ -4,8 +4,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface TVService {
 
-	public void main(ModelAndView mav);
+	public void tvMain(ModelAndView mav);
 	
-	public void fullView(ModelAndView mav);
-	
+	public void tvFullView(ModelAndView mav);
 }

@@ -12,7 +12,7 @@ public class MainServiceImp implements MainService {
 		String check = "Home 메인페이지입니다.";
 		
 		mav.addObject("check", check);
-		mav.setViewName("home/main");
+		mav.setViewName("home/main.hm");
 	}
 	
 }

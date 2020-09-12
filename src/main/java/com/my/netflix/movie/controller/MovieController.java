@@ -20,7 +20,7 @@ public class MovieController {
 	@RequestMapping(value = "/movie/main.mn", method = RequestMethod.GET)
 	public ModelAndView movieMain(HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("tv/fullView.mn");
+		System.out.println("movie/main.mn");
 
 		ModelAndView mav = new ModelAndView();
 		movieService.main(mav);

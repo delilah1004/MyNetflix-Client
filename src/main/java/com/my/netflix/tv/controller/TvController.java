@@ -24,7 +24,7 @@ public class TvController extends MultiActionController {
 		System.out.println("tv/main.mn");
 		
 		ModelAndView mav = new ModelAndView();
-		tvService.main(mav);
+		tvService.tvMain(mav);
 		
 		return mav;
 	}
@@ -35,7 +35,7 @@ public class TvController extends MultiActionController {
 		System.out.println("tv/fullView.mn");
 		
 		ModelAndView mav = new ModelAndView();
-		tvService.fullView(mav);
+		tvService.tvFullView(mav);
 		
 		return mav;
 	}

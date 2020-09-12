@@ -10,17 +10,22 @@
 	<c:set var="root" value="${pageContext.request.contextPath}" />
 	
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
 	<title>Small Business - Start Bootstrap Template</title>
 	
 	<!-- Bootstrap core CSS -->
-	<link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css"
+		rel="stylesheet">
 	
 	<!-- Custom styles for this template -->
 	<link href="${root}/resources/css/small-business.css" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
 
 </head>
 
@@ -144,7 +149,8 @@
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="${root}/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="${root}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="${root}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
