@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<meta charset="UTF-8">
 	
 	<style type="text/css">
 	
 		#topbar {
+			position: absolute;
 			height: 74px;
 		}
 	

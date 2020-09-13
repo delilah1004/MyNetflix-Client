@@ -12,7 +12,7 @@ public class MovieServiceImp implements MovieService {
 		String check = "영화 메인페이지입니다.";
 
 		mav.addObject("check", check);
-		mav.setViewName("movie/main.hm");
+		mav.setViewName("movie/main.sh");
 	}
 
 	@Override

@@ -6,15 +6,11 @@
 <head>
 	<meta charset="UTF-8">
 	
-	<style>
+	<style type="text/css">
 	
 		#topbar {
+			position: absolute;
 			height: 74px;
-		}
-		
-		#filter {
-			height: 200px;
-			background-color: gray;
 		}
 		
 	</style>
@@ -30,8 +26,8 @@
 		<tiles:insertAttribute name="filter" />
 	</div>
 
-	<div id="content">
-		<tiles:insertAttribute name="content" />
+	<div id="body">
+		<tiles:insertAttribute name="body" />
 	</div>
 	
 </body>

@@ -1,15 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!-- Bootstrap core CSS -->
 <link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
 <!-- Sidebar Widgets Column -->
-<div>
+<div class="overflow-hidden container py-4">
+
+	<!-- Drop Down -->
+	<div class="dropdown mr-4 float-left">
+		<button type="button" class="btn btn-outline-dark dropdown-toggle"
+			data-toggle="dropdown">검색 분류 </button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="#">장르별 검색</a> <a class="dropdown-item"
+				href="#">연도별 검색</a> <a class="dropdown-item" href="#">기타 검색</a>
+		</div>
+	</div>
 
 	<!-- Search Widget -->
-	<div class="card mr-4 float-left">
+	<div class="card mr-4 float-left" hidden>
 		<h5 class="card-header">Search</h5>
 		<div class="card-body">
 			<div class="input-group">
@@ -22,7 +38,7 @@
 	</div>
 
 	<!-- Categories Widget -->
-	<div class="card mx-4 float-left">
+	<div class="card mx-4 float-left" hidden>
 		<h5 class="card-header">Categories</h5>
 		<div class="card-body">
 			<div class="row">
@@ -45,3 +61,12 @@
 	</div>
 
 </div>
+
+<!-- Bootstrap core jquery -->
+<script type="text/javascript"
+	src="${root}/resources/vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+	src="${root}/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+

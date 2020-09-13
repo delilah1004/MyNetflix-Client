@@ -1,153 +1,208 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
-
 <head>
 
-	<c:set var="root" value="${pageContext.request.contextPath}" />
-	
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	
-	<title>영화</title>
-	
-	<!-- Bootstrap core CSS -->
-	<link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css"
-		rel="stylesheet">
-	
-	<!-- Custom styles for this template -->
-	<link href="${root}/resources/css/modern-business.css" rel="stylesheet">
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
+<title>Slick Playground</title>
+<meta charset="UTF-8">
+
+<!-- Bootstrap core CSS -->
+<link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="${root}/resources/css/modern-business.css" rel="stylesheet">
 
 </head>
-
 <body>
 
-	<!-- Page Content -->
-	<div class="container">
-
-		<!-- Page Heading/Breadcrumbs -->
-		<h1 class="mt-4 mb-3">
-			About <small>Subheading</small>
-		</h1>
-
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-			<li class="breadcrumb-item active">About</li>
-		</ol>
-
-		<!-- Intro Content -->
+	<div class="container py-4">
 		<div class="row">
-			<div class="col-lg-6">
-				<img class="img-fluid rounded mb-4"
-					src="http://placehold.it/750x450" alt="">
-			</div>
-			<div class="col-lg-6">
-				<h2>About Modern Business</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed
-					voluptate nihil eum consectetur similique? Consectetur, quod,
-					incidunt, harum nisi dolores delectus reprehenderit voluptatem
-					perferendis dicta dolorem non blanditiis ex fugiat.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					Saepe, magni, aperiam vitae illum voluptatum aut sequi impedit non
-					velit ab ea pariatur sint quidem corporis eveniet. Odit, temporibus
-					reprehenderit dolorum!</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et,
-					consequuntur, modi mollitia corporis ipsa voluptate corrupti eum
-					ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti
-					necessitatibus perspiciatis quis?</p>
-			</div>
-		</div>
-		<!-- /.row -->
-
-		<!-- Team Members -->
-		<h2>Our Team</h2>
-
-		<div class="row">
-			<div class="col-lg-4 mb-4">
-				<div class="card h-100 text-center">
-					<img class="card-img-top" src="http://placehold.it/750x450" alt="">
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="${root}/movie/fullView.mn"><img class="card-img-top"
+						src="https://image.tmdb.org/t/p/w185/dzOxNbbz1liFzHU1IPvdgUR647b.jpg"
+						alt=""></a>
 					<div class="card-body">
-						<h4 class="card-title">Team Member</h4>
-						<h6 class="card-subtitle mb-2 text-muted">Position</h6>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio
-							officiis odit.</p>
-					</div>
-					<div class="card-footer">
-						<a href="#">name@example.com</a>
+						<h4 class="card-title movie-title">
+							<a href="#">영화 제목</a>
+						</h4>
+						<span class="card-text release-date">2020.09.13</span>
+						<span class="card-text runtime">(45분)</span>
+						<p class="card-text genre">코미디, 범죄, 스릴러</p>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 mb-4">
-				<div class="card h-100 text-center">
-					<img class="card-img-top" src="http://placehold.it/750x450" alt="">
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
 					<div class="card-body">
-						<h4 class="card-title">Team Member</h4>
-						<h6 class="card-subtitle mb-2 text-muted">Position</h6>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio
-							officiis odit.</p>
-					</div>
-					<div class="card-footer">
-						<a href="#">name@example.com</a>
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text"></p>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 mb-4">
-				<div class="card h-100 text-center">
-					<img class="card-img-top" src="http://placehold.it/750x450" alt="">
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
 					<div class="card-body">
-						<h4 class="card-title">Team Member</h4>
-						<h6 class="card-subtitle mb-2 text-muted">Position</h6>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio
-							officiis odit.</p>
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text"></p>
 					</div>
-					<div class="card-footer">
-						<a href="#">name@example.com</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+				<div class="card h-100">
+					<a href="#"><img class="card-img-top"
+						src="http://placehold.it/185x278" alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a href="#">Project Two</a>
+						</h4>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
+							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
+							urna varius vitae.</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.row -->
 
-		<!-- Our Customers -->
-		<h2>Our Customers</h2>
-		<div class="row">
-			<div class="col-lg-2 col-sm-4 mb-4">
-				<img class="img-fluid" src="http://placehold.it/500x300" alt="">
-			</div>
-			<div class="col-lg-2 col-sm-4 mb-4">
-				<img class="img-fluid" src="http://placehold.it/500x300" alt="">
-			</div>
-			<div class="col-lg-2 col-sm-4 mb-4">
-				<img class="img-fluid" src="http://placehold.it/500x300" alt="">
-			</div>
-			<div class="col-lg-2 col-sm-4 mb-4">
-				<img class="img-fluid" src="http://placehold.it/500x300" alt="">
-			</div>
-			<div class="col-lg-2 col-sm-4 mb-4">
-				<img class="img-fluid" src="http://placehold.it/500x300" alt="">
-			</div>
-			<div class="col-lg-2 col-sm-4 mb-4">
-				<img class="img-fluid" src="http://placehold.it/500x300" alt="">
-			</div>
-		</div>
-		<!-- /.row -->
+		<!-- Pagination -->
+		<ul class="pagination justify-content-center">
+			<li class="page-item"><a class="page-link" href="#"
+				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
+					class="sr-only">Previous</span>
+			</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#"
+				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+					class="sr-only">Next</span>
+			</a></li>
+		</ul>
 
 	</div>
-	<!-- /.container -->
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="${root}/resources/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${root}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>

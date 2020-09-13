@@ -27,7 +27,7 @@
 	<definition name="search" template="/WEB-INF/template/layoutSearch.jsp">
 		<put-attribute name="topbar" value="/WEB-INF/template/topbar.jsp" />
 		<put-attribute name="filter" value="/WEB-INF/template/filter.jsp" />
-		<put-attribute name="content" value="" />
+		<put-attribute name="body" value="" />
     </definition>
     
     <!-- content -->
