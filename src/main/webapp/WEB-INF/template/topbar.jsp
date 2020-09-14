@@ -14,7 +14,7 @@
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-black">
 	<div class="container">
-		<a class="navbar-brand" href="${root}/main.mn">MyNetflix</a>
+		<a class="navbar-brand" href="${root}/">MyNetflix</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
 			aria-controls="navbarResponsive" aria-expanded="false"
@@ -23,7 +23,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="${root}/main.mn">HOME</a></li>
+				<li class="nav-item"><a class="nav-link" href="${root}/">HOME</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="${root}/movie/main.mn">영화</a></li>
 				<li class="nav-item"><a class="nav-link"
