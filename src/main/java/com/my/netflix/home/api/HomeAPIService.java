@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.my.netflix.model.Movie;
 import com.my.netflix.model.TVProgram;
 import com.my.netflix.test.api.AllService;
 
@@ -47,5 +48,36 @@ public class HomeAPIService implements HomeAPI {
         }
 
         return popularTvIdList;
+    }
+    
+    
+    @Override
+	public ArrayList<Movie> getBestPopularMovies() {
+
+        return allService.getMovieList(getBestPopularMovieIds());
+    }
+
+    // 인기 TV 프로그램 6개 Id 반환
+    public ArrayList<Long> getBestPopularMovieIds() {
+
+        ArrayList<Long> allMovieIdList = allService.getAllMovieIds();
+        ArrayList<Long> popularMovieIdList = new ArrayList<Long>();
+
+        for(int i=1; i<6; i++) {
+
+            JsonArray results = allService.getPopularMovieIdList(i);
+
+            for (JsonElement element : results) {
+                long id = element.getAsJsonObject().get("id").getAsLong();
+
+                if (allMovieIdList.contains(id)) popularMovieIdList.add(element.getAsJsonObject().get("id").getAsLong());
+
+                if (popularMovieIdList.size() == count) break;
+            }
+
+            if (popularMovieIdList.size() == count) break;
+        }
+
+        return popularMovieIdList;
     }
 }

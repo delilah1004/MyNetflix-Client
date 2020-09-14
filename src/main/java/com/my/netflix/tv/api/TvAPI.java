@@ -7,4 +7,6 @@ import com.my.netflix.model.TVProgram;
 public interface TvAPI {
 
 	public ArrayList<TVProgram> getAllTVProgramsByPage(int pageNumber);
+	
+	public int getCountPage();
 }

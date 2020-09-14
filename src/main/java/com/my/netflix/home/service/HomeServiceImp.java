@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.home.api.HomeAPI;
+import com.my.netflix.model.Movie;
 import com.my.netflix.model.TVProgram;
 
 @Component
@@ -22,11 +23,10 @@ public class HomeServiceImp implements HomeService {
 		
 		mav.addObject("check", check);
 		
+		ArrayList<Movie> popularMovies = homeAPI.getBestPopularMovies();
 		ArrayList<TVProgram> popularTVs = homeAPI.getBestPopularTVPrograms();
-		//ArrayList<TVProgram> popularMovies;
 		
-		//mav.addObject("popularMovies", popularMovies);
-		
+		mav.addObject("popularMovies", popularMovies);
 		mav.addObject("popularTVs", popularTVs);
 		
 		mav.setViewName("home.hm");

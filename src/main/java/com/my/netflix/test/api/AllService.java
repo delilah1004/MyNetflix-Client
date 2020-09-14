@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.my.netflix.home.model.TVProgramPreview;
+import com.my.netflix.model.Movie;
 import com.my.netflix.model.TVProgram;
 
 public interface AllService {
     
     // 영화
-	/*
-	 * public ArrayList<Long> getAllMovieIds();
-	 * 
-	 * public JsonObject getMovieById(long id);
-	 */
+	
+	public ArrayList<Long> getAllMovieIds();
 
-    //public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList);
+    public JsonObject getMovieById(long id);
+
+    public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList);
+
+    public JsonArray getPopularMovieIdList(int pageNumber);
     
 
     // TV 프로그램

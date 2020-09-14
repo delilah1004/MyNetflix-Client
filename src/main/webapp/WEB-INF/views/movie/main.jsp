@@ -1,7 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,186 +24,80 @@
 
 	<div class="container py-4">
 		<div class="row">
+		
+		<!-- 영화 정보가 담겨있는 Card -->
+		<c:forEach var="movie" items="${array}">
 			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+			
 				<div class="card h-100">
-					<a href="${root}/movie/fullView.mn"><img class="card-img-top"
-						src="https://image.tmdb.org/t/p/w185/dzOxNbbz1liFzHU1IPvdgUR647b.jpg"
-						alt=""></a>
+					<!-- Card image -->
+					<a href="#">
+						<!-- 포스터 -->
+						<img class="card-img-top" src="${movie.posterPath}" alt="">
+					</a>
+					<!-- Card body -->
 					<div class="card-body">
 						<h4 class="card-title movie-title">
-							<a href="#">영화 제목</a>
+							<a href="#">${movie.title}</a>
 						</h4>
-						<span class="card-text release-date">2020.09.13</span>
-						<span class="card-text runtime">(45분)</span>
+						<span class="card-text release-date">${movie.releaseDate}</span>
+						<span class="card-text runtime">(${movie.runtime}분)</span>
 						<p class="card-text genre">코미디, 범죄, 스릴러</p>
 					</div>
+				
 				</div>
+			
 			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text"></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text"></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text"></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="#"><img class="card-img-top"
-						src="http://placehold.it/185x278" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="#">Project Two</a>
-						</h4>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-							urna varius vitae.</p>
-					</div>
-				</div>
-			</div>
+			
+		</c:forEach>
+			
 		</div>
 
 		<!-- Pagination -->
 		<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-					class="sr-only">Previous</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-					class="sr-only">Next</span>
-			</a></li>
+		
+			<!-- pageCount : 총 페이지 수 / pageBlock : 페이지 묶음 단위 -->
+			<fmt:parseNumber var="temp" value="${movieListCount/listSize}" integerOnly="true"/>
+			<c:set var="pageCount" value="${temp + (movieListCount % listSize == 0 ? 0 : 1)}"/>
+			<c:set var="pageBlock" value="${10}"/>
+	
+			<!-- pageNumber : 현재 페이지 번호 -->
+			<fmt:parseNumber var="result" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+			<c:set var="startPage" value="${result * pageBlock + 1}"/>
+			<c:set var="endPage" value="${startPage + pageBlock -1}"/>
+			<c:if test="${endPage > pageCount}">
+				<c:set var="endPage" value="${pageCount}"/>
+			</c:if>
+		
+			<!-- 이전 버튼 -->
+			<c:if test="${startPage > pageBlock}">
+			<li class="page-item">
+				<a class="page-link" href="${root}/movie/main.mn?pageNumber=${startPage-pageBlock}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span> 
+					<span class="sr-only">Previous</span>
+				</a>
+			</li>
+			</c:if>
+			
+			<!-- 페이지 번호 생성 -->
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<li class="page-item">
+					<a class="page-link" href="${root}/movie/main.mn?pageNumber=${i}">${i}</a>
+				</li>
+			</c:forEach>
+			
+			<!-- 다음 버튼 -->
+			<c:if test="${endPage < pageCount}">
+			<li class="page-item">
+				<a class="page-link" href="${root}/movie/main.mn?pageNumber=${endPage+1}" aria-label="Next"> 
+					<span aria-hidden="true">&raquo;</span> 
+					<span class="sr-only">Next</span>
+				</a>
+			</li>
+			</c:if>
 		</ul>
 
 	</div>
+
 </body>
 </html>

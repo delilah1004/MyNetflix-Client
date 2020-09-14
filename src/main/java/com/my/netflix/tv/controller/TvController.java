@@ -24,6 +24,9 @@ public class TvController extends MultiActionController {
 		System.out.println("tv/main.mn");
 		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
 		tvService.tvMain(mav);
 		
 		return mav;

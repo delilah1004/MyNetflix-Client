@@ -23,6 +23,9 @@ public class MovieController {
 		System.out.println("movie/main.mn");
 
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
 		movieService.main(mav);
 
 		return mav;
