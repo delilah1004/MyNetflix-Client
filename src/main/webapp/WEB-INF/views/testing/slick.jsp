@@ -239,6 +239,15 @@
     <div>
       <img src="http://placehold.it/350x300?text=6">
     </div>
+    <div>
+      <img src="http://placehold.it/350x300?text=7">
+    </div>
+    <div>
+      <img src="http://placehold.it/350x300?text=8">
+    </div>
+    <div>
+      <img src="http://placehold.it/350x300?text=9">
+    </div>
   </section>
 
   <section class="center slider">

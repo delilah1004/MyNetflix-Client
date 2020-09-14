@@ -28,6 +28,17 @@ public class TestController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/testing/slickTest.mn", method = RequestMethod.GET)
+	public ModelAndView slickTest(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("testing/slickTest.mn");
+		
+		ModelAndView mav = new ModelAndView();
+		testService.slickTest(mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping(value = "/testing/customSlider.mn", method = RequestMethod.GET)
 	public ModelAndView customSlider(HttpServletRequest request, HttpServletResponse response) {
 		

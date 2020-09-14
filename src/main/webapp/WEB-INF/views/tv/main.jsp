@@ -22,22 +22,53 @@
 <body>
 
 	<div class="container py-4">
+	
 		<div class="row">
+		
+		<c:forEach var="tv" items="${array}">
+			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+			
+				<div class="card h-100">
+				
+				<a href="#"><img class="card-img-top"
+						src="${tv.posterPath}"
+						alt=""></a>
+					<div class="card-body">
+						<h4 class="card-title tv-name">
+							<a href="#">${tv.name}</a>
+						</h4>
+						<span class="card-text first-air-date">${tv.firstAirDate}</span>
+						<span class="card-text runtime">(${tv.episodeRunTime}분)</span>
+						<p class="card-text genre">코미디, 범죄, 스릴러</p>
+					</div>
+				
+				</div>
+			
+			</div>
+			
+		</c:forEach>
+			
+		</div>
+	
+		<div class="row" hidden>
+		
 			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
 				<div class="card h-100">
 					<a href="${root}/tv/fullView.mn"><img class="card-img-top"
 						src="https://image.tmdb.org/t/p/w185/dzOxNbbz1liFzHU1IPvdgUR647b.jpg"
 						alt=""></a>
 					<div class="card-body">
-						<h4 class="card-title movie-title">
-							<a href="#">영화 제목</a>
+						<h4 class="card-title tv-name">
+							<a href="#">TV 프로그램 제목</a>
 						</h4>
-						<span class="card-text release-date">2020.09.13</span>
+						<span class="card-text first-air-date">2020.09.13</span>
 						<span class="card-text runtime">(45분)</span>
 						<p class="card-text genre">코미디, 범죄, 스릴러</p>
 					</div>
 				</div>
 			</div>
+			
+			
 			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
 				<div class="card h-100">
 					<a href="#"><img class="card-img-top"

@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.slider {
+	width: 90%;
+	margin: 20px auto;
+}
+
+.slick-slide {
+	padding: 0px 4px;
+}
+
+.slick-slide img {
+	width: 100%;
+}
+
+.slick-prev:before, .slick-next:before {
+	color: white;
+}
+
+.slick-slide {
+	transition: all 250ms;
+}
