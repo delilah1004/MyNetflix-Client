@@ -19,7 +19,6 @@ public class HomeAPIService implements HomeAPI {
 	
 	// 콘텐츠 개수
     private static final int count = 12;
-    
     // 페이지 수
     private static final int page = 6;
     
@@ -32,7 +31,7 @@ public class HomeAPIService implements HomeAPI {
         return allService.getMovieList(getBestPopularMovieIds());
     }
 
-    // 인기 TV 프로그램 6개 Id 반환
+    // 인기 영화 Id 반환 (6페이지 순회) - 12개
     public ArrayList<Long> getBestPopularMovieIds() {
 
         ArrayList<Long> allMovieIdList = allService.getAllMovieIds();
