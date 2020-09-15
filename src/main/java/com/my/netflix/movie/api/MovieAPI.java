@@ -9,4 +9,6 @@ public interface MovieAPI {
 	public ArrayList<Movie> getAllMoviesByPage(int pageNumber);
 	
 	public int getCountPage();
+
+	public Movie getMovieById(long id);
 }

@@ -27,11 +27,12 @@
 		
 		<!-- TV 프로그램 정보가 담겨있는 Card -->
 		<c:forEach var="tv" items="${array}">
+		
 			<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
 			
 				<div class="card h-100">
 					<!-- Card image -->
-					<a href="#">
+					<a href="${root}/tv/fullView.mn?tvId=${tv.id}">
 						<!-- 포스터 -->
 						<img class="card-img-top" src="${tv.posterPath}" alt="">
 					</a>

@@ -38,6 +38,9 @@ public class TvController extends MultiActionController {
 		System.out.println("tv/fullView.mn");
 		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
 		tvService.tvFullView(mav);
 		
 		return mav;

@@ -50,7 +50,16 @@ public class TVServiceImp implements TVService {
 
 		String check = "TV 프로그램 상세페이지입니다.";
 		
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		long tvId = Long.parseLong(request.getParameter("tvId"));
+		
+		TVProgram tv = tvAPI.getTVProgramById(tvId);
+		
 		mav.addObject("check", check);
+		mav.addObject("tv", tv);
+		
 		mav.setViewName("tv/fullView.hm");
 	}
 	

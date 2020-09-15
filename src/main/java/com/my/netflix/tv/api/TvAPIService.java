@@ -43,4 +43,10 @@ public class TvAPIService implements TvAPI {
 		
 		return allTvIdList.size();
 	}
+	
+	// id로 TV Program 객체 반환
+	public TVProgram getTVProgramById(long id) {
+		
+		return allService.getTVById(id);
+	}
 }

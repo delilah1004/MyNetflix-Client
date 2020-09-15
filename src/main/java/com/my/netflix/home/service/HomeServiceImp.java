@@ -24,10 +24,14 @@ public class HomeServiceImp implements HomeService {
 		mav.addObject("check", check);
 		
 		ArrayList<Movie> popularMovies = homeAPI.getBestPopularMovies();
+		ArrayList<Movie> nowPlayingMovies = homeAPI.getNowPlayingMovies();
 		ArrayList<TVProgram> popularTVs = homeAPI.getBestPopularTVPrograms();
+		ArrayList<TVProgram> onTheAirTVs = homeAPI.getOnTheAirTVPrograms();
 		
 		mav.addObject("popularMovies", popularMovies);
+		mav.addObject("nowPlayingMovies", nowPlayingMovies);
 		mav.addObject("popularTVs", popularTVs);
+		mav.addObject("onTheAirTVs", onTheAirTVs);
 		
 		mav.setViewName("home.hm");
 	}

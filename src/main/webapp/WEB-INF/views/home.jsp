@@ -84,40 +84,40 @@
 
 		<h1>최신 영화</h1>
 
-<%-- 		<section class="regular slider">
-			<c:forEach var="movie" items="${latestMovies}">
+		<section class="regular slider">
+			<c:forEach var="movie" items="${nowPlayingMovies}">
 				<div>
-					<img src="${movie.posterPath}">
+					<a href="${root}/movie/fullView.mn?movieId=${movie.id}"><img src="${movie.posterPath}"></a>
 				</div>
 			</c:forEach>
-		</section> --%>
+		</section>
 
 		<h1>인기 영화</h1>
 
 		<section class="regular slider">
 			<c:forEach var="movie" items="${popularMovies}">
 				<div>
-					<img src="${movie.posterPath}">
+					<a href="${root}/movie/fullView.mn?movieId=${movie.id}"><img src="${movie.posterPath}"></a>
 				</div>
 			</c:forEach>
 		</section>
 		
 		<h1>최신 TV 프로그램</h1>
 
-<%-- 		<section class="regular slider">
-			<c:forEach var="tv" items="${latestTVs}">
+		<section class="regular slider">
+			<c:forEach var="tv" items="${onTheAirTVs}">
 				<div>
-					<img src="${tv.posterPath}">
+					<a href="${root}/tv/fullView.mn?tvId=${tv.id}"><img src="${tv.posterPath}"></a>
 				</div>
 			</c:forEach>
-		</section> --%>
+		</section>
 		
 		<h1>인기 TV 프로그램</h1>
 
 		<section class="regular slider">
 			<c:forEach var="tv" items="${popularTVs}">
 				<div>
-					<img src="${tv.posterPath}">
+					<a href="${root}/tv/fullView.mn?tvId=${tv.id}"><img src="${tv.posterPath}"></a>
 				</div>
 			</c:forEach>
 		</section>

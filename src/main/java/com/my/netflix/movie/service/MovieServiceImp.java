@@ -20,7 +20,7 @@ public class MovieServiceImp implements MovieService {
 	MovieAPI movieAPI;
 
 	@Override
-	public void main(ModelAndView mav) {
+	public void movieMain(ModelAndView mav) {
 				
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -46,11 +46,20 @@ public class MovieServiceImp implements MovieService {
 	}
 
 	@Override
-	public void fullView(ModelAndView mav) {
+	public void movieFullView(ModelAndView mav) {
 		
 		String check = "영화 상세페이지입니다.";
+		
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		long movieId = Long.parseLong(request.getParameter("movieId"));
+		
+		Movie movie = movieAPI.getMovieById(movieId);
 
 		mav.addObject("check", check);
+		mav.addObject("movie", movie);
+		
 		mav.setViewName("movie/fullView.hm");
 	}
 }

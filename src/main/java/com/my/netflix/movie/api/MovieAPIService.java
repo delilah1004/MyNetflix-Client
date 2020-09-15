@@ -44,4 +44,10 @@ public class MovieAPIService implements MovieAPI {
 		return allMovieIdList.size();
 	}
 	
+	// id로 Movie 객체 반환
+	public Movie getMovieById(long id) {
+		
+		return allService.getMovieById(id);
+	}
+	
 }

@@ -26,7 +26,7 @@ public class MovieController {
 		
 		mav.addObject("request", request);
 		
-		movieService.main(mav);
+		movieService.movieMain(mav);
 
 		return mav;
 	}
@@ -37,7 +37,10 @@ public class MovieController {
 		System.out.println("movie/fullView.mn");
 
 		ModelAndView mav = new ModelAndView();
-		movieService.fullView(mav);
+		
+		mav.addObject("request", request);
+		
+		movieService.movieFullView(mav);
 
 		return mav;
 	}

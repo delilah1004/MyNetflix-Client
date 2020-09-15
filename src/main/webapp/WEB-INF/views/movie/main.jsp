@@ -31,7 +31,7 @@
 			
 				<div class="card h-100">
 					<!-- Card image -->
-					<a href="#">
+					<a href="${root}/movie/fullView.mn?movieId=${movie.id}">
 						<!-- 포스터 -->
 						<img class="card-img-top" src="${movie.posterPath}" alt="">
 					</a>

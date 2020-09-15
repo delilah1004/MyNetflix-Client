@@ -13,7 +13,18 @@
 
 <!-- Sidebar Widgets Column -->
 <div class="overflow-hidden container py-4">
-
+	
+	<!-- 인기순 정렬 버튼 -->
+	<div class="mr-4 float-left">
+		<button type="button" class="btn btn-outline-dark" onclick="location.href='#'">인기도 내림차순</button>
+	</div>
+	
+	<!-- 최신순 정렬 버튼 -->
+	<div class="mr-4 float-left">
+		<button type="button" class="btn btn-outline-dark" onclick="location.href='#'">최신순</button>
+	</div>
+	
+	
 	<!-- Drop Down -->
 	<div class="dropdown mr-4 float-left">
 		<button type="button" class="btn btn-outline-dark dropdown-toggle"
@@ -23,6 +34,9 @@
 				href="#">연도별 검색</a> <a class="dropdown-item" href="#">기타 검색</a>
 		</div>
 	</div>
+	
+	
+	
 
 	<!-- Search Widget -->
 	<div class="card mr-4 float-left" hidden>

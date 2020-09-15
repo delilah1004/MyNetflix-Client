@@ -9,4 +9,6 @@ public interface TvAPI {
 	public ArrayList<TVProgram> getAllTVProgramsByPage(int pageNumber);
 	
 	public int getCountPage();
+	
+	public TVProgram getTVProgramById(long id);
 }
