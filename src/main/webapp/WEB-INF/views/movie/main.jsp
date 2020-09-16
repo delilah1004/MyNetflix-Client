@@ -9,7 +9,7 @@
 
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
-<title>Slick Playground</title>
+<title>영화 목록</title>
 <meta charset="UTF-8">
 
 <!-- Bootstrap core CSS -->
@@ -19,10 +19,47 @@
 <!-- Custom styles for this template -->
 <link href="${root}/resources/css/modern-business.css" rel="stylesheet">
 
+<!-- DropBox -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
 </head>
 <body>
 
 	<div class="container py-4">
+	
+		<div class="row px-2">			
+			
+			<!-- Drop Down -->
+			<div class="dropdown mx-3 mb-3 float-left">
+				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">검색 분류 </button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=0">인기도 내림차순</a>
+					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=1">인기도 오름차순</a>
+					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=0">최신순</a>
+					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=3">오래된순</a>
+					<a class="dropdown-item" href="#">장르별 검색</a>
+					<a class="dropdown-item" href="#">연도별 검색</a>
+				</div>
+			</div>
+			
+			<!-- Search Widget -->
+			<div id="genreSearch" class="col-lg-3 col-md-4 col-sm-6 input-group mr-4 float-left">
+				<input type="text" class="form-control" placeholder="Search for...">
+				<span class="input-group-append">
+					<button class="btn btn-secondary" type="button">Go!</button>
+				</span>
+			</div>
+
+			<div class="input-group col-lg-3">
+				<input type="text" class="form-control" placeholder="장르명을 검색하세요">
+				<div class="input-group-append">
+					<button class="btn btn-secondary" type="button">검색</button>
+				</div>
+			</div>
+
+		</div>
+	
+	
 		<div class="row">
 		
 		<!-- 영화 정보가 담겨있는 Card -->
@@ -72,7 +109,7 @@
 			<!-- 이전 버튼 -->
 			<c:if test="${startPage > pageBlock}">
 			<li class="page-item">
-				<a class="page-link" href="${root}/movie/main.mn?pageNumber=${startPage-pageBlock}" aria-label="Previous">
+				<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span> 
 					<span class="sr-only">Previous</span>
 				</a>
@@ -82,14 +119,14 @@
 			<!-- 페이지 번호 생성 -->
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<li class="page-item">
-					<a class="page-link" href="${root}/movie/main.mn?pageNumber=${i}">${i}</a>
+					<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}">${i}</a>
 				</li>
 			</c:forEach>
 			
 			<!-- 다음 버튼 -->
 			<c:if test="${endPage < pageCount}">
 			<li class="page-item">
-				<a class="page-link" href="${root}/movie/main.mn?pageNumber=${endPage+1}" aria-label="Next"> 
+				<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}" aria-label="Next"> 
 					<span aria-hidden="true">&raquo;</span> 
 					<span class="sr-only">Next</span>
 				</a>
@@ -98,6 +135,12 @@
 		</ul>
 
 	</div>
+	
+	<!-- Bootstrap core jquery -->
+	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
+	
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="${root}/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

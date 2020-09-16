@@ -14,7 +14,9 @@
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-black">
 	<div class="container">
+		<!-- 로고 -->
 		<a class="navbar-brand" href="${root}/">MyNetflix</a>
+		
 		<button class="navbar-toggler navbar-toggler-right" type="button"
 			data-toggle="collapse" data-target="#navbarResponsive"
 			aria-controls="navbarResponsive" aria-expanded="false"
@@ -23,11 +25,12 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
+				<!-- HOME -->
 				<li class="nav-item"><a class="nav-link" href="${root}/">HOME</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${root}/movie/main.mn">영화</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="${root}/tv/main.mn">TV 프로그램</a></li>
+				<!-- 영화 -->
+				<li class="nav-item"><a class="nav-link" href="${root}/movie/main.mn">영화</a></li>
+				<!-- TV 프로그램 -->
+				<li class="nav-item"><a class="nav-link" href="${root}/tv/setView.mn">TV 프로그램</a></li>
 			</ul>
 		</div>
 	</div>

@@ -7,8 +7,36 @@ import com.my.netflix.model.Movie;
 public interface MovieAPI {
 
 	public ArrayList<Movie> getAllMoviesByPage(int pageNumber);
-	
-	public int getCountPage();
+
+	/* ------ 장르별 검색 -------- */
+
+	// 장르 id 목록에 매칭되는 영화 목록 반환
+	public ArrayList<Movie> getMoviesByGenreIds(long lastId, ArrayList<Integer> genreIds);
+
+	/* ------ 연도별 검색 -------- */
+
+	// 연도별 영화 목록 반환
+	public ArrayList<Movie> getMoviesByYear(long lastId, String year);
+
+	/* ------ 인기순 검색 -------- */
+
+	// 인기순 - 내림차순 영화 목록 반환
+	public ArrayList<Movie> getPopularDescMovies(int pageNumber);
+
+	// 인기순 - 오름차순 영화 목록 반환
+	public ArrayList<Movie> getPopularAscMovies(int pageNumber);
+
+	/* ------ 개봉일순 검색 -------- */
+
+	// 최신순 영화 목록 반환
+	public ArrayList<Movie> getLatestMovies(int pageNumber);
+
+	// 오래된순 영화 목록 반환
+	public ArrayList<Movie> getOldestMovies(int pageNumber);
+
+	/* ------------------ 공통 부분 -------------------- */
+
+	public int getCountPage(int condition);
 
 	public Movie getMovieById(long id);
 }

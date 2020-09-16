@@ -32,6 +32,48 @@ public class TvController extends MultiActionController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/tv/setView.mn", method = RequestMethod.GET)
+	public ModelAndView setView(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("tv/setView.mn");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		tvService.setView(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/tv/genreView.mn", method = RequestMethod.POST)
+	public ModelAndView genreView(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("tv/genreView.mn");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		tvService.genreView(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/tv/yearView.mn", method = RequestMethod.GET)
+	public ModelAndView yearView(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("tv/yearView.mn");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		tvService.yearView(mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping(value = "/tv/fullView.mn", method = RequestMethod.GET)
 	public ModelAndView tvFullView(HttpServletRequest request, HttpServletResponse response) {
 		

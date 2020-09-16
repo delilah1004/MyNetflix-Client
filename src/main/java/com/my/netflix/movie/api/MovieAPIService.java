@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.my.netflix.aop.StaticData;
 import com.my.netflix.model.Movie;
 import com.my.netflix.test.api.AllService;
 
 @Component
 public class MovieAPIService implements MovieAPI {
-	
+
 	@Autowired
 	AllService allService;
 
@@ -20,7 +22,8 @@ public class MovieAPIService implements MovieAPI {
 
 	// 넷플릭스에서 방영되는 모든 TV Program 목록 반환
 	public ArrayList<Movie> getAllMoviesByPage(int pageNumber) {
-		ArrayList<Long> allMovieIdList = allService.getAllMovieIds();
+
+		ArrayList<Long> allMovieIdList = allService.getMovieIds(StaticData.MOVIE_ID_LIST_FILE_PATH);
 
 		// 매칭된 movieId 만 담을 list 초기화
 		ArrayList<Long> movieIdList = new ArrayList<Long>();
@@ -36,18 +39,202 @@ public class MovieAPIService implements MovieAPI {
 		return allService.getMovieList(movieIdList);
 	}
 
-	// 넷플릭스에서 방영되는 모든 영화의 개수 반환
-	public int getCountPage() {
+	/* ------ 장르별 검색 -------- */
 
-		ArrayList<Long> allMovieIdList = allService.getAllMovieIds();
-		
-		return allMovieIdList.size();
+	// 장르 id 목록에 매칭되는 영화 목록 반환
+	public ArrayList<Movie> getMoviesByGenreIds(long lastId, ArrayList<Integer> genreIds) {
+
+		ArrayList<Long> allMovieIdList = allService.getMovieIds(StaticData.MOVIE_ID_LIST_FILE_PATH);
+
+		// 매칭된 movieId 만 담을 list 초기화
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		// 검색을 시작할 인덱스
+		int startIndex;
+
+		if (lastId == 0) {
+			// 첫 번째 페이지면 0부터 시작
+			startIndex = 0;
+		} else {
+			// 이전 페이지의 마지막 프로그램 다음 index 부터 검색
+			startIndex = allMovieIdList.indexOf(lastId) + 1;
+		}
+
+		// 선택된 장르에 매칭되는 영화의 id 리스트 생성 (최대 15개)
+		for (int i = startIndex; i < allMovieIdList.size(); i++) {
+
+			JsonObject movie = allService.getMovieJsonById(allMovieIdList.get(i));
+
+			// 해당 영화의 장르 중 검색할 장르가 포함되어 있는지 검사
+			for (JsonElement element : movie.get("genres").getAsJsonArray()) {
+				if (genreIds.contains(element.getAsJsonObject().get("id").getAsInt())) {
+					movieIdList.add(allMovieIdList.get(i));
+					break;
+				}
+			}
+
+			// 한 페이지에 띄울 영화의 개수를 충족하면 종료
+			if (movieIdList.size() == count)
+				break;
+		}
+
+		return allService.getMovieList(movieIdList);
 	}
-	
+
+	/* ------ 연도별 검색 -------- */
+
+	// 연도별 영화 목록 반환
+	public ArrayList<Movie> getMoviesByYear(long lastId, String year) {
+
+		ArrayList<Long> allMovieIdList = allService.getMovieIds(StaticData.MOVIE_ID_LIST_FILE_PATH);
+
+		// 매칭된 movieId 만 담을 list 초기화
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		// 검색을 시작할 인덱스
+		int startIndex;
+
+		if (lastId == 0) {
+			// 첫 번째 페이지면 0부터 시작
+			startIndex = 0;
+		} else {
+			// 이전 페이지의 마지막 프로그램 다음 index 부터 검색
+			startIndex = allMovieIdList.indexOf(lastId) + 1;
+		}
+
+		// 선택된 장르에 매칭되는 영화의 id 리스트 생성 (최대 15개)
+		for (int i = startIndex; i < allMovieIdList.size(); i++) {
+
+			JsonObject movie = allService.getMovieJsonById(allMovieIdList.get(i));
+
+			try {
+				// 해당 영화의 방영일이 year 값과 동일한지 검사
+				if (year.equals(movie.get("release_date").getAsString().split("-")[0])) {
+					movieIdList.add(allMovieIdList.get(i));
+
+					System.out.println(movie.get("release_date").getAsString().split("-")[0]);
+				}
+			} catch (Exception e) {
+				continue;
+			}
+
+			// 한 페이지에 띄울 영화의 개수를 충족하면 종료
+			if (movieIdList.size() == count)
+				break;
+		}
+
+		return allService.getMovieList(movieIdList);
+	}
+
+	/* ------ 인기순 검색 -------- */
+
+	// 인기순 - 내림차순 영화 목록 반환
+	public ArrayList<Movie> getPopularDescMovies(int pageNumber) {
+
+		ArrayList<Long> popularDescMovieIdList = allService
+				.getMovieIds(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
+
+		// 매칭된 movieId 만 담을 list 초기화
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		// 검색을 시작할 인덱스
+		int startIndex = (pageNumber - 1) * count;
+
+		for (int i = startIndex; i < startIndex + count; i++) {
+			movieIdList.add(popularDescMovieIdList.get(i));
+		}
+
+		return allService.getMovieList(movieIdList);
+	}
+
+	// 인기순 - 오름차순 영화 목록 반환
+	public ArrayList<Movie> getPopularAscMovies(int pageNumber) {
+
+		// allMovieIdList 초기화
+		ArrayList<Long> allMovieIdList = allService.getMovieIds(StaticData.POPULAR_ASC_TV_ID_LIST_FILE_PATH);
+
+		// 매칭된 movieId 만 담을 list 초기화
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		// 검색을 시작할 인덱스
+		int startIndex = (pageNumber - 1) * count;
+
+		for (int i = startIndex; i < startIndex + count; i++) {
+			movieIdList.add(allMovieIdList.get(i));
+		}
+
+		return allService.getMovieList(movieIdList);
+	}
+
+	/* ------ 개봉일순 검색 -------- */
+
+	// 최신순 영화 목록 반환
+	public ArrayList<Movie> getLatestMovies(int pageNumber) {
+
+		// allMovieIdList 초기화
+		ArrayList<Long> allMovieIdList = allService.getMovieIds(StaticData.LATEST_MOVIE_ID_LIST_FILE_PATH);
+
+		// 매칭된 movieId 만 담을 list 초기화
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		// 검색을 시작할 인덱스
+		int startIndex = (pageNumber - 1) * count;
+
+		for (int i = startIndex; i < startIndex + count; i++) {
+			movieIdList.add(allMovieIdList.get(i));
+		}
+
+		return allService.getMovieList(movieIdList);
+	}
+
+	// 오래된순 영화 목록 반환
+	public ArrayList<Movie> getOldestMovies(int pageNumber) {
+
+		// allMovieIdList 초기화
+		ArrayList<Long> allMovieIdList = allService.getMovieIds(StaticData.OLDEST_MOVIE_ID_LIST_FILE_PATH);
+
+		// 매칭된 movieId 만 담을 list 초기화
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		// 검색을 시작할 인덱스
+		int startIndex = (pageNumber - 1) * count;
+
+		for (int i = startIndex; i < startIndex + count; i++) {
+			movieIdList.add(allMovieIdList.get(i));
+		}
+
+		return allService.getMovieList(movieIdList);
+	}
+
+	/* ------------------ 공통 부분 -------------------- */
+
+	// 넷플릭스에서 방영되는 모든 영화의 개수 반환
+	public int getCountPage(int condition) {
+
+		ArrayList<Long> movieIdList = new ArrayList<Long>();
+
+		switch (condition) {
+		case 0:
+			movieIdList = allService.getTVIds(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
+			break;
+		case 1:
+			movieIdList = allService.getTVIds(StaticData.POPULAR_ASC_MOVIE_ID_LIST_FILE_PATH);
+			break;
+		case 2:
+			movieIdList = allService.getTVIds(StaticData.LATEST_MOVIE_ID_LIST_FILE_PATH);
+			break;
+		case 3:
+			movieIdList = allService.getTVIds(StaticData.OLDEST_MOVIE_ID_LIST_FILE_PATH);
+			break;
+		}
+
+		return movieIdList.size();
+	}
+
 	// id로 Movie 객체 반환
 	public Movie getMovieById(long id) {
-		
+
 		return allService.getMovieById(id);
 	}
-	
+
 }

@@ -30,7 +30,11 @@ public class MovieServiceImp implements MovieService {
 		if(request.getParameter("pageNumber")!=null) pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		
 		ArrayList<Movie> array = movieAPI.getAllMoviesByPage(pageNumber);
-		int movieListCount = movieAPI.getCountPage();
+		
+		int condition = 0;
+		
+		int movieListCount = movieAPI.getCountPage(condition);
+		
 		int listSize = StaticData.count;
 		
 		String check = "영화 메인페이지입니다.";
@@ -41,8 +45,55 @@ public class MovieServiceImp implements MovieService {
 		mav.addObject("movieListCount", movieListCount);
 		mav.addObject("listSize", listSize);
 		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("condition", condition);
 		
-		mav.setViewName("movie/main.sh");
+		mav.setViewName("movie/main.hm");
+	}
+	
+	@Override
+	public void setView(ModelAndView mav) {
+				
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int pageNumber = 1;
+		
+		if(request.getParameter("pageNumber")!=null) pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		
+		ArrayList<Movie> array = movieAPI.getAllMoviesByPage(pageNumber);		
+		
+		int condition = Integer.parseInt(request.getParameter("condition"));
+		
+		switch (condition) {
+		case 0 :
+			array = movieAPI.getPopularDescMovies(pageNumber);
+			break;
+		case 1 :
+			array = movieAPI.getPopularAscMovies(pageNumber);
+			break;
+		case 2 :
+			array = movieAPI.getLatestMovies(pageNumber);
+			break;
+		case 3 :
+			array = movieAPI.getOldestMovies(pageNumber);
+			break;
+		}
+		
+		int movieListCount = movieAPI.getCountPage(condition);
+		
+		int listSize = StaticData.count;
+		
+		String check = "영화 메인페이지입니다.";
+
+		mav.addObject("check", check);
+		
+		mav.addObject("array", array);
+		mav.addObject("movieListCount", movieListCount);
+		mav.addObject("listSize", listSize);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("condition", condition);
+		
+		mav.setViewName("movie/main.hm");
 	}
 
 	@Override

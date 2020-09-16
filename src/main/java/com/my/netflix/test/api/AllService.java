@@ -10,7 +10,7 @@ import com.my.netflix.model.TVProgram;
 public interface AllService {
     
 	// 영화
-    public ArrayList<Long> getAllMovieIds();
+    public ArrayList<Long> getMovieIds(String filePath);
 
     public JsonObject getMovieJsonById(long id);
 
@@ -24,7 +24,7 @@ public interface AllService {
     
 
     // TV 프로그램
-    public ArrayList<Long> getAllTVIds();
+    public ArrayList<Long> getTVIds(String filePath);
 
     public JsonObject getTVJsonById(long id);
 

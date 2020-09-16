@@ -14,65 +14,12 @@
 <!-- Sidebar Widgets Column -->
 <div class="overflow-hidden container py-4">
 	
-	<!-- 인기순 정렬 버튼 -->
-	<div class="mr-4 float-left">
-		<button type="button" class="btn btn-outline-dark" onclick="location.href='#'">인기도 내림차순</button>
-	</div>
 	
-	<!-- 최신순 정렬 버튼 -->
-	<div class="mr-4 float-left">
-		<button type="button" class="btn btn-outline-dark" onclick="location.href='#'">최신순</button>
-	</div>
-	
-	
-	<!-- Drop Down -->
-	<div class="dropdown mr-4 float-left">
-		<button type="button" class="btn btn-outline-dark dropdown-toggle"
-			data-toggle="dropdown">검색 분류 </button>
-		<div class="dropdown-menu">
-			<a class="dropdown-item" href="#">장르별 검색</a> <a class="dropdown-item"
-				href="#">연도별 검색</a> <a class="dropdown-item" href="#">기타 검색</a>
-		</div>
-	</div>
 	
 	
 	
 
-	<!-- Search Widget -->
-	<div class="card mr-4 float-left" hidden>
-		<h5 class="card-header">Search</h5>
-		<div class="card-body">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
-				<span class="input-group-append">
-					<button class="btn btn-secondary" type="button">Go!</button>
-				</span>
-			</div>
-		</div>
-	</div>
-
-	<!-- Categories Widget -->
-	<div class="card mx-4 float-left" hidden>
-		<h5 class="card-header">Categories</h5>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-lg-6">
-					<ul class="list-unstyled mb-0">
-						<li><a href="#">Web Design</a></li>
-						<li><a href="#">HTML</a></li>
-						<li><a href="#">Freebies</a></li>
-					</ul>
-				</div>
-				<div class="col-lg-6">
-					<ul class="list-unstyled mb-0">
-						<li><a href="#">JavaScript</a></li>
-						<li><a href="#">CSS</a></li>
-						<li><a href="#">Tutorials</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 
 </div>
 

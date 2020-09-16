@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+import com.my.netflix.aop.StaticData;
 import com.my.netflix.model.Movie;
 import com.my.netflix.model.TVProgram;
 import com.my.netflix.test.api.AllService;
@@ -19,9 +18,6 @@ public class HomeAPIService implements HomeAPI {
 	
 	// 콘텐츠 개수
     private static final int count = 12;
-    // 페이지 수
-    private static final int page = 6;
-    
     
     /* ------    Movie     ------- */
     
@@ -34,23 +30,9 @@ public class HomeAPIService implements HomeAPI {
     // 인기 영화 Id 반환 (6페이지 순회) - 12개
     public ArrayList<Long> getBestPopularMovieIds() {
 
-        ArrayList<Long> allMovieIdList = allService.getAllMovieIds();
-        ArrayList<Long> popularMovieIdList = new ArrayList<Long>();
-
-        for(int i=1; i<page; i++) {
-
-            JsonArray results = allService.getPopularMovieIdList(i);
-
-            for (JsonElement element : results) {
-                long id = element.getAsJsonObject().get("id").getAsLong();
-
-                if (allMovieIdList.contains(id)) popularMovieIdList.add(element.getAsJsonObject().get("id").getAsLong());
-
-                if (popularMovieIdList.size() == count) break;
-            }
-
-            if (popularMovieIdList.size() == count) break;
-        }
+        ArrayList<Long> popularMovieIdList = allService.getMovieIds(StaticData.HOME_POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
+        
+        popularMovieIdList.subList(0, count);
 
         return popularMovieIdList;
     }
@@ -63,28 +45,13 @@ public class HomeAPIService implements HomeAPI {
     
     // 최신 영화 Id 반환 (6페이지 순회) - 12개
     public ArrayList<Long> getNowPlayingMovieIds() {
+    	
+        ArrayList<Long> nowPlayingMovieIdList = allService.getMovieIds(StaticData.HOME_LATEST_MOVIE_ID_LIST_FILE_PATH);
+        
+        nowPlayingMovieIdList.subList(0, count);
 
-    	ArrayList<Long> allMovieIdList = allService.getAllMovieIds();
-        ArrayList<Long> noePlayingMovieIdList = new ArrayList<Long>();
-
-        for(int i=1; i<page; i++) {
-
-            JsonArray results = allService.getNowPlayingMovieIdList(i);
-
-            for (JsonElement element : results) {
-                long id = element.getAsJsonObject().get("id").getAsLong();
-
-                if (allMovieIdList.contains(id)) noePlayingMovieIdList.add(element.getAsJsonObject().get("id").getAsLong());
-
-                if (noePlayingMovieIdList.size() == count) break;
-            }
-
-            if (noePlayingMovieIdList.size() == count) break;
-        }
-
-        return noePlayingMovieIdList;
+        return nowPlayingMovieIdList;
     }
-    
     
     
     /* ------    TV Program     ------- */
@@ -98,24 +65,10 @@ public class HomeAPIService implements HomeAPI {
 
     // 인기 TV 프로그램 Id 반환 (6페이지 순회) - 12개
     public ArrayList<Long> getBestPopularTVIds() {
-
-        ArrayList<Long> allTvIdList = allService.getAllTVIds();
-        ArrayList<Long> popularTvIdList = new ArrayList<Long>();
-
-        for(int i=1; i<=page; i++) {
-
-            JsonArray results = allService.getPopularTVProgramIdList(i);
-
-            for (JsonElement element : results) {
-                long id = element.getAsJsonObject().get("id").getAsLong();
-
-                if (allTvIdList.contains(id)) popularTvIdList.add(element.getAsJsonObject().get("id").getAsLong());
-
-                if (popularTvIdList.size() == count) break;
-            }
-
-            if (popularTvIdList.size() == count) break;
-        }
+    	
+        ArrayList<Long> popularTvIdList = allService.getMovieIds(StaticData.HOME_POPULAR_DESC_TV_ID_LIST_FILE_PATH);
+        
+        popularTvIdList.subList(0, count);
 
         return popularTvIdList;
     }
@@ -128,24 +81,10 @@ public class HomeAPIService implements HomeAPI {
     
     // 최신 TV 프로그램 Id 반환 (6페이지 순회) - 12개
     public ArrayList<Long> getOnTheAirTVIds() {
-
-        ArrayList<Long> allTvIdList = allService.getAllTVIds();
-        ArrayList<Long> onTheAirTvIdList = new ArrayList<Long>();
-
-        for(int i=1; i<=page; i++) {
-
-            JsonArray results = allService.getOnTheAirTVProgramIdList(i);
-
-            for (JsonElement element : results) {
-                long id = element.getAsJsonObject().get("id").getAsLong();
-
-                if (allTvIdList.contains(id)) onTheAirTvIdList.add(element.getAsJsonObject().get("id").getAsLong());
-
-                if (onTheAirTvIdList.size() == count) break;
-            }
-
-            if (onTheAirTvIdList.size() == count) break;
-        }
+    	
+        ArrayList<Long> onTheAirTvIdList = allService.getMovieIds(StaticData.HOME_LATEST_TV_ID_LIST_FILE_PATH);
+        
+        onTheAirTvIdList.subList(0, count);
 
         return onTheAirTvIdList;
     }

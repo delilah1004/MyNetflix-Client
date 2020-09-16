@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.netflix.home.api.HomeAPIService;
 import com.my.netflix.model.TVProgram;
-import com.my.netflix.test.api.TestAPI;
 
 @Component
 public class TestServiceImp implements TestService {
 	
 	@Autowired
-	TestAPI testAPI;
+	HomeAPIService homeAPIService;
 	
 	@Override
 	public void slick(ModelAndView mav) {
@@ -29,7 +29,7 @@ public class TestServiceImp implements TestService {
 		
 		mav.addObject("check", check);
 		
-		ArrayList<TVProgram> array = testAPI.getBestPopularTVPrograms();
+		ArrayList<TVProgram> array = homeAPIService.getBestPopularTVPrograms();
 		
 		mav.addObject("array", array);
 		
