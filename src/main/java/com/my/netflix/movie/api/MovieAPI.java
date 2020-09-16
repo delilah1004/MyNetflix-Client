@@ -11,12 +11,12 @@ public interface MovieAPI {
 	/* ------ 장르별 검색 -------- */
 
 	// 장르 id 목록에 매칭되는 영화 목록 반환
-	public ArrayList<Movie> getMoviesByGenreIds(long lastId, ArrayList<Integer> genreIds);
+	public ArrayList<Movie> getMoviesByGenreIds(int pageNumber, ArrayList<Integer> genreIds);
 
 	/* ------ 연도별 검색 -------- */
 
 	// 연도별 영화 목록 반환
-	public ArrayList<Movie> getMoviesByYear(long lastId, String year);
+	public ArrayList<Movie> getMoviesByYear(int pageNumber, String year);
 
 	/* ------ 인기순 검색 -------- */
 

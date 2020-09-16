@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.netflix.all.api.GenreService;
 import com.my.netflix.aop.StaticData;
 import com.my.netflix.model.Movie;
 import com.my.netflix.movie.api.MovieAPI;
@@ -18,37 +19,8 @@ public class MovieServiceImp implements MovieService {
 	
 	@Autowired
 	MovieAPI movieAPI;
-
-	@Override
-	public void movieMain(ModelAndView mav) {
-				
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		
-		int pageNumber = 1;
-		
-		if(request.getParameter("pageNumber")!=null) pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		
-		ArrayList<Movie> array = movieAPI.getAllMoviesByPage(pageNumber);
-		
-		int condition = 0;
-		
-		int movieListCount = movieAPI.getCountPage(condition);
-		
-		int listSize = StaticData.count;
-		
-		String check = "영화 메인페이지입니다.";
-
-		mav.addObject("check", check);
-		
-		mav.addObject("array", array);
-		mav.addObject("movieListCount", movieListCount);
-		mav.addObject("listSize", listSize);
-		mav.addObject("pageNumber", pageNumber);
-		mav.addObject("condition", condition);
-		
-		mav.setViewName("movie/main.hm");
-	}
+	@Autowired
+	GenreService genreService;
 	
 	@Override
 	public void setView(ModelAndView mav) {
@@ -57,12 +29,14 @@ public class MovieServiceImp implements MovieService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		int pageNumber = 1;
+		int condition = 0;
 		
-		if(request.getParameter("pageNumber")!=null) pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		if (request.getParameter("pageNumber") != null)
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		if (request.getParameter("condition") != null)
+			condition = Integer.parseInt(request.getParameter("condition"));
 		
-		ArrayList<Movie> array = movieAPI.getAllMoviesByPage(pageNumber);		
-		
-		int condition = Integer.parseInt(request.getParameter("condition"));
+		ArrayList<Movie> array = movieAPI.getAllMoviesByPage(pageNumber);
 		
 		switch (condition) {
 		case 0 :
@@ -77,6 +51,33 @@ public class MovieServiceImp implements MovieService {
 		case 3 :
 			array = movieAPI.getOldestMovies(pageNumber);
 			break;
+		case 4:
+
+			String selectedGenres = null;
+
+			if (request.getParameter("selectedGenres") != null) {
+				selectedGenres = request.getParameter("selectedGenres");
+			}
+
+			String[] genreNames = selectedGenres.split(",");
+
+			ArrayList<Integer> genreIds = new ArrayList<Integer>();
+
+			for (String genreName : genreNames) {
+				genreIds.add(genreService.getMovieGenreId(genreName));
+			}
+
+			array = movieAPI.getMoviesByGenreIds(pageNumber, genreIds);
+			
+			break;
+			
+		case 5:
+
+			String year = request.getParameter("year");
+
+			array = movieAPI.getMoviesByYear(pageNumber, year);
+			break;
+			
 		}
 		
 		int movieListCount = movieAPI.getCountPage(condition);
@@ -92,6 +93,10 @@ public class MovieServiceImp implements MovieService {
 		mav.addObject("listSize", listSize);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("condition", condition);
+		
+		ArrayList<String> genres = genreService.getMovieGenreNames();
+
+		mav.addObject("genres", genres);
 		
 		mav.setViewName("movie/main.hm");
 	}

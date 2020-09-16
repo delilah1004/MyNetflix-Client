@@ -1,6 +1,6 @@
 package com.my.netflix.home.model;
 
-public class TVProgramPreview {
+public class MainContent {
 
 	// tv_id
 	private long id;
@@ -16,10 +16,10 @@ public class TVProgramPreview {
 	// 첫 방영일
 	private String firstAirDate;
 
-	public TVProgramPreview() {
+	public MainContent() {
 	}
 
-	public TVProgramPreview(long id, String name, int episodeRunTime, String genres, String posterPath, String firstAirDate) {
+	public MainContent(long id, String name, int episodeRunTime, String genres, String posterPath, String firstAirDate) {
 		this.id = id;
 		this.name = name;
 		this.episodeRunTime = episodeRunTime;

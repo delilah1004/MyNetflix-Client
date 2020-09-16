@@ -23,12 +23,6 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<style type="text/css">
-#genreSearch>div {
-	vertical-align: baseline;
-}
-</style>
-
 <!-- Bootstrap core jquery -->
 	<script type="text/javascript"
 		src="${root}/resources/vendor/jquery/jquery.min.js"></script>
@@ -63,7 +57,6 @@
 
 </script>
 
-
 </head>
 <body>
 
@@ -97,10 +90,9 @@
 				<button type="button" class="btn btn-outline-dark dropdown-toggle"
 					data-toggle="dropdown">연도 검색</button>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="${root}/tv/yearView.mn?condition=5&year=2010">2010</a>
-					<a class="dropdown-item" href="${root}/tv/yearView.mn?condition=5&year=2011">2011</a>
-					<a class="dropdown-item" href="${root}/tv/yearView.mn?condition=5&year=2012">2012</a>
-					<a class="dropdown-item" href="${root}/tv/yearView.mn?condition=5&year=2013">2013</a>
+					<c:forEach var="year" begin="2010" end="2020">
+					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=5&year=${year}">${year}</a>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -108,7 +100,7 @@
 		<!-- Genre Search -->
 		<div id="genreSearch" class="row px-3 pb-3">
 
-			<form id="genreSelector" class="mx-3" action="${root}/tv/genreView.mn" method="post" onsubmit="genreCheck(this);">
+			<form id="genreSelector" class="mx-3" action="${root}/tv/setView.mn" onsubmit="genreCheck(this);">
 
 				<c:forEach var="genre" items="${genres}">
 
@@ -123,7 +115,6 @@
 				
 				<input type="hidden" name="selectedGenres" >
 				<input type="hidden" name="condition" value="4" >
-				<input type="hidden" name="lastId" value="${array[15].id}" >
 				
 				<input type="submit" value="검색"/>
 			</form>
@@ -133,6 +124,11 @@
 
 		<div class="row">
 
+			<c:if test="${array eq null}">
+				<h1>데이터가 없습니다.</h1>
+			</c:if>
+
+			<c:if test="${array ne null}">
 			<!-- TV 프로그램 정보가 담겨있는 Card -->
 			<c:forEach var="tv" items="${array}">
 
@@ -158,6 +154,7 @@
 				</div>
 
 			</c:forEach>
+			</c:if>
 
 		</div>
 

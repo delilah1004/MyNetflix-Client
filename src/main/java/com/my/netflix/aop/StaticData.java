@@ -4,54 +4,54 @@ public class StaticData {
 	
 	/* --------- DIREA COM ---------- */
 	
-	// HOME
-	public static final String HOME_POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\popularDescMovieIdList.txt";
-	public static final String HOME_LATEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\LatestMovieIdList.txt";
-	
-	public static final String HOME_POPULAR_DESC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\popularDescTvIdList.txt";
-	public static final String HOME_LATEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\LatestTvIdList.txt";
-	
-
-	// MOVIE
-	public static final String MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\movieIdList.txt";
-	public static final String POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularDescMovieIdList.txt";
-	public static final String POPULAR_ASC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularAscMovieIdList.txt";
-	public static final String LATEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\LatestMovieIdList.txt";
-	public static final String OLDEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\OldestMovieIdList.txt";
-	
-	
-	// TV PROGRAM
-	public static final String TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\tvIdList.txt";
-	public static final String POPULAR_DESC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularDescTvIdList.txt";
-	public static final String POPULAR_ASC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularAscTvIdList.txt";
-	public static final String LATEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\LatestTvIdList.txt";
-	public static final String OLDEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\OldestTvIdList.txt";
-	
-	
+//	// HOME
+//	public static final String HOME_POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\popularDescMovieIdList.txt";
+//	public static final String HOME_LATEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\LatestMovieIdList.txt";
+//	
+//	public static final String HOME_POPULAR_DESC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\popularDescTvIdList.txt";
+//	public static final String HOME_LATEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\LatestTvIdList.txt";
+//	
+//
+//	// MOVIE
+//	public static final String MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\movieIdList.txt";
+//	public static final String POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularDescMovieIdList.txt";
+//	public static final String POPULAR_ASC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularAscMovieIdList.txt";
+//	public static final String LATEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\LatestMovieIdList.txt";
+//	public static final String OLDEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\OldestMovieIdList.txt";
+//	
+//	
+//	// TV PROGRAM
+//	public static final String TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\tvIdList.txt";
+//	public static final String POPULAR_DESC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularDescTvIdList.txt";
+//	public static final String POPULAR_ASC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\popularAscTvIdList.txt";
+//	public static final String LATEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\LatestTvIdList.txt";
+//	public static final String OLDEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\OldestTvIdList.txt";
+//	
+//	
 	/* --------- MY DESKTOP ---------- */
 	
 	// HOME
-//	public static final String HOME_POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\popularDescMovieIdList.txt";
-//	public static final String HOME_LATEST_MOVIE_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\LatestMovieIdList.txt";
-//		
-//	public static final String HOME_POPULAR_DESC_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\popularDescTvIdList.txt";
-//	public static final String HOME_LATEST_TV_ID_LIST_FILE_PATH = "C:\\Users\\DIR-P-0074\\Desktop\\MyNetflix\\file\\home\\LatestTvIdList.txt";
+	public static final String HOME_POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\home\\popularDescMovieIdList.txt";
+	public static final String HOME_LATEST_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\home\\LatestMovieIdList.txt";
+		
+	public static final String HOME_POPULAR_DESC_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\home\\popularDescTvIdList.txt";
+	public static final String HOME_LATEST_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\home\\LatestTvIdList.txt";
 	
 	
 	// MOVIE
-//	public static final String MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\movieIdList.txt";
-//	public static final String POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularDescMovieIdList.txt";
-//	public static final String POPULAR_ASC_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularAscMovieIdList.txt";
-//	public static final String LATEST_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\LatestMovieIdList.txt";
-//	public static final String OLDEST_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\OldestMovieIdList.txt";
+	public static final String MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\movieIdList.txt";
+	public static final String POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularDescMovieIdList.txt";
+	public static final String POPULAR_ASC_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularAscMovieIdList.txt";
+	public static final String LATEST_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\LatestMovieIdList.txt";
+	public static final String OLDEST_MOVIE_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\OldestMovieIdList.txt";
 	
 	
 	// TV PROGRAM
-//	public static final String TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\tvIdList.txt";
-//	public static final String POPULAR_DESC_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularDescTvIdList.txt";
-//	public static final String POPULAR_ASC_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularAscTvIdList.txt";
-//	public static final String LATEST_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\LatestTvIdList.txt";
-//	public static final String OLDEST_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\OldestTvIdList.txt";
+	public static final String TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\tvIdList.txt";
+	public static final String POPULAR_DESC_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularDescTvIdList.txt";
+	public static final String POPULAR_ASC_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\popularAscTvIdList.txt";
+	public static final String LATEST_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\LatestTvIdList.txt";
+	public static final String OLDEST_TV_ID_LIST_FILE_PATH = "D:\\MyNetflix\\file\\OldestTvIdList.txt";
 	
    
 	
@@ -67,6 +67,6 @@ public class StaticData {
     public static final String protocol = "GET";
     
     // 한 페이지에 띄울 TV Program, 영화의 개수
- 	public static final int count = 16;
+ 	public static final int count = 20;
 
 }

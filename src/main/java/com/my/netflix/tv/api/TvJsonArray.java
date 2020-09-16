@@ -4,19 +4,17 @@ import java.util.ArrayList;
 
 import com.my.netflix.model.TVProgram;
 
-public interface TvAPI {
-
-	public ArrayList<TVProgram> getAllTVProgramsByPage(int pageNumber);
+public interface TvJsonArray {
 
 	/* ------ 장르별 검색 -------- */
 
 	// 장르 id 목록에 매칭되는 TV Program 목록 반환
-	public ArrayList<TVProgram> getTVProgramsByGenreIds(long lastId, ArrayList<Integer> genreIds);
+	public ArrayList<TVProgram> getTVProgramsByGenreIds(int pageNumber, ArrayList<Integer> genreIds);
 
 	/* ------ 연도별 검색 -------- */
 
 	// 연도별 TV Program 목록 반환
-	public ArrayList<TVProgram> getTVProgramsByYear(long lastId, String year);
+	public ArrayList<TVProgram> getTVProgramsByYear(int pageNumber, String year);
 
 	/* ------ 인기순 검색 -------- */
 

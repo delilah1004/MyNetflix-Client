@@ -16,20 +16,6 @@ public class MovieController {
 
 	@Autowired
 	private MovieService movieService;
-
-	@RequestMapping(value = "/movie/main.mn", method = RequestMethod.GET)
-	public ModelAndView movieMain(HttpServletRequest request, HttpServletResponse response) {
-
-		System.out.println("movie/main.mn");
-
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("request", request);
-		
-		movieService.movieMain(mav);
-
-		return mav;
-	}
 	
 	@RequestMapping(value = "/movie/setView.mn", method = RequestMethod.GET)
 	public ModelAndView setView(HttpServletRequest request, HttpServletResponse response) {

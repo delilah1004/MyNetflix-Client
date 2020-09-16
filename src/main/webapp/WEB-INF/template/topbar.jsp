@@ -28,7 +28,7 @@
 				<!-- HOME -->
 				<li class="nav-item"><a class="nav-link" href="${root}/">HOME</a></li>
 				<!-- 영화 -->
-				<li class="nav-item"><a class="nav-link" href="${root}/movie/main.mn">영화</a></li>
+				<li class="nav-item"><a class="nav-link" href="${root}/movie/setView.mn">영화</a></li>
 				<!-- TV 프로그램 -->
 				<li class="nav-item"><a class="nav-link" href="${root}/tv/setView.mn">TV 프로그램</a></li>
 			</ul>
