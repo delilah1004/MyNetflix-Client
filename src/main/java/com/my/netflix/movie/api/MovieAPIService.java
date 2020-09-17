@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.my.netflix.all.api.AllService;
-import com.my.netflix.all.model.Movie;
+import com.my.netflix.all.model.Genre;
 import com.my.netflix.aop.StaticData;
+import com.my.netflix.movie.model.MoviePreview;
 
 @Component
 public class MovieAPIService implements MovieAPI {
@@ -19,98 +20,82 @@ public class MovieAPIService implements MovieAPI {
 
 	// 한 페이지에 띄울 TV Program, 영화의 개수
 	public static final int count = StaticData.count;
-	
-	// id 로 프로그램의 모든 정보 Movie 객체로 반환
-    public Movie getMovieById(long id) {
 
-        // 반환값을 담을 Movie 객체 선언
-        Movie movie = new Movie();
-        
-        ArrayList<Integer> genreIds;
-        ArrayList<String> genreNames;
+	// id 로 MoviePreview 객체 반환
+	public MoviePreview getMovieById(long id) {
 
-        try {
+		// 반환값을 담을 Movie 객체 선언
+		MoviePreview movie = new MoviePreview();
 
-            JsonObject mv = allService.getMovieJsonById(id);
+		ArrayList<Genre> genres = null;
+		Genre genre = null;
 
-            // movie_id
-            movie.setId(mv.get("id").getAsLong());
+		try {
 
-            // 제목
-            movie.setTitle(mv.get("title").getAsString());
+			JsonObject mv = allService.getMovieJsonById(id);
 
-            // 영상 길이
-            try {
-                movie.setRuntime(mv.get("runtime").getAsInt());
-            } catch (Exception e) {
-                movie.setRuntime(0);
-            }
+			// movie_id
+			movie.setId(mv.get("id").getAsLong());
 
-            // 장르
-            genreIds = new ArrayList<Integer>();
-            genreNames = new ArrayList<String>();
+			// 포스터 URI
+			try {
+				movie.setPosterPath(StaticData.API_IMAGE_URL + mv.get("poster_path").getAsString());
+			} catch (Exception e) {
+				movie.setPosterPath(StaticData.EMPTY_IMAGE_URL);
+			}
 
-            for (JsonElement element : mv.get("genres").getAsJsonArray()) {
-            	genreIds.add(element.getAsJsonObject().get("id").getAsInt());
-            	genreNames.add(element.getAsJsonObject().get("name").getAsString());
-            }
+			// 제목
+			movie.setTitle(mv.get("title").getAsString());
 
-            movie.setGenreIds(genreIds);
-            movie.setGenreNames(genreNames);
+			// 개봉일
+			try {
+				movie.setReleaseDate(mv.get("release_date").getAsString());
+			} catch (Exception e) {
+				movie.setReleaseDate(null);
+			}
 
-            // 개요
-            movie.setOverview(mv.get("overview").getAsString());
+			// 영상 길이
+			try {
+				movie.setRuntime(mv.get("runtime").getAsInt());
+			} catch (Exception e) {
+				movie.setRuntime(0);
+			}
 
-            // 포스터 URI
-            try {
-                movie.setPosterPath(StaticData.API_IMAGE_URL + mv.get("poster_path").getAsString());
-            } catch (Exception e) {
-                movie.setPosterPath(StaticData.EMPTY_IMAGE_URL);
-            }
+			// 장르
+			genres = new ArrayList<Genre>();
 
-            // 영상 스트리밍 URL
-            try {
-                movie.setHomepage(mv.get("homepage").getAsString());
-            } catch (Exception e) {
-                movie.setHomepage(null);
-            }
+			for (JsonElement element : mv.get("genres").getAsJsonArray()) {
+				genre = new Genre();
+				genre.setId(element.getAsJsonObject().get("id").getAsInt());
+				genre.setName(element.getAsJsonObject().get("name").getAsString());
+				genres.add(genre);
+			}
 
-            // 방영일 정보
-            try {
-                movie.setReleaseDate(mv.get("release_date").getAsString());
-            } catch (Exception e) {
-                movie.setReleaseDate(null);
-            }
+			movie.setGenres(genres);
 
-            // 인기도
-            movie.setPopularity(mv.get("popularity").getAsDouble());
+		} catch (Exception e) {
+			System.out.println(id);
+			e.printStackTrace();
+		}
 
-            // 종영 여부
-            movie.setStatus(mv.get("status").getAsString());
+		return movie;
+	}
 
-        } catch (Exception e) {
-            System.out.println(id);
-            e.printStackTrace();
-        }
+	// movieIdList 에 포함된 영화들의 정보 리스트 반환
+	public ArrayList<MoviePreview> getMovieList(ArrayList<Long> movieIdList) {
 
-        return movie;
-    }
+		// 반환값을 담을 Movie 리스트 선언
+		ArrayList<MoviePreview> movies = new ArrayList<MoviePreview>();
 
-    // movieIdList 에 포함된 영화들의 정보 리스트 반환
-    public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList) {
+		for (long movieId : movieIdList) {
+			movies.add(getMovieById(movieId));
+		}
 
-        // 반환값을 담을 Movie 리스트 선언
-        ArrayList<Movie> movies = new ArrayList<Movie>();
-
-        for (long movieId : movieIdList) {
-            movies.add(getMovieById(movieId));
-        }
-
-        return movies;
-    }
+		return movies;
+	}
 
 	// 넷플릭스에서 방영되는 모든 TV Program 목록 반환
-	public ArrayList<Movie> getAllMoviesByPage(int pageNumber) {
+	public ArrayList<MoviePreview> getAllMoviesByPage(int pageNumber) {
 
 		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.MOVIE_ID_LIST_FILE_PATH);
 
@@ -131,7 +116,7 @@ public class MovieAPIService implements MovieAPI {
 	/* ------ 장르별 검색 -------- */
 
 	// 장르 id 목록에 매칭되는 영화 목록 반환
-	public ArrayList<Movie> getMoviesByGenreIds(int pageNumber, ArrayList<Integer> genreIds) {
+	public ArrayList<MoviePreview> getMoviesByGenreIds(int pageNumber, ArrayList<Integer> genreIds) {
 
 		String url = StaticData.API_MAIN_URL;
 		url += "/discover/movie";
@@ -140,7 +125,7 @@ public class MovieAPIService implements MovieAPI {
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
 		url += "&with_genres=";
-		for(int genreId : genreIds) {
+		for (int genreId : genreIds) {
 			url += genreId + "%2C";
 		}
 		url += "&with_networks=213";
@@ -151,7 +136,7 @@ public class MovieAPIService implements MovieAPI {
 	/* ------ 연도별 검색 -------- */
 
 	// 연도별 영화 목록 반환
-	public ArrayList<Movie> getMoviesByYear(int pageNumber, String year) {
+	public ArrayList<MoviePreview> getMoviesByYear(int pageNumber, String year) {
 
 		String url = StaticData.API_MAIN_URL;
 		url += "/discover/tv";
@@ -161,16 +146,17 @@ public class MovieAPIService implements MovieAPI {
 		url += "&page=" + pageNumber;
 		url += "&first_air_date_year=" + year;
 		url += "&with_networks=213";
-		
+
 		return getMovieList(allService.getIdListByUrl(url));
 	}
 
 	/* ------ 인기순 검색 -------- */
 
 	// 인기순 - 내림차순 영화 목록 반환
-	public ArrayList<Movie> getPopularDescMovies(int pageNumber) {
+	public ArrayList<MoviePreview> getPopularDescMovies(int pageNumber) {
 
-		ArrayList<Long> popularDescMovieIdList = allService.getIdListByFile(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
+		ArrayList<Long> popularDescMovieIdList = allService
+				.getIdListByFile(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
 
 		// 매칭된 movieId 만 담을 list 초기화
 		ArrayList<Long> movieIdList = new ArrayList<Long>();
@@ -186,7 +172,7 @@ public class MovieAPIService implements MovieAPI {
 	}
 
 	// 인기순 - 오름차순 영화 목록 반환
-	public ArrayList<Movie> getPopularAscMovies(int pageNumber) {
+	public ArrayList<MoviePreview> getPopularAscMovies(int pageNumber) {
 
 		// allMovieIdList 초기화
 		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.POPULAR_ASC_TV_ID_LIST_FILE_PATH);
@@ -207,7 +193,7 @@ public class MovieAPIService implements MovieAPI {
 	/* ------ 개봉일순 검색 -------- */
 
 	// 최신순 영화 목록 반환
-	public ArrayList<Movie> getLatestMovies(int pageNumber) {
+	public ArrayList<MoviePreview> getLatestMovies(int pageNumber) {
 
 		// allMovieIdList 초기화
 		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.LATEST_MOVIE_ID_LIST_FILE_PATH);
@@ -226,7 +212,7 @@ public class MovieAPIService implements MovieAPI {
 	}
 
 	// 오래된순 영화 목록 반환
-	public ArrayList<Movie> getOldestMovies(int pageNumber) {
+	public ArrayList<MoviePreview> getOldestMovies(int pageNumber) {
 
 		// allMovieIdList 초기화
 		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.OLDEST_MOVIE_ID_LIST_FILE_PATH);

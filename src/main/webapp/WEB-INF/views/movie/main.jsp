@@ -130,8 +130,8 @@
 								</div>
 								<!-- 장르 -->
 								<p class="card-text genre align-self-end">
-									<c:forEach var="genreName" items="${movie.genreNames}" varStatus="index">
-										${genreName}<c:if test="${!index.last}">,&nbsp;</c:if>
+									<c:forEach var="genre" items="${movie.genres}" varStatus="index">
+										${genre.name}<c:if test="${!index.last}">,&nbsp;</c:if>
 									</c:forEach>
 								</p>
 							</div>

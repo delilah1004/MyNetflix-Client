@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.my.netflix.all.api.AllService;
-import com.my.netflix.all.model.TVProgram;
 import com.my.netflix.aop.StaticData;
+import com.my.netflix.tv.model.TVProgramPreview;
 
 @Component
 public class TvFileService implements TvFile {
@@ -21,96 +21,96 @@ public class TvFileService implements TvFile {
 	public static final int count = StaticData.count;
 	
 	// id 로 TV 프로그램의 모든 정보 TVProgram 객체로 반환
-    public TVProgram getTVById(long id) {
+    public TVProgramPreview getTVById(long id) {
 
         // 반환값을 담을 TVProgram 객체 선언
-        TVProgram tvProgram = new TVProgram();
+        TVProgramPreview tvProgram = new TVProgramPreview();
         // season 정보와 genre 정보를 담을 리스트 선언
         ArrayList<Integer> seasons, genreIds;
 		ArrayList<String> genreNames;
 
-        try {
-
-            JsonObject tv = allService.getTVJsonById(id);
-
-            // tv_id
-            tvProgram.setId(tv.get("id").getAsLong());
-
-            // 제목
-            tvProgram.setName(tv.get("name").getAsString());
-            // 영상 길이
-            try {
-                tvProgram.setEpisodeRunTime(tv.get("episode_run_time").getAsInt());
-            } catch (Exception e) {
-                tvProgram.setEpisodeRunTime(0);
-            }
-
-            // 장르
-            genreIds = new ArrayList<Integer>();
-			genreNames = new ArrayList<String>();
-
-            for (JsonElement element : tv.get("genres").getAsJsonArray()) {
-                genreIds.add(element.getAsJsonObject().get("id").getAsInt());
-				genreNames.add(element.getAsJsonObject().get("name").getAsString());
-            }
-
-            tvProgram.setGenreIds(genreIds);
-            tvProgram.setGenreNames(genreNames);
-
-            // 개요
-            tvProgram.setOverview(tv.get("overview").getAsString());
-
-            // 포스터 URI
-            try {
-                tvProgram.setPosterPath(StaticData.API_IMAGE_URL + tv.get("poster_path").getAsString());
-            } catch (Exception e) {
-                tvProgram.setPosterPath(StaticData.EMPTY_IMAGE_URL);
-            }
-
-            // 영상 스트리밍 URL
-            tvProgram.setHomepage(tv.get("homepage").getAsString());
-
-            // 방영일 정보
-            try {
-                tvProgram.setFirstAirDate(tv.get("first_air_date").getAsString());
-            } catch (Exception e) {
-                tvProgram.setFirstAirDate(null);
-            }
-
-            try {
-                tvProgram.setLastAirDate(tv.get("last_air_date").getAsString());
-            } catch (Exception e) {
-                tvProgram.setLastAirDate(null);
-            }
-
-            // 인기도
-            tvProgram.setPopularity(tv.get("popularity").getAsDouble());
-
-            // 시즌 정보
-            seasons = new ArrayList<Integer>();
-
-            for (JsonElement element : tv.get("seasons").getAsJsonArray()) {
-                seasons.add(element.getAsJsonObject().get("season_number").getAsInt());
-            }
-
-            tvProgram.setSeasons(seasons);
-
-            // 종영 여부
-            tvProgram.setStatus(tv.get("status").getAsString());
-
-        } catch (Exception e) {
-            System.out.println(id);
-            e.printStackTrace();
-        }
-
+//        try {
+//
+//            JsonObject tv = allService.getTVJsonById(id);
+//
+//            // tv_id
+//            tvProgram.setId(tv.get("id").getAsLong());
+//
+//            // 제목
+//            tvProgram.setName(tv.get("name").getAsString());
+//            // 영상 길이
+//            try {
+//                tvProgram.setEpisodeRunTime(tv.get("episode_run_time").getAsInt());
+//            } catch (Exception e) {
+//                tvProgram.setEpisodeRunTime(0);
+//            }
+//
+//            // 장르
+//            genreIds = new ArrayList<Integer>();
+//			genreNames = new ArrayList<String>();
+//
+//            for (JsonElement element : tv.get("genres").getAsJsonArray()) {
+//                genreIds.add(element.getAsJsonObject().get("id").getAsInt());
+//				genreNames.add(element.getAsJsonObject().get("name").getAsString());
+//            }
+//
+//            tvProgram.setGenreIds(genreIds);
+//            tvProgram.setGenreNames(genreNames);
+//
+//            // 개요
+//            tvProgram.setOverview(tv.get("overview").getAsString());
+//
+//            // 포스터 URI
+//            try {
+//                tvProgram.setPosterPath(StaticData.API_IMAGE_URL + tv.get("poster_path").getAsString());
+//            } catch (Exception e) {
+//                tvProgram.setPosterPath(StaticData.EMPTY_IMAGE_URL);
+//            }
+//
+//            // 영상 스트리밍 URL
+//            tvProgram.setHomepage(tv.get("homepage").getAsString());
+//
+//            // 방영일 정보
+//            try {
+//                tvProgram.setFirstAirDate(tv.get("first_air_date").getAsString());
+//            } catch (Exception e) {
+//                tvProgram.setFirstAirDate(null);
+//            }
+//
+//            try {
+//                tvProgram.setLastAirDate(tv.get("last_air_date").getAsString());
+//            } catch (Exception e) {
+//                tvProgram.setLastAirDate(null);
+//            }
+//
+//            // 인기도
+//            tvProgram.setPopularity(tv.get("popularity").getAsDouble());
+//
+//            // 시즌 정보
+//            seasons = new ArrayList<Integer>();
+//
+//            for (JsonElement element : tv.get("seasons").getAsJsonArray()) {
+//                seasons.add(element.getAsJsonObject().get("season_number").getAsInt());
+//            }
+//
+//            tvProgram.setSeasons(seasons);
+//
+//            // 종영 여부
+//            tvProgram.setStatus(tv.get("status").getAsString());
+//
+//        } catch (Exception e) {
+//            System.out.println(id);
+//            e.printStackTrace();
+//        }
+//
         return tvProgram;
     }
 
     // tvIdList 에 포함된 TV Program 들의 정보 리스트 반환
-    public ArrayList<TVProgram> getTVProgramList(ArrayList<Long> tvIdList) {
+    public ArrayList<TVProgramPreview> getTVProgramList(ArrayList<Long> tvIdList) {
 
         // 반환값을 담을 TVProgram 리스트 선언
-        ArrayList<TVProgram> tvPrograms = new ArrayList<TVProgram>();
+        ArrayList<TVProgramPreview> tvPrograms = new ArrayList<TVProgramPreview>();
 
         for (long tvId : tvIdList) {
             tvPrograms.add(getTVById(tvId));
@@ -120,7 +120,7 @@ public class TvFileService implements TvFile {
     }
     
 	// 넷플릭스에서 방영되는 모든 TV Program 목록 반환
-	public ArrayList<TVProgram> getAllTVProgramsByPage(int pageNumber) {
+	public ArrayList<TVProgramPreview> getAllTVProgramsByPage(int pageNumber) {
 
 		ArrayList<Long> allTvIdList = allService.getIdListByFile(StaticData.TV_ID_LIST_FILE_PATH);
 
@@ -142,7 +142,7 @@ public class TvFileService implements TvFile {
 	
 
 	// 장르 id 목록에 매칭되는 TV Program 목록 반환
-	public ArrayList<TVProgram> getTVProgramsByGenreIds(long lastId, ArrayList<Integer> genreIds) {
+	public ArrayList<TVProgramPreview> getTVProgramsByGenreIds(long lastId, ArrayList<Integer> genreIds) {
 
 		ArrayList<Long> allTvIdList = allService.getIdListByFile(StaticData.TV_ID_LIST_FILE_PATH);
 
@@ -184,7 +184,7 @@ public class TvFileService implements TvFile {
 	/* ------ 연도별 검색 -------- */
 
 	// 연도별 TV Program 목록 반환
-	public ArrayList<TVProgram> getTVProgramsByYear(long lastId, String year) {
+	public ArrayList<TVProgramPreview> getTVProgramsByYear(long lastId, String year) {
 
 		ArrayList<Long> allTvIdList = allService.getIdListByFile(StaticData.TV_ID_LIST_FILE_PATH);
 
@@ -227,7 +227,7 @@ public class TvFileService implements TvFile {
 	/* ------ 인기순 검색 -------- */
 
 	// 인기순 - 내림차순 TV Program 목록 반환
-	public ArrayList<TVProgram> getPopularDescTVPrograms(int pageNumber) {
+	public ArrayList<TVProgramPreview> getPopularDescTVPrograms(int pageNumber) {
 
 		ArrayList<Long> popularDescTvIdList = allService.getIdListByFile(StaticData.POPULAR_DESC_TV_ID_LIST_FILE_PATH);
 
@@ -245,7 +245,7 @@ public class TvFileService implements TvFile {
 	}
 
 	// 인기순 - 오름차순 TV Program 목록 반환
-	public ArrayList<TVProgram> getPopularAscTVPrograms(int pageNumber) {
+	public ArrayList<TVProgramPreview> getPopularAscTVPrograms(int pageNumber) {
 
 		ArrayList<Long> popularAscTvIdList = allService.getIdListByFile(StaticData.POPULAR_ASC_TV_ID_LIST_FILE_PATH);
 
@@ -265,7 +265,7 @@ public class TvFileService implements TvFile {
 	/* ------ 방영일순 검색 -------- */
 
 	// 최신순 TV Program 목록 반환
-	public ArrayList<TVProgram> getLatestTVPrograms(int pageNumber) {
+	public ArrayList<TVProgramPreview> getLatestTVPrograms(int pageNumber) {
 
 		ArrayList<Long> latestTvIdList = allService.getIdListByFile(StaticData.LATEST_TV_ID_LIST_FILE_PATH);
 
@@ -283,7 +283,7 @@ public class TvFileService implements TvFile {
 	}
 
 	// 오래된순 TV Program 목록 반환
-	public ArrayList<TVProgram> getOldestTVPrograms(int pageNumber) {
+	public ArrayList<TVProgramPreview> getOldestTVPrograms(int pageNumber) {
 
 		ArrayList<Long> oldestTvIdList = allService.getIdListByFile(StaticData.OLDEST_TV_ID_LIST_FILE_PATH);
 

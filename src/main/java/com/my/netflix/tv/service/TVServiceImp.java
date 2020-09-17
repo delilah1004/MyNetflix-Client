@@ -10,16 +10,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.all.api.GenreService;
-import com.my.netflix.all.model.TVProgram;
 import com.my.netflix.aop.StaticData;
-import com.my.netflix.tv.api.TvFile;
 import com.my.netflix.tv.api.TvJsonArray;
+import com.my.netflix.tv.model.TVProgramPreview;
 
 @Component
 public class TVServiceImp implements TVService {
-
-	@Autowired
-	TvFile tvFile;
+	
 	@Autowired
 	TvJsonArray tvJsonArray;
 	@Autowired
@@ -35,47 +32,57 @@ public class TVServiceImp implements TVService {
 
 		mav.addObject("check", check);
 
+		// 페이지 번호, 검색 분류, 총 데이터 개수 초기화
 		int pageNumber = 1;
 		int condition = 0;
 		int tvTotalCount = 0;
 
+		// 페이지 번호가 존재하면 갱신
 		if (request.getParameter("pageNumber") != null)
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		
+		// 검색 분류값이 존재하면 갱신
 		if (request.getParameter("condition") != null)
 			condition = Integer.parseInt(request.getParameter("condition"));
 
-		ArrayList<TVProgram> array = new ArrayList<TVProgram>();
+		ArrayList<TVProgramPreview> array = new ArrayList<TVProgramPreview>();
 
 		switch (condition) {
 		
+		// 인기 내림차순
 		case 0:
 			
-			array = tvFile.getPopularDescTVPrograms(pageNumber);
-			tvTotalCount = tvFile.getCountPage(condition);
+			array = tvJsonArray.getPopularDescTVPrograms(pageNumber);
+			tvTotalCount = tvJsonArray.getCountPage(pageNumber, condition);
 			break;
-			
+		
+		// 인기 오름차순
 		case 1:
 			
-			array = tvFile.getPopularAscTVPrograms(pageNumber);
-			tvTotalCount = tvFile.getCountPage(condition);
+			array = tvJsonArray.getPopularAscTVPrograms(pageNumber);
+			tvTotalCount = tvJsonArray.getCountPage(pageNumber, condition);
 			break;
 			
+		// 최신순
 		case 2:
 			
-			array = tvFile.getLatestTVPrograms(pageNumber);
-			tvTotalCount = tvFile.getCountPage(condition);
+			array = tvJsonArray.getLatestTVPrograms(pageNumber);
+			tvTotalCount = tvJsonArray.getCountPage(pageNumber, condition);
 			break;
-			
+		
+		// 오래된순
 		case 3:
 			
-			array = tvFile.getOldestTVPrograms(pageNumber);
-			tvTotalCount = tvFile.getCountPage(condition);
+			array = tvJsonArray.getOldestTVPrograms(pageNumber);
+			tvTotalCount = tvJsonArray.getCountPage(pageNumber, condition);
 			break;
 			
+		// 장르별 검색
 		case 4:
 			
 			ArrayList<Integer> genreIds = new ArrayList<Integer>();
 
+			// 장르명 리스트 장르 Id 리스트로 변경
 			if (request.getParameter("selectedGenres") != null) {
 				String selectedGenres = request.getParameter("selectedGenres");
 				
@@ -93,7 +100,8 @@ public class TVServiceImp implements TVService {
 			tvTotalCount = tvJsonArray.getCountPage(pageNumber, genreIds);
 
 			break;
-			
+		
+		// 연도별 검색
 		case 5:
 
 			String year = request.getParameter("year");
@@ -104,17 +112,24 @@ public class TVServiceImp implements TVService {
 			
 		}
 
+		// 화면에 뿌려줄 TVProgramPreview 객체 리스트
 		mav.addObject("array", array);
-		mav.addObject("tvListCount", tvTotalCount);
+		
+		// TVProgramPreview 객체의 총 개수
+		mav.addObject("tvTotalCount", tvTotalCount);
 
-		int pageCount = StaticData.count;
-		mav.addObject("listSize", pageCount);
+		// 한 페이지에 뿌려줄 TVProgramPreview 객체의 개수
+		mav.addObject("tvBlockCount", StaticData.count);
 
+		// 현재 페이지 번호 (기본값 : 1)
 		mav.addObject("pageNumber", pageNumber);
+		
+		// 검색 분류 인덱스 (인기 내림차순 : 0 / 인기 오름차순 : 1 / 상영일 내림차순 : 2 / 상영일 오름차순 : 3 / 장르별 검색 : 4 / 연도별 검색 : 5)
 		mav.addObject("condition", condition);
 
 		ArrayList<String> genres = genreService.getTVGenreNames();
 
+		// 장르별 검색시 뿌려줄 모든 장르의 데이터
 		mav.addObject("genres", genres);
 
 		mav.setViewName("tv/main.hm");
@@ -123,17 +138,18 @@ public class TVServiceImp implements TVService {
 
 	@Override
 	public void tvFullView(ModelAndView mav) {
-
-		String check = "TV 프로그램 상세페이지입니다.";
-
+		
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
+		String check = "TV 프로그램 상세페이지입니다.";
+		
+		mav.addObject("check", check);
+
 		long tvId = Long.parseLong(request.getParameter("tvId"));
 
-		TVProgram tv = tvFile.getTVById(tvId);
-
-		mav.addObject("check", check);
+		TVProgramPreview tv = tvJsonArray.getTVPreviewById(tvId);
+		
 		mav.addObject("tv", tv);
 
 		mav.setViewName("tv/fullView.hm");

@@ -21,9 +21,8 @@
 	<!-- TV Program Card CSS -->
 	<link href="${root}/resources/css/tv-card.css" rel="stylesheet">
 
-	<!-- DropBox -->
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- Drop down -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 	<!-- Bootstrap core jquery -->
 	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
@@ -46,6 +45,12 @@
 			<div class="dropdown mx-3 float-left">
 				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">검색 분류</button>
 				<div class="dropdown-menu">
+					<%-- <!-- 인기도 내림차순 -->
+					<a class="dropdown-item" href="#"
+						onclick="javascript:page_move('${root}/tv/setView.mn/post', '0', null);">인기도 내림차순</a>
+					<!-- 인기도 오름차순 -->
+					<a class="dropdown-item" href="#"
+						onclick="javascript:page_move('${root}/tv/setView.mn/post', '1', null);">인기도 오름차순</a> --%>
 					<!-- 인기도 내림차순 -->
 					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=0">인기도 내림차순</a>
 					<!-- 인기도 오름차순 -->
@@ -124,14 +129,15 @@
 								</h4>
 								<div class="align-self-content">
 									<!-- 방영일 -->
-									<span class="card-text first-air-date">${tv.firstAirDate}</span>
-									<!-- 상영시간 -->
-									<span class="card-text runtime">(${tv.episodeRunTime}분)</span>
+									<span class="card-text">${tv.firstAirDate}</span>
+									<c:if test="${tv.lastAirDate ne null}">
+									<span class="card-text"> ~ ${tv.lastAirDate}</span>
+									</c:if>
 								</div>
 								<!-- 장르 -->
 								<p class="card-text genre align-self-end">
-									<c:forEach var="genreName" items="${tv.genreNames}" varStatus="index">
-										${genreName}<c:if test="${!index.last}">,&nbsp;</c:if>
+									<c:forEach var="genre" items="${tv.genres}" varStatus="index">
+										${genre.name}<c:if test="${!index.last}">,&nbsp;</c:if>
 									</c:forEach>
 								</p>
 							</div>
@@ -148,9 +154,11 @@
 		<!-- Pagination -->
 		<ul class="pagination justify-content-center">
 
+			
+			<!-- tvTotalCount : 총 객체 수 / tvBlockCount : 한 페이지에 표시되는 객체 수 -->
 			<!-- pageCount : 총 페이지 수 / pageBlock : 페이지 묶음 단위 -->
-			<fmt:parseNumber var="temp" value="${tvListCount/listSize}" integerOnly="true" />
-			<c:set var="pageCount" value="${temp + (tvListCount % listSize == 0 ? 0 : 1)}" />
+			<fmt:parseNumber var="temp" value="${tvTotalCount/tvBlockCount}" integerOnly="true" />
+			<c:set var="pageCount" value="${temp + (tvTotalCount % tvBlockCount == 0 ? 0 : 1)}" />
 			<c:set var="pageBlock" value="${10}" />
 
 			<!-- pageNumber : 현재 페이지 번호 -->

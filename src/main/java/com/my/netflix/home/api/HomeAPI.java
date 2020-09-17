@@ -2,21 +2,20 @@ package com.my.netflix.home.api;
 
 import java.util.ArrayList;
 
-import com.my.netflix.all.model.Movie;
-import com.my.netflix.all.model.TVProgram;
 import com.my.netflix.home.model.MainContent;
+import com.my.netflix.home.model.MainMovie;
+import com.my.netflix.home.model.MainTVProgram;
 
 public interface HomeAPI {
 	
 	public ArrayList<MainContent> getMainContents();
 	
-	public ArrayList<Movie> getBestPopularMovies();
+	public ArrayList<MainMovie> getBestPopularMovies();
 	
-	public ArrayList<Movie> getNowPlayingMovies();
+	public ArrayList<MainMovie> getNowPlayingMovies();
 	
-	public ArrayList<TVProgram> getBestPopularTVPrograms();
+	public ArrayList<MainTVProgram> getBestPopularTVPrograms();
 	
-	public ArrayList<TVProgram> getOnTheAirTVPrograms();
-	
+	public ArrayList<MainTVProgram> getOnTheAirTVPrograms();
 	
 }

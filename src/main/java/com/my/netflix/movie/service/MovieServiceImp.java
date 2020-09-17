@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.all.api.GenreService;
-import com.my.netflix.all.model.Movie;
 import com.my.netflix.aop.StaticData;
 import com.my.netflix.movie.api.MovieAPI;
+import com.my.netflix.movie.model.MoviePreview;
 
 @Component
 public class MovieServiceImp implements MovieService {
@@ -36,7 +36,7 @@ public class MovieServiceImp implements MovieService {
 		if (request.getParameter("condition") != null)
 			condition = Integer.parseInt(request.getParameter("condition"));
 		
-		ArrayList<Movie> array = movieAPI.getAllMoviesByPage(pageNumber);
+		ArrayList<MoviePreview> array = movieAPI.getAllMoviesByPage(pageNumber);
 		
 		switch (condition) {
 		case 0 :
@@ -111,7 +111,7 @@ public class MovieServiceImp implements MovieService {
 		
 		long movieId = Long.parseLong(request.getParameter("movieId"));
 		
-		Movie movie = movieAPI.getMovieById(movieId);
+		MoviePreview movie = movieAPI.getMovieById(movieId);
 
 		mav.addObject("check", check);
 		mav.addObject("movie", movie);

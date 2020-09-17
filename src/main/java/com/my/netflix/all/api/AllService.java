@@ -5,30 +5,38 @@ import java.util.ArrayList;
 import com.google.gson.JsonObject;
 
 public interface AllService {
-    
-	// 영화
 
-    public JsonObject getMovieJsonById(long id);
+	/* ------ Movie ------- */
 
-//    public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList);
-//    
-//    public void getMainContentList(ArrayList<Long> mainContentIdList);
-    
+	public JsonObject getMovieJsonById(long id);
 
-    public JsonObject getTVJsonById(long id);
+	/* ------ TV Program ------- */
 
-    public String searchTvByGenreUrl(int pageNumber, ArrayList<Integer> genreIds);
+	// tv_id 로 JsonObject 반환
+	public JsonObject getTVJsonById(long id);
 
-    public String searchTvByYearUrl(int pageNumber, String year);
+	// 인기 내림차순으로 검색하는 URL 반환
+	public String searchTvByPopularDesc(int pageNumber);
 
-//    public ArrayList<TVProgram> getTVProgramList(ArrayList<Long> tvIdList);
+	// 인기 오름차순으로 검색하는 URL 반환
+	public String searchTvByPopularAsc(int pageNumber);
 
-//    public JsonArray getPopularTVProgramIdList(int pageNumber);
-//
-//    public JsonArray getOnTheAirTVProgramIdList(int pageNumber);
-    
-    public ArrayList<Long> getIdListByFile(String filePath);
-    
-    public ArrayList<Long> getIdListByUrl(String url);
-    
+	// 최신순으로 검색하는 URL 반환
+	public String searchTvLatest(int pageNumber);
+
+	// 오래된 순으로 검색하는 URL 반환
+	public String searchTvOldest(int pageNumber);
+
+	// 장르로 검색하는 URL 반환
+	public String searchTvByGenreUrl(int pageNumber, ArrayList<Integer> genreIds);
+
+	// 연도로 검색하는 URL 반환
+	public String searchTvByYearUrl(int pageNumber, String year);
+
+	/* ------ 공통 ------- */
+
+	public ArrayList<Long> getIdListByFile(String filePath);
+
+	public ArrayList<Long> getIdListByUrl(String url);
+
 }
