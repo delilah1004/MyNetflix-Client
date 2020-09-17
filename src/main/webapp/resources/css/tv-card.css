@@ -1,0 +1,32 @@
+.poster {
+    position: relative;
+    padding-top: 150%;
+    overflow: hidden;
+}
+
+.poster img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    height: 100%;
+}
+
+.tv-name>a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.runtime {
+    color: lightslategray;
+    font-size: small;
+}
+
+.genre {
+    margin-top: 12px;
+    font-size: small;
+}

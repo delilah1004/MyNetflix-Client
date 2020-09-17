@@ -50,4 +50,12 @@ public class Reader {
 
 		return getJson().get("genres").getAsJsonArray();
 	}
+
+	// total_result 값 받기
+	public int getCount(String url) {
+		
+		getReader(url);
+
+		return getJson().get("total_results").getAsInt();
+	}
 }

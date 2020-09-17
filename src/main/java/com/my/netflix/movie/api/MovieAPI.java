@@ -2,11 +2,15 @@ package com.my.netflix.movie.api;
 
 import java.util.ArrayList;
 
-import com.my.netflix.model.Movie;
+import com.my.netflix.all.model.Movie;
 
 public interface MovieAPI {
 
 	public ArrayList<Movie> getAllMoviesByPage(int pageNumber);
+	
+	public Movie getMovieById(long id);
+	
+	public ArrayList<Movie> getMovieList(ArrayList<Long> tvIdList);
 
 	/* ------ 장르별 검색 -------- */
 
@@ -37,6 +41,4 @@ public interface MovieAPI {
 	/* ------------------ 공통 부분 -------------------- */
 
 	public int getCountPage(int condition);
-
-	public Movie getMovieById(long id);
 }

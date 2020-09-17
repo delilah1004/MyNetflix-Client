@@ -3,8 +3,6 @@ package com.my.netflix.all.api;
 import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
-import com.my.netflix.home.model.MainContent;
-import com.my.netflix.model.Movie;
 
 public interface AllService {
     
@@ -12,14 +10,16 @@ public interface AllService {
 
     public JsonObject getMovieJsonById(long id);
 
-    public Movie getMovieById(long id);
-
-    public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList);
-    
-    public void getMainContentList(ArrayList<Long> mainContentIdList);
+//    public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList);
+//    
+//    public void getMainContentList(ArrayList<Long> mainContentIdList);
     
 
     public JsonObject getTVJsonById(long id);
+
+    public String searchTvByGenreUrl(int pageNumber, ArrayList<Integer> genreIds);
+
+    public String searchTvByYearUrl(int pageNumber, String year);
 
 //    public ArrayList<TVProgram> getTVProgramList(ArrayList<Long> tvIdList);
 

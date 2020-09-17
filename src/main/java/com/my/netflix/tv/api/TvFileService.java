@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.my.netflix.all.api.AllService;
+import com.my.netflix.all.model.TVProgram;
 import com.my.netflix.aop.StaticData;
-import com.my.netflix.model.TVProgram;
 
 @Component
 public class TvFileService implements TvFile {
@@ -26,7 +26,8 @@ public class TvFileService implements TvFile {
         // 반환값을 담을 TVProgram 객체 선언
         TVProgram tvProgram = new TVProgram();
         // season 정보와 genre 정보를 담을 리스트 선언
-        ArrayList<Integer> seasons, genres;
+        ArrayList<Integer> seasons, genreIds;
+		ArrayList<String> genreNames;
 
         try {
 
@@ -45,13 +46,16 @@ public class TvFileService implements TvFile {
             }
 
             // 장르
-            genres = new ArrayList<Integer>();
+            genreIds = new ArrayList<Integer>();
+			genreNames = new ArrayList<String>();
 
             for (JsonElement element : tv.get("genres").getAsJsonArray()) {
-                genres.add(element.getAsJsonObject().get("id").getAsInt());
+                genreIds.add(element.getAsJsonObject().get("id").getAsInt());
+				genreNames.add(element.getAsJsonObject().get("name").getAsString());
             }
 
-            tvProgram.setGenres(genres);
+            tvProgram.setGenreIds(genreIds);
+            tvProgram.setGenreNames(genreNames);
 
             // 개요
             tvProgram.setOverview(tv.get("overview").getAsString());
@@ -301,30 +305,30 @@ public class TvFileService implements TvFile {
 	// 넷플릭스에서 방영되는 모든 TV Program 의 개수 반환
 	public int getCountPage(int condition) {
 
+		int count = 1;
+
 		ArrayList<Long> tvIdList = new ArrayList<Long>();
 
 		switch (condition) {
 		case 0:
 			tvIdList = allService.getIdListByFile(StaticData.POPULAR_DESC_TV_ID_LIST_FILE_PATH);
+			count = tvIdList.size();
 			break;
 		case 1:
 			tvIdList = allService.getIdListByFile(StaticData.POPULAR_ASC_TV_ID_LIST_FILE_PATH);
+			count = tvIdList.size();
 			break;
 		case 2:
 			tvIdList = allService.getIdListByFile(StaticData.LATEST_TV_ID_LIST_FILE_PATH);
+			count = tvIdList.size();
 			break;
 		case 3:
 			tvIdList = allService.getIdListByFile(StaticData.OLDEST_TV_ID_LIST_FILE_PATH);
+			count = tvIdList.size();
 			break;
 		}
 
-		return tvIdList.size();
-	}
-
-	// id로 TV Program 객체 반환
-	public TVProgram getTVProgramById(long id) {
-
-		return getTVById(id);
+		return count;
 	}
 
 }

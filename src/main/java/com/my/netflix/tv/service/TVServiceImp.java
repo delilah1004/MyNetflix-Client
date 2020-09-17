@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.all.api.GenreService;
+import com.my.netflix.all.model.TVProgram;
 import com.my.netflix.aop.StaticData;
-import com.my.netflix.model.TVProgram;
 import com.my.netflix.tv.api.TvFile;
 import com.my.netflix.tv.api.TvJsonArray;
 
@@ -31,16 +31,18 @@ public class TVServiceImp implements TVService {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
+		String check = "TV 프로그램 메인페이지입니다.";
+
+		mav.addObject("check", check);
+
 		int pageNumber = 1;
 		int condition = 0;
-//		long lastId = 0;
+		int tvTotalCount = 0;
 
 		if (request.getParameter("pageNumber") != null)
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		if (request.getParameter("condition") != null)
 			condition = Integer.parseInt(request.getParameter("condition"));
-//		if (request.getParameter("lastId") != null)
-//			lastId = Long.parseLong(request.getParameter("lastId"));
 
 		ArrayList<TVProgram> array = new ArrayList<TVProgram>();
 
@@ -49,41 +51,47 @@ public class TVServiceImp implements TVService {
 		case 0:
 			
 			array = tvFile.getPopularDescTVPrograms(pageNumber);
+			tvTotalCount = tvFile.getCountPage(condition);
 			break;
 			
 		case 1:
 			
 			array = tvFile.getPopularAscTVPrograms(pageNumber);
+			tvTotalCount = tvFile.getCountPage(condition);
 			break;
 			
 		case 2:
 			
 			array = tvFile.getLatestTVPrograms(pageNumber);
+			tvTotalCount = tvFile.getCountPage(condition);
 			break;
 			
 		case 3:
 			
 			array = tvFile.getOldestTVPrograms(pageNumber);
+			tvTotalCount = tvFile.getCountPage(condition);
 			break;
 			
 		case 4:
-
-			String selectedGenres = null;
-
-			if (request.getParameter("selectedGenres") != null) {
-				selectedGenres = request.getParameter("selectedGenres");
-			}
-
-			String[] genreNames = selectedGenres.split(",");
-
+			
 			ArrayList<Integer> genreIds = new ArrayList<Integer>();
 
-			for (String genreName : genreNames) {
-				genreIds.add(genreService.getTVGenreId(genreName));
+			if (request.getParameter("selectedGenres") != null) {
+				String selectedGenres = request.getParameter("selectedGenres");
+				
+				if(selectedGenres.contains(",")) {
+					String[] genreNames = selectedGenres.split(",");
+					for (String genreName : genreNames) {
+						genreIds.add(genreService.getTVGenreId(genreName));
+					}
+				} else {
+					genreIds.add(genreService.getTVGenreId(selectedGenres));
+				}
 			}
 
 			array = tvJsonArray.getTVProgramsByGenreIds(pageNumber, genreIds);
-			
+			tvTotalCount = tvJsonArray.getCountPage(pageNumber, genreIds);
+
 			break;
 			
 		case 5:
@@ -91,20 +99,17 @@ public class TVServiceImp implements TVService {
 			String year = request.getParameter("year");
 
 			array = tvJsonArray.getTVProgramsByYear(pageNumber, year);
+			tvTotalCount = tvJsonArray.getCountPage(pageNumber, year);
 			break;
 			
 		}
 
-		int tvListCount = tvFile.getCountPage(condition);
-		int listSize = StaticData.count;
-
-		String check = "TV 프로그램 메인페이지입니다.";
-
-		mav.addObject("check", check);
-
 		mav.addObject("array", array);
-		mav.addObject("tvListCount", tvListCount);
-		mav.addObject("listSize", listSize);
+		mav.addObject("tvListCount", tvTotalCount);
+
+		int pageCount = StaticData.count;
+		mav.addObject("listSize", pageCount);
+
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("condition", condition);
 
@@ -126,7 +131,7 @@ public class TVServiceImp implements TVService {
 
 		long tvId = Long.parseLong(request.getParameter("tvId"));
 
-		TVProgram tv = tvFile.getTVProgramById(tvId);
+		TVProgram tv = tvFile.getTVById(tvId);
 
 		mav.addObject("check", check);
 		mav.addObject("tv", tv);

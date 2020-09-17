@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.my.netflix.all.model.Movie;
+import com.my.netflix.all.model.TVProgram;
 import com.my.netflix.home.api.HomeAPI;
 import com.my.netflix.home.model.MainContent;
-import com.my.netflix.model.Movie;
-import com.my.netflix.model.TVProgram;
 
 @Component
 public class HomeServiceImp implements HomeService {
@@ -24,8 +24,8 @@ public class HomeServiceImp implements HomeService {
 		
 		mav.addObject("check", check);
 		
-//		ArrayList<MainContent> mainContents = homeAPI.getMainContents();
-//		mav.addObject("mainContents", mainContents);
+		ArrayList<MainContent> mainContents = homeAPI.getMainContents();
+		mav.addObject("mainContents", mainContents);
 		
 		ArrayList<Movie> popularMovies = homeAPI.getBestPopularMovies();
 		ArrayList<Movie> nowPlayingMovies = homeAPI.getNowPlayingMovies();

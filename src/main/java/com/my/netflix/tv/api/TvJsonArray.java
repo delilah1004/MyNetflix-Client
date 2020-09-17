@@ -2,7 +2,7 @@ package com.my.netflix.tv.api;
 
 import java.util.ArrayList;
 
-import com.my.netflix.model.TVProgram;
+import com.my.netflix.all.model.TVProgram;
 
 public interface TvJsonArray {
 
@@ -34,7 +34,9 @@ public interface TvJsonArray {
 
 	/* ------------------ 공통 부분 -------------------- */
 
-	public int getCountPage(int condition);
+	public int getCountPage(int pageNumber, ArrayList<Integer> genreIds);
+	
+	public int getCountPage(int pageNumber, String year);
 
 	public TVProgram getTVProgramById(long id);
 }

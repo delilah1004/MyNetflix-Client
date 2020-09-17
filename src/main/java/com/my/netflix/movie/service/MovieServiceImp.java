@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.all.api.GenreService;
+import com.my.netflix.all.model.Movie;
 import com.my.netflix.aop.StaticData;
-import com.my.netflix.model.Movie;
 import com.my.netflix.movie.api.MovieAPI;
 
 @Component

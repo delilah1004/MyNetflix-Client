@@ -8,11 +8,12 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.my.netflix.all.api.AllService;
+import com.my.netflix.all.model.TVProgram;
+import com.my.netflix.aop.Reader;
 import com.my.netflix.aop.StaticData;
-import com.my.netflix.model.TVProgram;
 
 @Component
-public class TvJsonArrayService implements TvJsonArray {
+public class TvJsonArrayService extends Reader implements TvJsonArray {
 
 	@Autowired
 	AllService allService;
@@ -29,7 +30,8 @@ public class TvJsonArrayService implements TvJsonArray {
         // 반환값을 담을 TVProgram 객체 선언
         TVProgram tvProgram = new TVProgram();
         // season 정보와 genre 정보를 담을 리스트 선언
-        ArrayList<Integer> seasons, genres;
+        ArrayList<Integer> seasons, genreIds;
+		ArrayList<String> genreNames;
 
         try {
 
@@ -48,13 +50,16 @@ public class TvJsonArrayService implements TvJsonArray {
             }
 
             // 장르
-            genres = new ArrayList<Integer>();
+            genreIds = new ArrayList<Integer>();
+			genreNames = new ArrayList<String>();
 
             for (JsonElement element : tv.get("genres").getAsJsonArray()) {
-                genres.add(element.getAsJsonObject().get("id").getAsInt());
+                genreIds.add(element.getAsJsonObject().get("id").getAsInt());
+				genreNames.add(element.getAsJsonObject().get("name").getAsString());
             }
 
-            tvProgram.setGenres(genres);
+            tvProgram.setGenreIds(genreIds);
+            tvProgram.setGenreNames(genreNames);
 
             // 개요
             tvProgram.setOverview(tv.get("overview").getAsString());
@@ -127,24 +132,13 @@ public class TvJsonArrayService implements TvJsonArray {
 	
 	@Override
 	public ArrayList<TVProgram> getTVProgramsByGenreIds(int pageNumber, ArrayList<Integer> genreIds) {
-		
-		String url = StaticData.API_MAIN_URL;
-		url += "/discover/tv";
-		url += "?api_key=" + StaticData.API_KEY;
-		url += "&language=" + StaticData.KOREAN;
-		url += "&sort_by=popularity.desc";
-		url += "&page=" + pageNumber;
-		url += "&with_genres=";
-		for(int genreId : genreIds) {
-			url += genreId + "%2C";
-		}
-		url += "&with_networks=213";
+
+		String url = allService.searchTvByGenreUrl(pageNumber, genreIds);
 
 		return getTVProgramList(allService.getIdListByUrl(url));
 	}
 	
-	
-	
+
 	/* ------ 연도별 검색 -------- */
 
 	// 연도별 TV Program 목록 반환
@@ -152,18 +146,10 @@ public class TvJsonArrayService implements TvJsonArray {
 	@Override
 	public ArrayList<TVProgram> getTVProgramsByYear(int pageNumber, String year) {
 		
-		String url = StaticData.API_MAIN_URL;
-		url += "/discover/tv";
-		url += "?api_key=" + StaticData.API_KEY;
-		url += "&language=" + StaticData.KOREAN;
-		url += "&sort_by=popularity.desc";
-		url += "&page=" + pageNumber;
-		url += "&first_air_date_year=" + year;
-		url += "&with_networks=213";
+		String url = allService.searchTvByYearUrl(pageNumber, year);
 		
 		return getTVProgramList(allService.getIdListByUrl(url));
 	}
-	
 	
 	
 	/* ------ 인기순 검색 -------- */
@@ -208,12 +194,23 @@ public class TvJsonArrayService implements TvJsonArray {
 	
 	/* ------------------ 공통 부분 -------------------- */
 
-	// 넷플릭스에서 방영되는 모든 TV Program 의 개수 반환
 
 	@Override
-	public int getCountPage(int condition) {
-		// TODO Auto-generated method stub
-		return 0;
+	// 표시될 TV Program 의 총 개수 반환 - 장르별 검색일 때
+	public int getCountPage(int pageNumber, ArrayList<Integer> genreIds) {
+
+		String url = allService.searchTvByGenreUrl(pageNumber, genreIds);
+
+		return getCount(url);
+	}
+	
+	@Override
+	// 표시될 TV Program 의 총 개수 반환 - 연도별 검색일 때
+	public int getCountPage(int pageNumber, String year) {
+
+		String url = allService.searchTvByYearUrl(pageNumber, year);
+
+		return getCount(url);
 	}
 	
 	// id로 TV Program 객체 반환
