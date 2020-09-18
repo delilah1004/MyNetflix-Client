@@ -115,9 +115,6 @@
 					<!-- TV Program 제목 -->
 					<strong>${tv.name}</strong>
 
-					<!-- TV Program 상영시간 -->
-					<span>( ${tv.episodeRunTime}분 )</span>
-
 					<!-- 종영 여부 -->
 					<span class="status py-2">시즌 연재중</span>
 
@@ -127,21 +124,6 @@
 
 				<div class="spec pt-3">
 					<dl>
-						<!-- TV Program 감독 -->
-						<dt>감독 :&nbsp;</dt>
-						<dd>
-							<a href="/movies/persons/?pidx=11015">크리스토퍼 놀란</a>
-						</dd>
-
-						<!-- TV Program 출연 배우 -->
-						<dt>&nbsp;/ 배우 :&nbsp;</dt>
-						<dd class="on">
-							<a href="/movies/persons/?pidx=118931">존 데이비드 워싱턴</a> ,&nbsp;
-							<a href="/movies/persons/?pidx=38481">로버트 패틴슨</a> ,&nbsp;
-							<a href="/movies/persons/?pidx=115882">엘리자베스 데비키</a> ,&nbsp;
-							<a href="/movies/persons/?pidx=26886">애런 존슨</a>
-						</dd>
-
 						<!-- TV Program 장르 -->
 						<dt>장르 :&nbsp;</dt>
 						<dd>액션,&nbsp;SF</dd>

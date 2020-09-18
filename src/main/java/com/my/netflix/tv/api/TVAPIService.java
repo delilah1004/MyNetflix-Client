@@ -11,10 +11,12 @@ import com.my.netflix.all.api.AllService;
 import com.my.netflix.all.model.Genre;
 import com.my.netflix.aop.Reader;
 import com.my.netflix.aop.StaticData;
+import com.my.netflix.tv.model.Season;
+import com.my.netflix.tv.model.TVProgram;
 import com.my.netflix.tv.model.TVProgramPreview;
 
 @Component
-public class TvJsonArrayService extends Reader implements TvJsonArray {
+public class TVAPIService extends Reader implements TVAPI {
 
 	@Autowired
 	AllService allService;
@@ -25,7 +27,7 @@ public class TvJsonArrayService extends Reader implements TvJsonArray {
 	/* ------ 인기순 검색 -------- */
 
 	// 인기순 - 내림차순 TV Program 목록 반환
-
+	
 	@Override
 	public ArrayList<TVProgramPreview> getPopularDescTVPrograms(int pageNumber) {
 
@@ -35,7 +37,7 @@ public class TvJsonArrayService extends Reader implements TvJsonArray {
 	}
 
 	// 인기순 - 오름차순 TV Program 목록 반환
-
+	
 	@Override
 	public ArrayList<TVProgramPreview> getPopularAscTVPrograms(int pageNumber) {
 
@@ -113,7 +115,7 @@ public class TvJsonArrayService extends Reader implements TvJsonArray {
 		case 2:
 			url = allService.searchTvLatest(pageNumber);
 			break;
-			
+
 		// 오래된순
 		case 3:
 			url = allService.searchTvOldest(pageNumber);
@@ -205,7 +207,7 @@ public class TvJsonArrayService extends Reader implements TvJsonArray {
 	// TVProgramPreview 객체 리스트 생성
 	public ArrayList<TVProgramPreview> getTVPreviewList(ArrayList<Long> tvIdList) {
 
-		// 반환값을 담을 TVProgram 리스트 선언
+		// 반환값을 담을 TVProgramPreview 리스트 선언
 		ArrayList<TVProgramPreview> tvPreviewList = new ArrayList<TVProgramPreview>();
 
 		for (long tvId : tvIdList) {
@@ -213,6 +215,128 @@ public class TvJsonArrayService extends Reader implements TvJsonArray {
 		}
 
 		return tvPreviewList;
+	}
+
+	// Json 데이터 TVProgram 객체에 저장
+	public TVProgram getTVProgramById(long id) {
+
+		TVProgram tvProgram = new TVProgram();
+
+		ArrayList<Genre> genres = null;
+		Genre genre = null;
+		
+		ArrayList<Season> seasons = null;
+		Season season = null;
+
+		try {
+
+			JsonObject tv = allService.getTVJsonById(id);
+
+			// tv_id
+			tvProgram.setId(tv.get("id").getAsLong());
+
+			// 포스터 URI
+			try {
+				tvProgram.setPosterPath(StaticData.API_IMAGE_URL + tv.get("poster_path").getAsString());
+			} catch (Exception e) {
+				tvProgram.setPosterPath(StaticData.EMPTY_IMAGE_URL);
+			}
+
+			// backdrop URI
+			try {
+				tvProgram.setBackdropPath(StaticData.BACKGROUND_IMAGE_URL + tv.get("backdrop_path").getAsString());
+			} catch (Exception e) {
+				tvProgram.setPosterPath(StaticData.EMPTY_BACKGROUND_IMAGE_URL);
+			}
+
+			// 제목
+			tvProgram.setName(tv.get("name").getAsString());
+
+			// 첫 방영일 정보
+			try {
+				tvProgram.setFirstAirDate(tv.get("first_air_date").getAsString());
+			} catch (Exception e) {
+				tvProgram.setFirstAirDate(null);
+			}
+
+			// 마지막 방영일 정보
+			try {
+				tvProgram.setLastAirDate(tv.get("last_air_date").getAsString());
+			} catch (Exception e) {
+				tvProgram.setLastAirDate(null);
+			}
+
+			// 장르
+			genres = new ArrayList<Genre>();
+
+			for (JsonElement element : tv.get("genres").getAsJsonArray()) {
+				genre = new Genre();
+				genre.setId(element.getAsJsonObject().get("id").getAsInt());
+				genre.setName(element.getAsJsonObject().get("name").getAsString());
+				genres.add(genre);
+			}
+
+			tvProgram.setGenres(genres);
+
+			// 시즌
+			seasons = new ArrayList<Season>();
+
+			for (JsonElement element : tv.get("seasons").getAsJsonArray()) {
+				season = new Season();
+				
+				season.setId(element.getAsJsonObject().get("id").getAsInt());
+				
+				try {
+					season.setPosterPath(StaticData.API_IMAGE_URL + tv.get("poster_path").getAsString());
+				} catch (Exception e) {
+					season.setPosterPath(StaticData.EMPTY_IMAGE_URL);
+				}
+				
+				season.setName(element.getAsJsonObject().get("name").getAsString());
+				season.setAirDate(element.getAsJsonObject().get("air_date").getAsString());
+				season.setEpisodeCount(element.getAsJsonObject().get("episode_count").getAsInt());
+				
+				seasons.add(season);
+			}
+			
+			tvProgram.setSeasons(seasons);
+
+			// 개요
+			tvProgram.setOverview(tv.get("overview").getAsString());
+
+			// 영상 스트리밍 URL
+			tvProgram.setHomepage(tv.get("homepage").getAsString());
+
+			// 종영 여부 - Ended, Returning Series
+			String status = tv.get("status").getAsString();
+			
+			switch (status) {
+			case "Returning Series":
+				tvProgram.setStatus("다음 시즌 방영 예정");
+				break;
+			case "Ended" :
+				tvProgram.setStatus("종영");
+				break;
+			}
+
+		} catch (Exception e) {
+			System.out.println(id);
+			e.printStackTrace();
+		}
+
+		return tvProgram;
+	}
+
+	// TVProgram 객체 리스트 생성
+	public ArrayList<TVProgram> getTVProgramList(ArrayList<Long> tvIdList) {
+		
+		ArrayList<TVProgram> tvProgramList = new ArrayList<TVProgram>();
+
+		for (long tvId : tvIdList) {
+			tvProgramList.add(getTVProgramById(tvId));
+		}
+
+		return tvProgramList;
 	}
 
 }

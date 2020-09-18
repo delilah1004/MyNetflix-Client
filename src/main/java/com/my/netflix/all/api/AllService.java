@@ -8,7 +8,29 @@ public interface AllService {
 
 	/* ------ Movie ------- */
 
+	// movie_id 로 JsonObject 반환
 	public JsonObject getMovieJsonById(long id);
+	
+	// movie_id 로 JsonObject 반환 (배우 정보 포함)
+	public JsonObject getMovieJsonWithCastsById(long id);
+
+	// 인기 내림차순으로 검색하는 URL 반환
+	public String searchMovieByPopularDesc(int pageNumber);
+
+	// 인기 오름차순으로 검색하는 URL 반환
+	public String searchMovieByPopularAsc(int pageNumber);
+
+	// 최신순으로 검색하는 URL 반환
+	public String searchMovieLatest(int pageNumber);
+
+	// 오래된 순으로 검색하는 URL 반환
+	public String searchMovieOldest(int pageNumber);
+
+	// 장르로 검색하는 URL 반환
+	public String searchMovieByGenreUrl(int pageNumber, int genreId);
+
+	// 연도로 검색하는 URL 반환
+	public String searchMovieByYearUrl(int pageNumber, String year);
 
 	/* ------ TV Program ------- */
 

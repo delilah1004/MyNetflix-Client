@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -22,7 +23,8 @@
 	<link href="${root}/resources/css/tv-card.css" rel="stylesheet">
 
 	<!-- Drop down -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 	<!-- Bootstrap core jquery -->
 	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
@@ -52,23 +54,25 @@
 					<a class="dropdown-item" href="#"
 						onclick="javascript:page_move('${root}/tv/setView.mn/post', '1', null);">인기도 오름차순</a> --%>
 					<!-- 인기도 내림차순 -->
-					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=0">인기도 내림차순</a>
+					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=0">인기도
+						내림차순</a>
 					<!-- 인기도 오름차순 -->
-					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=1">인기도 오름차순</a>
+					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=1">인기도
+						오름차순</a>
 					<!-- 최신순 -->
 					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=2">최신순</a>
 					<!-- 오래된순 -->
 					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=3">오래된순</a>
-					<!-- 장르별 검색 -->
-					<a class="dropdown-item genreSearch" href="#">장르별 검색</a>
 					<!-- 연도별 검색 -->
 					<a class="dropdown-item yearSearch" href="#">연도별 검색</a>
+					<!-- 장르별 검색 -->
+					<a class="dropdown-item genreSearch" href="#">장르별 검색</a>
 				</div>
 			</div>
 
 
 			<!-- Year Search -->
-			<div id="yearSearch" class="dropdown mx-3 float-left" style="display:none">
+			<div id="yearSearch" class="dropdown mx-3 float-left" style="display: none">
 				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">연도 검색</button>
 				<div class="dropdown-menu">
 					<c:forEach var="year" begin="2010" end="2020">
@@ -79,7 +83,7 @@
 		</div>
 
 		<!-- Genre Search -->
-		<div id="genreSearch" class="row px-3 pb-3" style="display:none">
+		<div id="genreSearch" class="row px-3 pb-3" style="display: none">
 
 			<form id="genreSelector" class="mx-3" action="${root}/tv/setView.mn" onsubmit="genreCheck(this);">
 
@@ -94,14 +98,26 @@
 
 				</c:forEach>
 
+				<!-- 기존 장르 선택 정보 갱신 -->
+				<c:if test="${genreIds eq null}">
+				<c:forTokens var="genreId" items="${genreIds}" delims=" ">
+					<script type="text/javascript">
+						for (var i = 0; i < genreSelector.genreIds.length; i++) {
+							if (genreSelector.genre[i].value == "${genreId}") {
+								genreSelector.genre[i].checked = true;
+							}
+						}
+					</script>
+				</c:forTokens>
+				</c:if>
+
 				<input type="hidden" name="selectedGenres">
 				<input type="hidden" name="condition" value="4">
-
 				<input type="submit" value="검색" />
+				
 			</form>
 
 		</div>
-
 
 		<div class="row">
 
@@ -116,30 +132,36 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item d-flex flex-column">
 
 						<div class="card h-100">
+						
 							<!-- Card image -->
 							<a class="poster" href="${root}/tv/fullView.mn?tvId=${tv.id}">
-								<!-- 포스터 -->
-								<img class="card-img-top" src="${tv.posterPath}" alt="">
+								<!-- 포스터 --> <img class="card-img-top" src="${tv.posterPath}" alt="">
 							</a>
+							
 							<!-- Card body -->
 							<div class="card-body">
+							
 								<!-- 제목 -->
 								<h4 class="card-title tv-name align-self-start">
 									<a href="#">${tv.name}</a>
 								</h4>
+								
+								<!-- 방영일 -->
 								<div class="align-self-content">
-									<!-- 방영일 -->
 									<span class="card-text">${tv.firstAirDate}</span>
 									<c:if test="${tv.lastAirDate ne null}">
-									<span class="card-text"> ~ ${tv.lastAirDate}</span>
+										<span class="card-text"> ~ ${tv.lastAirDate}</span>
 									</c:if>
 								</div>
+								
 								<!-- 장르 -->
 								<p class="card-text genre align-self-end">
 									<c:forEach var="genre" items="${tv.genres}" varStatus="index">
-										${genre.name}<c:if test="${!index.last}">,&nbsp;</c:if>
+										${genre.name}
+										<c:if test="${!index.last}">,&nbsp;</c:if>
 									</c:forEach>
 								</p>
+								
 							</div>
 
 						</div>
@@ -154,7 +176,6 @@
 		<!-- Pagination -->
 		<ul class="pagination justify-content-center">
 
-			
 			<!-- tvTotalCount : 총 객체 수 / tvBlockCount : 한 페이지에 표시되는 객체 수 -->
 			<!-- pageCount : 총 페이지 수 / pageBlock : 페이지 묶음 단위 -->
 			<fmt:parseNumber var="temp" value="${tvTotalCount/tvBlockCount}" integerOnly="true" />
@@ -172,36 +193,98 @@
 			<!-- 이전 버튼 -->
 			<c:if test="${startPage > pageBlock}">
 				<li class="page-item">
-					<a class="page-link"
-						href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
-						aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
+
+					<!-- condition 0~3 -->
+					<c:if test="${condition != 4 && condition !=5}">
+						<a class="page-link"
+							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
+							aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</c:if>
+
+					<!-- condition 4 -->
+					<c:if test="${condition == 4}">
+						<a class="page-link"
+							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
+							aria-label="Previous" data-genreIds="${genreIds}">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</c:if>
+
+					<!-- condition 5 -->
+					<c:if test="${condition == 5}">
+						<a class="page-link"
+							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
+							aria-label="Previous" data-year="${year}">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</c:if>
 				</li>
 			</c:if>
 
 			<!-- 페이지 번호 생성 -->
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<li class="page-item">
-					<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}">${i}</a>
+
+					<!-- condition 0~3 -->
+					<c:if test="${condition != 4 && condition !=5}">
+						<a class="page-link"
+							href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}">${i}</a>
+					</c:if>
+
+					<!-- condition 4 -->
+					<c:if test="${condition == 4}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}&genreIds=${genreIds}">${i}</a>
+					</c:if>
+
+					<!-- condition 5 -->
+					<c:if test="${condition == 5}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}"
+							data-year="${year}">${i}</a>
+					</c:if>
+
 				</li>
 			</c:forEach>
 
 			<!-- 다음 버튼 -->
 			<c:if test="${endPage < pageCount}">
 				<li class="page-item">
-					<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
-						aria-label="Next">
-						<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
-					</a>
+
+					<!-- condition 0~3 -->
+					<c:if test="${condition != 4 && condition !=5}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
+							aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</c:if>
+
+					<!-- condition 4 -->
+					<c:if test="${condition == 4}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
+							aria-label="Next" data-genreIds="${genreIds}">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</c:if>
+
+					<!-- condition 5 -->
+					<c:if test="${condition == 5}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
+							aria-label="Next" data-year="${year}">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</c:if>
+
 				</li>
 			</c:if>
 		</ul>
-
 	</div>
-
-
 
 	<!-- Bootstrap core JavaScript -->
 	<script type="text/javascript" src="${root}/resources/vendor/bootstrap/js/bootstrap.min.js"></script>

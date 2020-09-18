@@ -26,7 +26,6 @@
 	<link href="${root}/resources/css/topbar.css" rel="stylesheet">
 
 	<style type="text/css">
-
 		.box-image {
 			position: relative;
 			left: 0;
@@ -89,7 +88,16 @@
 		.sect-base-movie a:hover {
 			text-decoration: none;
 		}
-		
+	</style>
+
+	<style>
+		div.header.large.first {
+			border-bottom: 1px solid rgba(19.80%, 21.37%, 17.84%, 1.00);
+			background-position: right -200px top;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-image: url('//image.tmdb.org/t/p/w1920_and_h800_multi_faces/vdTZHig4F9aIT9M5C6r2YqRXUws.jpg');
+		}
 	</style>
 
 </head>
@@ -101,6 +109,65 @@
 
 		<h1 class="pt-4">${check}</h1>
 
+		<!-- 커스텀 중 -->
+		<header class="jumbotron my-4">
+			<div class="row align-items-center my-5">
+				<div class="float-left">
+					<img class="img-fluid rounded mb-4 mb-lg-0" src="${movie.posterPath}" alt="">
+				</div>
+				<!-- /.col-lg-8 -->
+				<div class="float-left">
+					<div class="title pb-3">
+						<!-- 영화 제목 -->
+						<h1 style="display:inline">${movie.title}</h1>
+	
+						<!-- 개봉 여부 -->
+						<span class="status py-2">${movie.status}</span><br />
+	
+						<!-- 영화 개봉일 -->
+						<span>${movie.releaseDate}</span>
+	
+						<!-- 영화 상영시간 -->
+						<span>( ${movie.runtime}분 )</span>
+	
+						<!-- 영화 전체 줄거리 -->
+						<div>${movie.overview}</div>
+					</div>
+					<div class="spec pt-3">
+						<dl>
+							<!-- 영화 출연 배우 -->
+							<dt>배우 :&nbsp;</dt>
+							<dd class="on">
+								<c:forEach var="cast" items="${movie.casts}" varStatus="index">
+									<a href="/movies/persons/?pidx=${cast.id}">${cast.name}</a>
+									<c:if test="${!index.last}">,&nbsp;</c:if>
+								</c:forEach>
+							</dd>
+	
+							<!-- 영화 장르 -->
+							<dt>장르 :&nbsp;</dt>
+							<dd>
+								<c:forEach var="genre" items="${movie.genres}" varStatus="index">
+									${genre.name}
+									<c:if test="${!index.last}">,&nbsp;</c:if>
+								</c:forEach>
+							</dd>
+	
+							<!-- 영화 첫 방영일 -->
+							<dt>&nbsp;/ 첫 방영일 :&nbsp;</dt>
+							<dd class="on">${movie.releaseDate}</dd>
+						</dl>
+					</div>
+					<div class="like">
+						<a class="btn btn-dark text-white" href="${movie.homepage}">영상 보러가기</a>
+					</div>
+				</div>
+				<!-- /.col-md-4 -->
+			</div>
+		</header>
+
+
+		<!-- 기존 영역 -->
 		<div class="sect-base-movie overflow-hidden p-3">
 
 			<div class="box-image float-left">
@@ -115,6 +182,12 @@
 					<!-- 영화 제목 -->
 					<strong>${movie.title}</strong>
 
+					<!-- 개봉 여부 -->
+					<span class="status py-2">${movie.status}</span><br />
+
+					<!-- 영화 개봉일 -->
+					<span>${movie.releaseDate}</span>
+
 					<!-- 영화 상영시간 -->
 					<span>( ${movie.runtime}분 )</span>
 
@@ -124,24 +197,23 @@
 
 				<div class="spec pt-3">
 					<dl>
-						<!-- 영화 감독 -->
-						<dt>감독 :&nbsp;</dt>
-						<dd>
-							<a href="/movies/persons/?pidx=11015">크리스토퍼 놀란</a>
-						</dd>
-
 						<!-- 영화 출연 배우 -->
-						<dt>&nbsp;/ 배우 :&nbsp;</dt>
+						<dt>배우 :&nbsp;</dt>
 						<dd class="on">
-							<a href="/movies/persons/?pidx=118931">존 데이비드 워싱턴</a> ,&nbsp;
-							<a href="/movies/persons/?pidx=38481">로버트 패틴슨</a> ,&nbsp;
-							<a href="/movies/persons/?pidx=115882">엘리자베스 데비키</a> ,&nbsp;
-							<a href="/movies/persons/?pidx=26886">애런 존슨</a>
+							<c:forEach var="cast" items="${movie.casts}" varStatus="index">
+								<a href="/movies/persons/?pidx=${cast.id}">${cast.name}</a>
+								<c:if test="${!index.last}">,&nbsp;</c:if>
+							</c:forEach>
 						</dd>
 
 						<!-- 영화 장르 -->
 						<dt>장르 :&nbsp;</dt>
-						<dd>액션,&nbsp;SF</dd>
+						<dd>
+							<c:forEach var="genre" items="${movie.genres}" varStatus="index">
+								${genre.name}
+								<c:if test="${!index.last}">,&nbsp;</c:if>
+							</c:forEach>
+						</dd>
 
 						<!-- 영화 첫 방영일 -->
 						<dt>&nbsp;/ 첫 방영일 :&nbsp;</dt>

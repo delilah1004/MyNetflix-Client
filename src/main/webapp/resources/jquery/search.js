@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $(".genreSearch").click(function () {
         $("#genreSearch").show();
         $("#yearSearch").hide();
@@ -21,6 +22,5 @@ $(document).ready(function () {
         $("#genreSearch").hide();
         $("#yearSearch").show();
     });
-
 
 });

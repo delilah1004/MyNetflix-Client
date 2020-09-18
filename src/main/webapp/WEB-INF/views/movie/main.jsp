@@ -82,14 +82,13 @@
 
 					<div class="custom-control custom-checkbox float-left mr-3">
 						<!-- 체크박스 -->
-						<input type="checkbox" class="custom-control-input" id="${genre}" name="genre" value="${genre}">
+						<input type="radio" class="custom-control-input" id="${genre}" name="genre" value="${genre}">
 						<!-- 장르명 -->
 						<label class="custom-control-label" for="${genre}">${genre}</label>
 					</div>
 
 				</c:forEach>
 
-				<input type="hidden" name="selectedGenres">
 				<input type="hidden" name="condition" value="4">
 
 				<input type="submit" value="검색" />
@@ -111,11 +110,13 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item d-flex flex-column">
 
 						<div class="card h-100">
+						
 							<!-- Card image -->
 							<a class="poster" href="${root}/movie/fullView.mn?movieId=${movie.id}">
 								<!-- 포스터 -->
 								<img class="card-img-top" src="${movie.posterPath}" alt="">
 							</a>
+							
 							<!-- Card body -->
 							<div class="card-body">
 								<!-- 제목 -->
@@ -139,8 +140,8 @@
 						</div>
 
 					</div>
-
 				</c:forEach>
+				
 			</c:if>
 
 		</div>
@@ -148,9 +149,10 @@
 		<!-- Pagination -->
 		<ul class="pagination justify-content-center">
 
+			<!-- movieTotalCount : 총 객체 수 / movieBlockCount : 한 페이지에 표시되는 객체 수 -->
 			<!-- pageCount : 총 페이지 수 / pageBlock : 페이지 묶음 단위 -->
-			<fmt:parseNumber var="temp" value="${movieListCount/listSize}" integerOnly="true" />
-			<c:set var="pageCount" value="${temp + (movieListCount % listSize == 0 ? 0 : 1)}" />
+			<fmt:parseNumber var="temp" value="${movieTotalCount/movieBlockCount}" integerOnly="true" />
+			<c:set var="pageCount" value="${temp + (movieTotalCount % movieBlockCount == 0 ? 0 : 1)}" />
 			<c:set var="pageBlock" value="${10}" />
 
 			<!-- pageNumber : 현재 페이지 번호 -->

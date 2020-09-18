@@ -19,7 +19,7 @@ public class AllServiceImp extends Reader implements AllService {
 
 	/* ------ Movie ------- */
 
-	// id 로 프로그램의 모든 정보 JsonObject 로 반환
+	// movie_id 로 JsonObject 로 반환
 	public JsonObject getMovieJsonById(long id) {
 
 		String url = StaticData.API_MAIN_URL;
@@ -30,6 +30,103 @@ public class AllServiceImp extends Reader implements AllService {
 		getReader(url);
 
 		return getJson();
+	}
+
+	// movie_id 로 JsonObject 반환 (배우 정보 포함)
+	public JsonObject getMovieJsonWithCastsById(long id) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/movie/" + id;
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&append_to_response=casts";
+
+		getReader(url);
+
+		return getJson();
+	}
+
+	// Movie 인기 내림차순으로 검색하는 URL 반환
+	public String searchMovieByPopularDesc(int pageNumber) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/discover/movie";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&sort_by=popularity.desc";
+		url += "&page=" + pageNumber;
+
+		return url;
+	}
+
+	// Movie 인기 오름차순으로 검색하는 URL 반환
+	public String searchMovieByPopularAsc(int pageNumber) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/discover/movie";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&sort_by=popularity.asc";
+		url += "&page=" + pageNumber;
+
+		return url;
+	}
+
+	// Movie 최신순으로 검색하는 URL 반환
+	public String searchMovieLatest(int pageNumber) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/discover/movie";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&sort_by=first_air_date.desc";
+		url += "&page=" + pageNumber;
+		url += "&with_genres=";
+
+		return url;
+	}
+
+	// Movie 오래된 순으로 검색하는 URL 반환
+	public String searchMovieOldest(int pageNumber) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/discover/movie";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&sort_by=first_air_date.asc";
+		url += "&page=" + pageNumber;
+		url += "&with_genres=";
+
+		return url;
+	}
+
+	// Movie 장르로 검색하는 URL 반환
+	public String searchMovieByGenreUrl(int pageNumber, int genreId) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/discover/movie";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&sort_by=popularity.desc";
+		url += "&page=" + pageNumber;
+		url += "&with_genres=";
+		url += genreId;
+
+		return url;
+	}
+
+	// Movie 연도로 검색하는 URL 반환
+	public String searchMovieByYearUrl(int pageNumber, String year) {
+
+		String url = StaticData.API_MAIN_URL;
+		url += "/discover/movie";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+		url += "&sort_by=popularity.desc";
+		url += "&page=" + pageNumber;
+		url += "&first_air_date_year=" + year;
+
+		return url;
 	}
 
 	/* ------ TV Program ------- */
@@ -63,7 +160,7 @@ public class AllServiceImp extends Reader implements AllService {
 
 	// TV Program 인기 오름차순으로 검색하는 URL 반환
 	public String searchTvByPopularAsc(int pageNumber) {
-		
+
 		String url = StaticData.API_MAIN_URL;
 		url += "/discover/tv";
 		url += "?api_key=" + StaticData.API_KEY;
@@ -77,7 +174,7 @@ public class AllServiceImp extends Reader implements AllService {
 
 	// TV Program 최신순으로 검색하는 URL 반환
 	public String searchTvLatest(int pageNumber) {
-		
+
 		String url = StaticData.API_MAIN_URL;
 		url += "/discover/tv";
 		url += "?api_key=" + StaticData.API_KEY;
@@ -92,7 +189,7 @@ public class AllServiceImp extends Reader implements AllService {
 
 	// TV Program 오래된 순으로 검색하는 URL 반환
 	public String searchTvOldest(int pageNumber) {
-		
+
 		String url = StaticData.API_MAIN_URL;
 		url += "/discover/tv";
 		url += "?api_key=" + StaticData.API_KEY;
