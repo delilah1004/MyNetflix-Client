@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.my.netflix.all.model.Genre;
 import com.my.netflix.aop.Reader;
 import com.my.netflix.aop.StaticData;
 
@@ -17,6 +18,30 @@ public class GenreServiceImp extends Reader implements GenreService {
 	AllService allService;
 
 	private String url = StaticData.API_MAIN_URL;
+
+	// TV 프로그램의 모든 장르 객체 반환
+	public ArrayList<Genre> getTVGenres() {
+
+		ArrayList<Genre> genres = new ArrayList<Genre>();
+
+		url += "/genre/tv/list";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+
+		JsonArray array = getGenres(url);
+
+		for (JsonElement element : array) {
+			
+			Genre genre = new Genre();
+			
+			genre.setId(element.getAsJsonObject().get("id").getAsInt());
+			genre.setName(element.getAsJsonObject().get("name").getAsString());
+			
+			genres.add(genre);
+		}
+
+		return genres;
+	}
 
 	// TV 프로그램의 모든 장르명 반환
 	public ArrayList<String> getTVGenreNames() {
@@ -77,10 +102,33 @@ public class GenreServiceImp extends Reader implements GenreService {
 
 		return genreName;
 	}
+	
+	public ArrayList<Genre> getMovieGenres() {
+		
+		ArrayList<Genre> genres = new ArrayList<Genre>();
+
+		url += "/genre/movie/list";
+		url += "?api_key=" + StaticData.API_KEY;
+		url += "&language=" + StaticData.KOREAN;
+
+		JsonArray array = getGenres(url);
+
+		for (JsonElement element : array) {
+			
+			Genre genre = new Genre();
+			
+			genre.setId(element.getAsJsonObject().get("id").getAsInt());
+			genre.setName(element.getAsJsonObject().get("name").getAsString());
+			
+			genres.add(genre);
+		}
+
+		return genres;
+	}
 
 	@Override
 	public ArrayList<String> getMovieGenreNames() {
-		
+
 		ArrayList<String> genreNames = new ArrayList<String>();
 
 		url += "/genre/movie/list";
@@ -98,7 +146,7 @@ public class GenreServiceImp extends Reader implements GenreService {
 
 	@Override
 	public int getMovieGenreId(String genreName) {
-		
+
 		int genreId = 0;
 
 		url += "/genre/movie/list";

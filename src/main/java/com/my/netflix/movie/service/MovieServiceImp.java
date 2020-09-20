@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.all.api.GenreService;
+import com.my.netflix.all.model.Genre;
 import com.my.netflix.aop.StaticData;
 import com.my.netflix.movie.api.MovieAPI;
 import com.my.netflix.movie.model.Movie;
@@ -87,17 +88,13 @@ public class MovieServiceImp implements MovieService {
 		// 장르별 검색
 		case 4:
 			
-			String genreName = null;
-			
 			// 장르명 리스트 장르 Id 리스트로 변경
-			if (request.getParameter("genre") != null) {
-				genreName = request.getParameter("genre");
-			}
+			int genreId = Integer.parseInt(request.getParameter("genreId"));
 			
-			int genreId = (genreService.getMovieGenreId(genreName));
+			mav.addObject("genreId", genreId);
 			
 			array = movieAPI.getMoviesByGenreIds(pageNumber, genreId);
-			movieTotalCount = movieAPI.getCountPage(pageNumber, genreId);
+			movieTotalCount = movieAPI.getCountPageByGenre(pageNumber, genreId);
 			
 			break;
 			
@@ -123,7 +120,7 @@ public class MovieServiceImp implements MovieService {
 		// 한 페이지에 뿌려줄 MoviePreview 객체의 개수
 		mav.addObject("movieBlockCount", StaticData.count);
 		
-		ArrayList<String> genres = genreService.getMovieGenreNames();
+		ArrayList<Genre> genres = genreService.getMovieGenres();
 
 		// 장르별 검색시 뿌려줄 모든 장르의 데이터
 		mav.addObject("genres", genres);

@@ -27,6 +27,17 @@
 
 	<!-- Bootstrap core jquery -->
 	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		var genreId = '<c:out value="${genreId}" />';
+		
+		if (genreId != null) {
+
+	        alert(genreId);
+
+	        document.querySelector("#genreSearch").style.display = 'block';
+	    }
+	</script>
 
 	<!-- Search jquery -->
 	<script type="text/javascript" src="${root}/resources/jquery/search.js"></script>
@@ -61,7 +72,6 @@
 				</div>
 			</div>
 
-
 			<!-- Year Search -->
 			<div id="yearSearch" class="dropdown mx-3 float-left" style="display:none">
 				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">연도 검색</button>
@@ -81,15 +91,25 @@
 				<c:forEach var="genre" items="${genres}">
 
 					<div class="custom-control custom-checkbox float-left mr-3">
-						<!-- 체크박스 -->
-						<input type="radio" class="custom-control-input" id="${genre}" name="genre" value="${genre}">
+						<!-- 라디오 박스 -->
+						<input type="radio" class="custom-control-input" id="${genre.id}" name="genreId" value="${genre.id}">
 						<!-- 장르명 -->
-						<label class="custom-control-label" for="${genre}">${genre}</label>
+						<label class="custom-control-label" for="${genre.id}">${genre.name}</label>
 					</div>
 
 				</c:forEach>
+				
+				<!-- 기존 장르 선택 정보 갱신 -->
+				<c:if test="${genreId ne null}">
+					<script type="text/javascript">
+					if (genreSelector.genreId.value == "${genreId}") {
+						genreSelector.genreId.checked = true;
+					}
+					</script>
+				</c:if>
 
 				<input type="hidden" name="condition" value="4">
+				<input type="hidden" name="selectedGenre" id="selectedGenre">
 
 				<input type="submit" value="검색" />
 			</form>

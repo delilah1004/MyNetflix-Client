@@ -111,7 +111,6 @@
 				</c:forTokens>
 				</c:if>
 
-				<input type="hidden" name="selectedGenres">
 				<input type="hidden" name="condition" value="4">
 				<input type="submit" value="검색" />
 				

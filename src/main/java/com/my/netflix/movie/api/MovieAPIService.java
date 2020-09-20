@@ -109,15 +109,7 @@ public class MovieAPIService extends Reader implements MovieAPI {
 	// 장르 id 목록에 매칭되는 MoviePreviewList 반환 (API)
 	public ArrayList<MoviePreview> getMoviesByGenreIds(int pageNumber, int genreId) {
 
-		String url = StaticData.API_MAIN_URL;
-		url += "/discover/movie";
-		url += "?api_key=" + StaticData.API_KEY;
-		url += "&language=" + StaticData.KOREAN;
-		url += "&sort_by=popularity.desc";
-		url += "&page=" + pageNumber;
-		url += "&with_genres=";
-		url += genreId;
-		url += "&with_networks=213";
+		String url = allService.searchMovieByGenreUrl(pageNumber, genreId);
 
 		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
@@ -245,12 +237,31 @@ public class MovieAPIService extends Reader implements MovieAPI {
 		return movieIdList.size();
 	}
 	
+	// 인기순 / 날짜순 검색 총 컨텐츠 개수 반환
 	@Override
 	public int getCountPage(int pageNumber, int condition) {
 
-		return 0;
+		String url = null;
+
+		switch (condition) {
+		case 0:
+			url = allService.searchMovieByPopularDesc(pageNumber);
+			break;
+		case 1:
+			url = allService.searchMovieByPopularAsc(pageNumber);
+			break;
+		case 2:
+			url = allService.searchMovieLatest(pageNumber);
+			break;
+		case 3:
+			url = allService.searchMovieOldest(pageNumber);
+			break;
+		}
+
+		return getCount(url);
 	}
 
+	// 장르별 검색 총 컨텐츠 개수 반환
 	public int getCountPageByGenre(int pageNumber, int genreId) {
 		
 		String url = allService.searchMovieByGenreUrl(pageNumber, genreId);
@@ -258,9 +269,12 @@ public class MovieAPIService extends Reader implements MovieAPI {
 		return getCount(url);
 	}
 
+	// 연도별 검색 총 컨텐츠 개수 반환
 	public int getCountPage(int pageNumber, String year) {
 		
-		return 0;		
+		String url = allService.searchMovieByYearUrl(pageNumber, year);
+
+		return getCount(url);		
 	}
 
 	/* ------ 공통 부분 -------- */
