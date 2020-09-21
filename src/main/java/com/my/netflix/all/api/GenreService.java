@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import com.my.netflix.all.model.Genre;
 
 public interface GenreService {
+	
+	// TV
 
 	public ArrayList<Genre> getTVGenres();
 	
-	// TV 프로그램의 모든 장르명
 	public ArrayList<String> getTVGenreNames();
 	
 	public int getTVGenreId(String genreName);
 	
 	public String getTVGenreName(int genreId);
+	
+	// 영화
 	
 	public ArrayList<Genre> getMovieGenres();
 	

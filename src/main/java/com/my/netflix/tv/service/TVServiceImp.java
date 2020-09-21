@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.netflix.all.api.GenreService;
+import com.my.netflix.all.model.Genre;
 import com.my.netflix.aop.StaticData;
 import com.my.netflix.tv.api.TVAPI;
 import com.my.netflix.tv.model.TVProgram;
@@ -87,27 +88,14 @@ public class TVServiceImp implements TVService {
 		// 장르별 검색
 		case 4:
 
-			ArrayList<Integer> genreIds = new ArrayList<Integer>();
-
 			// 장르명 리스트 장르 Id 리스트로 변경
-			if (request.getParameter("selectedGenres") != null) {
-				String selectedGenres = request.getParameter("selectedGenres");
-
-				if (selectedGenres.contains(",")) {
-					String[] genreNames = selectedGenres.split(",");
-					for (String genreName : genreNames) {
-						genreIds.add(genreService.getTVGenreId(genreName));
-					}
-				} else {
-					genreIds.add(genreService.getTVGenreId(selectedGenres));
-				}
-			}
-
-			array = tvAPI.getTVProgramsByGenreIds(pageNumber, genreIds);
-			tvTotalCount = tvAPI.getCountPage(pageNumber, genreIds);
-
-			mav.addObject("genreIds", genreIds);
-
+			int genreId = Integer.parseInt(request.getParameter("genreId"));
+			
+			mav.addObject("genreId", genreId);
+			
+			array = tvAPI.getTVProgramsByGenreId(pageNumber, genreId);
+			tvTotalCount = tvAPI.getCountPageByGenre(pageNumber, genreId);
+			
 			break;
 
 		// 연도별 검색
@@ -133,7 +121,7 @@ public class TVServiceImp implements TVService {
 		// 한 페이지에 뿌려줄 TVProgramPreview 객체의 개수
 		mav.addObject("tvBlockCount", StaticData.count);
 
-		ArrayList<String> genres = genreService.getTVGenreNames();
+		ArrayList<Genre> genres = genreService.getTVGenres();
 
 		// 장르별 검색시 뿌려줄 모든 장르의 데이터
 		mav.addObject("genres", genres);

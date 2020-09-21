@@ -26,7 +26,7 @@ public interface TVAPI {
 	/* -------------- 장르별 검색 ----------------- */
 	
 	// 장르 id 목록에 매칭되는 TVProgramPreview 목록 반환
-	public ArrayList<TVProgramPreview> getTVProgramsByGenreIds(int pageNumber, ArrayList<Integer> genreIds);
+	public ArrayList<TVProgramPreview> getTVProgramsByGenreId(int pageNumber, int genreId);
 	
 	/* --------------- 연도별 검색 ----------------- */
 	
@@ -37,7 +37,7 @@ public interface TVAPI {
 
 	public int getCountPage(int pageNumber, int condition);
 
-	public int getCountPage(int pageNumber, ArrayList<Integer> genreIds);
+	public int getCountPageByGenre(int pageNumber, int genreId);
 	
 	public int getCountPage(int pageNumber, String year);
 	

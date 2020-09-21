@@ -203,7 +203,7 @@ public class AllServiceImp extends Reader implements AllService {
 	}
 
 	// TV Program 장르로 검색하는 URL 반환
-	public String searchTvByGenreUrl(int pageNumber, ArrayList<Integer> genreIds) {
+	public String searchTvByGenreUrl(int pageNumber, int genreId) {
 
 		String url = StaticData.API_MAIN_URL;
 		url += "/discover/tv";
@@ -212,9 +212,7 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
 		url += "&with_genres=";
-		for (int genreId : genreIds) {
-			url += genreId + "%2C";
-		}
+		url += genreId;
 		url += "&with_networks=213";
 
 		return url;

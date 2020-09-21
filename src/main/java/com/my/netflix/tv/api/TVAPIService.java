@@ -72,9 +72,9 @@ public class TVAPIService extends Reader implements TVAPI {
 
 	// 장르 id 목록에 매칭되는 TV Program 목록 반환
 	@Override
-	public ArrayList<TVProgramPreview> getTVProgramsByGenreIds(int pageNumber, ArrayList<Integer> genreIds) {
+	public ArrayList<TVProgramPreview> getTVProgramsByGenreId(int pageNumber, int genreId) {
 
-		String url = allService.searchTvByGenreUrl(pageNumber, genreIds);
+		String url = allService.searchTvByGenreUrl(pageNumber, genreId);
 
 		return getTVPreviewList(allService.getIdListByUrl(url));
 	}
@@ -127,9 +127,9 @@ public class TVAPIService extends Reader implements TVAPI {
 
 	@Override
 	// 표시될 TV Program 의 총 개수 반환 - 장르별 검색
-	public int getCountPage(int pageNumber, ArrayList<Integer> genreIds) {
+	public int getCountPageByGenre(int pageNumber, int genreId) {
 
-		String url = allService.searchTvByGenreUrl(pageNumber, genreIds);
+		String url = allService.searchTvByGenreUrl(pageNumber, genreId);
 
 		return getCount(url);
 	}

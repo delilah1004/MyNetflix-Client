@@ -10,3 +10,8 @@ $(document).ready(function () {
         $("#yearSearch").show();
     });
 });
+
+function genreSearch() {
+    var x = document.getElementsById("genreSelector");
+    document.getElementById("demo").innerHTML = x.length;
+  }

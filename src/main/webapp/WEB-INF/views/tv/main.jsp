@@ -28,12 +28,34 @@
 
 	<!-- Bootstrap core jquery -->
 	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
+	
+	<script type="text/javascript">
 
-	<!-- Search jquery -->
-	<script type="text/javascript" src="${root}/resources/jquery/search.js"></script>
+		$(document).ready(function () {
 
-	<!-- GenreSearch Script -->
-	<script type="text/javascript" src="${root}/resources/js/genreSearch.js"></script>
+			$(".genreSearch").click(function () {
+				$("#genreSearch").show();
+				$("#yearSearch").hide();
+			});
+
+			$(".yearSearch").click(function () {
+				$("#genreSearch").hide();
+				$("#yearSearch").show();
+			});
+
+			var genreId = '<c:out value="${genreId}" />';
+
+			if (genreId != "") {
+				
+				$("#genreSearch").show();
+				
+				if (document.getElementById(genreId).value == genreId) {
+					document.getElementById(genreId).checked = true;
+				}
+			}
+		});
+
+	</script>
 
 </head>
 
@@ -63,10 +85,10 @@
 					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=2">최신순</a>
 					<!-- 오래된순 -->
 					<a class="dropdown-item" href="${root}/tv/setView.mn?condition=3">오래된순</a>
-					<!-- 연도별 검색 -->
-					<a class="dropdown-item yearSearch" href="#">연도별 검색</a>
 					<!-- 장르별 검색 -->
 					<a class="dropdown-item genreSearch" href="#">장르별 검색</a>
+					<!-- 연도별 검색 -->
+					<a class="dropdown-item yearSearch" href="#">연도별 검색</a>
 				</div>
 			</div>
 
@@ -85,31 +107,18 @@
 		<!-- Genre Search -->
 		<div id="genreSearch" class="row px-3 pb-3" style="display: none">
 
-			<form id="genreSelector" class="mx-3" action="${root}/tv/setView.mn" onsubmit="genreCheck(this);">
+			<form id="genreSelector" class="mx-3" action="${root}/tv/setView.mn">
 
 				<c:forEach var="genre" items="${genres}">
 
-					<div class="custom-control custom-checkbox float-left mr-3">
-						<!-- 체크박스 -->
-						<input type="checkbox" class="custom-control-input" id="${genre}" name="genre" value="${genre}">
+					<div class="custom-control custom-radio float-left mr-3">
+						<!-- 라디오 박스 -->
+						<input type="radio" class="custom-control-input" id="${genre.id}" name="genreId" value="${genre.id}">
 						<!-- 장르명 -->
-						<label class="custom-control-label" for="${genre}">${genre}</label>
+						<label class="custom-control-label" for="${genre.id}">${genre.name}</label>
 					</div>
 
 				</c:forEach>
-
-				<!-- 기존 장르 선택 정보 갱신 -->
-				<c:if test="${genreIds eq null}">
-				<c:forTokens var="genreId" items="${genreIds}" delims=" ">
-					<script type="text/javascript">
-						for (var i = 0; i < genreSelector.genreIds.length; i++) {
-							if (genreSelector.genre[i].value == "${genreId}") {
-								genreSelector.genre[i].checked = true;
-							}
-						}
-					</script>
-				</c:forTokens>
-				</c:if>
 
 				<input type="hidden" name="condition" value="4">
 				<input type="submit" value="검색" />
@@ -206,8 +215,8 @@
 					<!-- condition 4 -->
 					<c:if test="${condition == 4}">
 						<a class="page-link"
-							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
-							aria-label="Previous" data-genreIds="${genreIds}">
+							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}&genreId=${genreId}"
+							aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 							<span class="sr-only">Previous</span>
 						</a>
@@ -216,8 +225,8 @@
 					<!-- condition 5 -->
 					<c:if test="${condition == 5}">
 						<a class="page-link"
-							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
-							aria-label="Previous" data-year="${year}">
+							href="${root}/tv/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}&year=${year}"
+							aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 							<span class="sr-only">Previous</span>
 						</a>
@@ -237,13 +246,12 @@
 
 					<!-- condition 4 -->
 					<c:if test="${condition == 4}">
-						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}&genreIds=${genreIds}">${i}</a>
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}&genreId=${genreId}">${i}</a>
 					</c:if>
 
 					<!-- condition 5 -->
 					<c:if test="${condition == 5}">
-						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}"
-							data-year="${year}">${i}</a>
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${i}&condition=${condition}&year=${year}">${i}</a>
 					</c:if>
 
 				</li>
@@ -264,8 +272,8 @@
 
 					<!-- condition 4 -->
 					<c:if test="${condition == 4}">
-						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
-							aria-label="Next" data-genreIds="${genreIds}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}&genreId=${genreId}"
+							aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">Next</span>
 						</a>
@@ -273,8 +281,8 @@
 
 					<!-- condition 5 -->
 					<c:if test="${condition == 5}">
-						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
-							aria-label="Next" data-year="${year}">
+						<a class="page-link" href="${root}/tv/setView.mn?pageNumber=${endPage+1}&condition=${condition}&year=${year}"
+							aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">Next</span>
 						</a>

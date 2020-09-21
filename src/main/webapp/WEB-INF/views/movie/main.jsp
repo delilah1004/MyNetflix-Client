@@ -27,23 +27,36 @@
 
 	<!-- Bootstrap core jquery -->
 	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
-	
+
 	<script type="text/javascript">
-		var genreId = '<c:out value="${genreId}" />';
-		
-		if (genreId != null) {
 
-	        alert(genreId);
+		$(document).ready(function () {
 
-	        document.querySelector("#genreSearch").style.display = 'block';
-	    }
+			$(".genreSearch").click(function () {
+				$("#genreSearch").show();
+				$("#yearSearch").hide();
+			});
+
+			$(".yearSearch").click(function () {
+				$("#genreSearch").hide();
+				$("#yearSearch").show();
+			});
+
+			var genreId = '<c:out value="${genreId}" />';
+
+			if (genreId != "") {
+
+				//alert(genreId);
+				
+				$("#genreSearch").show();
+				
+				if (document.getElementById(genreId).value == genreId) {
+					document.getElementById(genreId).checked = true;
+				}
+			}
+		});
+
 	</script>
-
-	<!-- Search jquery -->
-	<script type="text/javascript" src="${root}/resources/jquery/search.js"></script>
-
-	<!-- GenreSearch Script -->
-	<script type="text/javascript" src="${root}/resources/js/genreSearch.js"></script>
 
 </head>
 
@@ -86,30 +99,21 @@
 		<!-- Genre Search -->
 		<div id="genreSearch" class="row px-3 pb-3" style="display:none">
 
-			<form id="genreSelector" class="mx-3" action="${root}/movie/setView.mn" onsubmit="genreCheck(this);">
+			<form id="genreSelector" class="mx-3" action="${root}/movie/setView.mn">
 
 				<c:forEach var="genre" items="${genres}">
 
-					<div class="custom-control custom-checkbox float-left mr-3">
+					<div class="custom-control custom-radio float-left mr-3">
 						<!-- 라디오 박스 -->
-						<input type="radio" class="custom-control-input" id="${genre.id}" name="genreId" value="${genre.id}">
+						<input type="radio" class="custom-control-input" id="${genre.id}" name="genreId"
+							value="${genre.id}">
 						<!-- 장르명 -->
 						<label class="custom-control-label" for="${genre.id}">${genre.name}</label>
 					</div>
 
 				</c:forEach>
-				
-				<!-- 기존 장르 선택 정보 갱신 -->
-				<c:if test="${genreId ne null}">
-					<script type="text/javascript">
-					if (genreSelector.genreId.value == "${genreId}") {
-						genreSelector.genreId.checked = true;
-					}
-					</script>
-				</c:if>
 
 				<input type="hidden" name="condition" value="4">
-				<input type="hidden" name="selectedGenre" id="selectedGenre">
 
 				<input type="submit" value="검색" />
 			</form>
@@ -130,13 +134,13 @@
 					<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item d-flex flex-column">
 
 						<div class="card h-100">
-						
+
 							<!-- Card image -->
 							<a class="poster" href="${root}/movie/fullView.mn?movieId=${movie.id}">
 								<!-- 포스터 -->
 								<img class="card-img-top" src="${movie.posterPath}" alt="">
 							</a>
-							
+
 							<!-- Card body -->
 							<div class="card-body">
 								<!-- 제목 -->
@@ -161,7 +165,7 @@
 
 					</div>
 				</c:forEach>
-				
+
 			</c:if>
 
 		</div>
@@ -186,29 +190,94 @@
 			<!-- 이전 버튼 -->
 			<c:if test="${startPage > pageBlock}">
 				<li class="page-item">
-					<a class="page-link"
-						href="${root}/movie/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
-						aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
+					<!-- condition 0~3 -->
+					<c:if test="${condition != 4 && condition !=5}">
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}"
+							aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</c:if>
+
+					<!-- condition 4 -->
+					<c:if test="${condition == 4}">
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}&genreId=${genreId}"
+							aria-label="Previous" data-genreIds="${genreIds}">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</c:if>
+
+					<!-- condition 5 -->
+					<c:if test="${condition == 5}">
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${startPage-pageBlock}&condition=${condition}&year=${year}"
+							aria-label="Previous" data-year="${year}">
+							<span aria-hidden="true">&laquo;</span>
+							<span class="sr-only">Previous</span>
+						</a>
+					</c:if>
 				</li>
 			</c:if>
 
 			<!-- 페이지 번호 생성 -->
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<li class="page-item">
-					<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}">${i}</a>
+
+					<!-- condition 0~3 -->
+					<c:if test="${condition != 4 && condition !=5}">
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}">${i}</a>
+					</c:if>
+
+					<!-- condition 4 -->
+					<c:if test="${condition == 4}">
+						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}&genreId=${genreId}">${i}</a>
+					</c:if>
+
+					<!-- condition 5 -->
+					<c:if test="${condition == 5}">
+						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}&year=${year}">${i}</a>
+					</c:if>
 				</li>
 			</c:forEach>
 
 			<!-- 다음 버튼 -->
 			<c:if test="${endPage < pageCount}">
 				<li class="page-item">
-					<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
-						aria-label="Next">
-						<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
-					</a>
+
+					<!-- condition 0~3 -->
+					<c:if test="${condition != 4 && condition !=5}">
+						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
+							aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</c:if>
+
+					<!-- condition 4 -->
+					<c:if test="${condition == 4}">
+						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}&genreId=${genreId}"
+							aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</c:if>
+
+					<!-- condition 5 -->
+					<c:if test="${condition == 5}">
+						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}&year=${year}"
+							aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+							<span class="sr-only">Next</span>
+						</a>
+					</c:if>
+
+
+
+
 				</li>
 			</c:if>
 		</ul>

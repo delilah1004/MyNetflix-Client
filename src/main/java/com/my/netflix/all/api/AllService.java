@@ -50,7 +50,7 @@ public interface AllService {
 	public String searchTvOldest(int pageNumber);
 
 	// 장르로 검색하는 URL 반환
-	public String searchTvByGenreUrl(int pageNumber, ArrayList<Integer> genreIds);
+	public String searchTvByGenreUrl(int pageNumber, int genreId);
 
 	// 연도로 검색하는 URL 반환
 	public String searchTvByYearUrl(int pageNumber, String year);
