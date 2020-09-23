@@ -57,8 +57,6 @@ public interface AllService {
 
 	/* ------ 공통 ------- */
 
-	public ArrayList<Long> getIdListByFile(String filePath);
-
 	public ArrayList<Long> getIdListByUrl(String url);
 
 }

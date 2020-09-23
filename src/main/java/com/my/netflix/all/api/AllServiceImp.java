@@ -1,11 +1,6 @@
 package com.my.netflix.all.api;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import org.springframework.stereotype.Component;
 
@@ -234,50 +229,6 @@ public class AllServiceImp extends Reader implements AllService {
 	}
 
 	/* 공통 */
-
-	// 파일에 담긴 id 값을 추출해서 IdList 로 반환
-	public ArrayList<Long> getIdListByFile(String filePath) {
-
-		FileReader fr = null;
-		BufferedReader br = null;
-		StringTokenizer st;
-
-		String line;
-		ArrayList<Long> idList = new ArrayList<Long>();
-
-		try {
-			fr = new FileReader(new File(filePath));
-			br = new BufferedReader(fr);
-
-			// file 한줄씩 읽기
-			while ((line = br.readLine()) != null) {
-
-				// StringTokenizer 에 한 줄 담기
-				st = new StringTokenizer(line);
-
-				// StringTokenizer 에 담긴 토큰을 list 에 추가
-				while (st.hasMoreTokens()) {
-					idList.add(Long.parseLong(st.nextToken()));
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} finally {
-
-			try {
-				if (fr != null)
-					fr.close();
-				if (br != null)
-					br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return idList;
-	}
 
 	// url을 통해 Movie, TV Program 의 IdList 반환
 	public ArrayList<Long> getIdListByUrl(String url) {

@@ -125,8 +125,8 @@ public class TVAPIService extends Reader implements TVAPI {
 		return getCount(url);
 	}
 
-	@Override
 	// 표시될 TV Program 의 총 개수 반환 - 장르별 검색
+	@Override
 	public int getCountPageByGenre(int pageNumber, int genreId) {
 
 		String url = allService.searchTvByGenreUrl(pageNumber, genreId);
@@ -134,8 +134,8 @@ public class TVAPIService extends Reader implements TVAPI {
 		return getCount(url);
 	}
 
-	@Override
 	// 표시될 TV Program 의 총 개수 반환 - 연도별 검색
+	@Override
 	public int getCountPage(int pageNumber, String year) {
 
 		String url = allService.searchTvByYearUrl(pageNumber, year);

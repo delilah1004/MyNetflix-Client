@@ -28,40 +28,18 @@ public class MovieAPIService extends Reader implements MovieAPI {
 
 	// 인기순 - 내림차순 영화 목록 반환
 	public ArrayList<MoviePreview> getPopularDescMovies(int pageNumber) {
+		
+		String url = allService.searchMovieByPopularDesc(pageNumber);
 
-		ArrayList<Long> popularDescMovieIdList = allService
-				.getIdListByFile(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
-
-		// 매칭된 movieId 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex = (pageNumber - 1) * count;
-
-		for (int i = startIndex; i < startIndex + count; i++) {
-			movieIdList.add(popularDescMovieIdList.get(i));
-		}
-
-		return getMoviePreviewList(movieIdList);
+		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
 
 	// 인기순 - 오름차순 영화 목록 반환
 	public ArrayList<MoviePreview> getPopularAscMovies(int pageNumber) {
 
-		// allMovieIdList 초기화
-		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.POPULAR_ASC_TV_ID_LIST_FILE_PATH);
+		String url = allService.searchMovieByPopularAsc(pageNumber);
 
-		// 매칭된 movieId 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex = (pageNumber - 1) * count;
-
-		for (int i = startIndex; i < startIndex + count; i++) {
-			movieIdList.add(allMovieIdList.get(i));
-		}
-
-		return getMoviePreviewList(movieIdList);
+		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
 
 	/* ------ 개봉일순 검색 -------- */
@@ -69,39 +47,17 @@ public class MovieAPIService extends Reader implements MovieAPI {
 	// 최신순 영화 목록 반환
 	public ArrayList<MoviePreview> getLatestMovies(int pageNumber) {
 
-		// allMovieIdList 초기화
-		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.LATEST_MOVIE_ID_LIST_FILE_PATH);
+		String url = allService.searchMovieLatest(pageNumber);
 
-		// 매칭된 movieId 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex = (pageNumber - 1) * count;
-
-		for (int i = startIndex; i < startIndex + count; i++) {
-			movieIdList.add(allMovieIdList.get(i));
-		}
-
-		return getMoviePreviewList(movieIdList);
+		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
 
 	// 오래된순 영화 목록 반환
 	public ArrayList<MoviePreview> getOldestMovies(int pageNumber) {
 
-		// allMovieIdList 초기화
-		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.OLDEST_MOVIE_ID_LIST_FILE_PATH);
+		String url = allService.searchMovieOldest(pageNumber);
 
-		// 매칭된 movieId 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex = (pageNumber - 1) * count;
-
-		for (int i = startIndex; i < startIndex + count; i++) {
-			movieIdList.add(allMovieIdList.get(i));
-		}
-
-		return getMoviePreviewList(movieIdList);
+		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
 
 	/* ------ 장르별 검색 -------- */
@@ -114,130 +70,19 @@ public class MovieAPIService extends Reader implements MovieAPI {
 		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
 
-	// 장르 id 목록에 매칭되는 영화 목록 반환 (File)
-	public ArrayList<MoviePreview> getMoviesByGenreIds(long lastId, int genreId) {
-
-		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
-
-		// 매칭된 movie_id 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex;
-
-		if (lastId == 0) {
-			// 첫 번째 페이지면 0부터 시작
-			startIndex = 0;
-		} else {
-			// 이전 페이지의 마지막 프로그램 다음 index 부터 검색
-			startIndex = allMovieIdList.indexOf(lastId) + 1;
-		}
-
-		// 선택한 장르에 매칭되는 movie_id 리스트 생성 (최대 개수 = count)
-		for (int i = startIndex; i < allMovieIdList.size(); i++) {
-
-			JsonObject movie = allService.getMovieJsonById(allMovieIdList.get(i));
-
-			// 해당 영화의 장르 중 검색할 장르가 포함되어 있는지 검사
-			for (JsonElement element : movie.get("genres").getAsJsonArray()) {
-				if (genreId == element.getAsJsonObject().get("id").getAsInt()) {
-					movieIdList.add(allMovieIdList.get(i));
-					break;
-				}
-			}
-
-			// 한 페이지에 띄울 영화의 개수를 충족하면 종료
-			if (movieIdList.size() == count)
-				break;
-		}
-
-		return getMoviePreviewList(movieIdList);
-	}
-
 	/* ------ 연도별 검색 -------- */
 
 	// 연도별 MoviePreview 목록 반환 (API)
 	public ArrayList<MoviePreview> getMoviesByYear(int pageNumber, String year) {
 
-		String url = StaticData.API_MAIN_URL;
-		url += "/discover/tv";
-		url += "?api_key=" + StaticData.API_KEY;
-		url += "&language=" + StaticData.KOREAN;
-		url += "&sort_by=popularity.desc";
-		url += "&page=" + pageNumber;
-		url += "&first_air_date_year=" + year;
-		url += "&with_networks=213";
+		String url = allService.searchMovieByYearUrl(pageNumber, year);
 
 		return getMoviePreviewList(allService.getIdListByUrl(url));
 	}
 
-	// 연도별 MoviePreview 목록 반환 (File)
-	public ArrayList<MoviePreview> getMoviesByYear(long lastId, String year) {
-
-		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
-
-		// 매칭된 movie_id 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex;
-
-		if (lastId == 0) {
-			// 첫 번째 페이지면 0부터 시작
-			startIndex = 0;
-		} else {
-			// 이전 페이지의 마지막 프로그램 다음 index 부터 검색
-			startIndex = allMovieIdList.indexOf(lastId) + 1;
-		}
-
-		// 선택한 연도에 매칭되는 movie_id 리스트 생성 (최대 개수 = count)
-		for (int i = startIndex; i < allMovieIdList.size(); i++) {
-
-			JsonObject movie = allService.getMovieJsonById(allMovieIdList.get(i));
-
-			try {
-				// 해당 TV 프로그램의 첫 방영일의 연도가 year 값과 동일한지 검사
-				if (year.equals(movie.get("first_air_date").getAsString().split("-")[0])) {
-					movieIdList.add(allMovieIdList.get(i));
-				}
-			} catch (Exception e) {
-				continue;
-			}
-
-			// 한 페이지에 띄울 영화의 개수를 충족하면 종료
-			if (movieIdList.size() == count)
-				break;
-		}
-
-		return getMoviePreviewList(movieIdList);
-	}
-
 	/* ------------ 페이지 데이터 개수 반환 ------------- */
 
-	// 넷플릭스에서 방영되는 모든 영화의 개수 반환
-	public int getCountPage(int condition) {
-
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		switch (condition) {
-		case 0:
-			movieIdList = allService.getIdListByFile(StaticData.POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
-			break;
-		case 1:
-			movieIdList = allService.getIdListByFile(StaticData.POPULAR_ASC_MOVIE_ID_LIST_FILE_PATH);
-			break;
-		case 2:
-			movieIdList = allService.getIdListByFile(StaticData.LATEST_MOVIE_ID_LIST_FILE_PATH);
-			break;
-		case 3:
-			movieIdList = allService.getIdListByFile(StaticData.OLDEST_MOVIE_ID_LIST_FILE_PATH);
-			break;
-		}
-
-		return movieIdList.size();
-	}
-	
-	// 인기순 / 날짜순 검색 총 컨텐츠 개수 반환
+	// 인기순 / 날짜순 검색 총 컨텐츠 개수 반환 (API)
 	@Override
 	public int getCountPage(int pageNumber, int condition) {
 
@@ -261,7 +106,7 @@ public class MovieAPIService extends Reader implements MovieAPI {
 		return getCount(url);
 	}
 
-	// 장르별 검색 총 컨텐츠 개수 반환
+	// 표시될 Movie 의 총 개수 반환 - 장르별 검색
 	public int getCountPageByGenre(int pageNumber, int genreId) {
 		
 		String url = allService.searchMovieByGenreUrl(pageNumber, genreId);
@@ -269,7 +114,7 @@ public class MovieAPIService extends Reader implements MovieAPI {
 		return getCount(url);
 	}
 
-	// 연도별 검색 총 컨텐츠 개수 반환
+	// 표시될 Movie 의 총 개수 반환 - 연도별 검색
 	public int getCountPage(int pageNumber, String year) {
 		
 		String url = allService.searchMovieByYearUrl(pageNumber, year);
@@ -486,27 +331,6 @@ public class MovieAPIService extends Reader implements MovieAPI {
 		}
 
 		return movies;
-	}
-
-	// 넷플릭스에서 방영되는 모든 TV Program 목록 반환
-	public ArrayList<MoviePreview> getAllMoviesByPage(int pageNumber) {
-
-		ArrayList<Long> allMovieIdList = allService.getIdListByFile(StaticData.MOVIE_ID_LIST_FILE_PATH);
-
-		// 매칭된 movieId 만 담을 list 초기화
-		ArrayList<Long> movieIdList = new ArrayList<Long>();
-
-		// 검색을 시작할 인덱스
-		int startIndex = (pageNumber - 1) * count;
-
-		// for (long movieId : movieIdList) {
-		for (int i = startIndex; i < startIndex + count; i++) {
-			movieIdList.add(allMovieIdList.get(i));
-		}
-
-		return getMoviePreviewList(movieIdList);
-	}
-
-	
+	}	
 
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<!-- top bar + content 적용 -->
+	<definition name="home" template="/WEB-INF/template/layoutHome.jsp">
+		<put-attribute name="topbar" value="/WEB-INF/template/topbar.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+
+	<!-- content -->
+	<definition name="*.hm" extends="home">
+		<put-attribute name="content" value="/WEB-INF/views/{1}.jsp"></put-attribute>
+	</definition>
+
+	<definition name="*/*.hm" extends="home">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+	</definition>
+
+	<definition name="*/*/*.hm" extends="home">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>        
+
+</tiles-definitions>

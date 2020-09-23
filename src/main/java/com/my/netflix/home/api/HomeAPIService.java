@@ -18,9 +18,6 @@ public class HomeAPIService implements HomeAPI {
 	@Autowired
 	AllService allService;
 
-	// 콘텐츠 개수
-	private static final int count = 12;
-
 	/* ------ Main Content ------- */
 
 	@Override
@@ -28,15 +25,15 @@ public class HomeAPIService implements HomeAPI {
 
 		ArrayList<MainContent> mainContents = new ArrayList<MainContent>();
 		MainContent mainContent = new MainContent();
-
-		ArrayList<Long> movieIdList = allService.getIdListByFile(StaticData.HOME_MAIN_MOVIE_ID_LIST_FILE_PATH);
+		
+		long movieIdList[] = new long[] {734309, 438396, 605116};
 
 		for (long movieId : movieIdList) {
 			mainContent = getMainMovieContentById(movieId);
 			mainContents.add(mainContent);
 		}
 
-		ArrayList<Long> tvIdList = allService.getIdListByFile(StaticData.HOME_MAIN_TV_ID_LIST_FILE_PATH);
+		long tvIdList[] = new long[] {63174, 77169, 48866};
 
 		for (long tvId : tvIdList) {
 			mainContent = getMainTVContentById(tvId);
@@ -114,26 +111,34 @@ public class HomeAPIService implements HomeAPI {
 
 	/* ------ Movie ------- */
 
-	// 인기 영화 Id 반환 (6페이지 순회) - 12개
+	// 인기 영화 Id 반환
 	@Override
 	public ArrayList<MainMovie> getBestPopularMovies() {
+		
+		ArrayList<Long> popularMovieIdList = new ArrayList<Long>();
 
-		ArrayList<Long> popularMovieIdList = allService
-				.getIdListByFile(StaticData.HOME_POPULAR_DESC_MOVIE_ID_LIST_FILE_PATH);
+		long[] array = StaticData.HOME_POPULAR_DESC_MOVIE_ID_LIST;
+		
+		for(long temp : array){
 
-		popularMovieIdList.subList(0, count);
+			popularMovieIdList.add(temp);
+		}
 
 		return getMainMovieList(popularMovieIdList);
 	}
 
-	// 최신 영화 Id 반환 (6페이지 순회) - 12개
+	// 최신 영화 Id 반환
 	@Override
 	public ArrayList<MainMovie> getNowPlayingMovies() {
 
-		ArrayList<Long> nowPlayingMovieIdList = allService
-				.getIdListByFile(StaticData.HOME_LATEST_MOVIE_ID_LIST_FILE_PATH);
+		ArrayList<Long> nowPlayingMovieIdList = new ArrayList<Long>();
 
-		nowPlayingMovieIdList.subList(0, count);
+		long[] array = StaticData.HOME_LATEST_MOVIE_ID_LIST;
+		
+		for(long temp : array){
+
+			nowPlayingMovieIdList.add(temp);
+		}
 
 		return getMainMovieList(nowPlayingMovieIdList);
 	}
@@ -154,7 +159,7 @@ public class HomeAPIService implements HomeAPI {
 			try {
 				mainMovie.setPosterPath(StaticData.API_IMAGE_URL + mv.get("poster_path").getAsString());
 			} catch (Exception e) {
-				mainMovie.setPosterPath(StaticData.EMPTY_BACKGROUND_IMAGE_URL);
+				mainMovie.setPosterPath(StaticData.EMPTY_IMAGE_URL);
 			}
 
 		} catch (Exception e) {
@@ -182,10 +187,15 @@ public class HomeAPIService implements HomeAPI {
 	// 인기 TV 프로그램 Id 반환 (6페이지 순회) - 12개
 	@Override
 	public ArrayList<MainTVProgram> getBestPopularTVPrograms() {
+		
+		ArrayList<Long> popularTvIdList = new ArrayList<Long>();
 
-		ArrayList<Long> popularTvIdList = allService.getIdListByFile(StaticData.HOME_POPULAR_DESC_TV_ID_LIST_FILE_PATH);
+		long[] array = StaticData.HOME_POPULAR_DESC_TV_ID_LIST;
+		
+		for(long temp : array){
 
-		popularTvIdList.subList(0, count);
+			popularTvIdList.add(temp);
+		}
 
 		return getMainTVProgramList(popularTvIdList);
 	}
@@ -193,10 +203,15 @@ public class HomeAPIService implements HomeAPI {
 	// 최신 TV 프로그램 Id 반환 (6페이지 순회) - 12개
 	@Override
 	public ArrayList<MainTVProgram> getOnTheAirTVPrograms() {
+		
+		ArrayList<Long> onTheAirTvIdList = new ArrayList<Long>();
 
-		ArrayList<Long> onTheAirTvIdList = allService.getIdListByFile(StaticData.HOME_LATEST_TV_ID_LIST_FILE_PATH);
+		long[] array = StaticData.HOME_LATEST_TV_ID_LIST;
+		
+		for(long temp : array){
 
-		onTheAirTvIdList.subList(0, count);
+			onTheAirTvIdList.add(temp);
+		}
 
 		return getMainTVProgramList(onTheAirTvIdList);
 	}
@@ -217,7 +232,7 @@ public class HomeAPIService implements HomeAPI {
 			try {
 				mainTVProgram.setPosterPath(StaticData.API_IMAGE_URL + tv.get("poster_path").getAsString());
 			} catch (Exception e) {
-				mainTVProgram.setPosterPath(StaticData.EMPTY_BACKGROUND_IMAGE_URL);
+				mainTVProgram.setPosterPath(StaticData.EMPTY_IMAGE_URL);
 			}
 
 		} catch (Exception e) {

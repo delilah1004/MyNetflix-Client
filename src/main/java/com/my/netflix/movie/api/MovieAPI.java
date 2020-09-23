@@ -28,20 +28,12 @@ public interface MovieAPI {
 	// 장르 id 목록에 매칭되는 MoviePreview 목록 반환 (API)
 	public ArrayList<MoviePreview> getMoviesByGenreIds(int pageNumber, int genreId);
 	
-	// 장르 id 목록에 매칭되는 MoviePreview 목록 반환 (File)
-	public ArrayList<MoviePreview> getMoviesByGenreIds(long lastId, int genreId);
-	
 	/* --------------- 연도별 검색 ----------------- */
 	
 	// 연도별 MoviePreview 목록 반환 (API)
 	public ArrayList<MoviePreview> getMoviesByYear(int pageNumber, String year);
 	
-	// 연도별 MoviePreview 목록 반환 (File)
-	public ArrayList<MoviePreview> getMoviesByYear(long lastId, String year);
-	
 	/* ------------ 페이지 데이터 개수 반환 ------------- */
-
-	public int getCountPage(int condition);
 
 	public int getCountPage(int pageNumber, int condition);
 	
@@ -58,6 +50,4 @@ public interface MovieAPI {
 	public Movie getMovieById(long id);
 	
 	public ArrayList<Movie> getMovieList(ArrayList<Long> movieIdList);
-
-	public ArrayList<MoviePreview> getAllMoviesByPage(int pageNumber);
 }
