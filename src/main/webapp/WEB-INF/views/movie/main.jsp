@@ -12,114 +12,21 @@
 	<title>영화 목록</title>
 	<meta charset="UTF-8">
 
-	<!-- Bootstrap core CSS -->
-	<link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 	<!-- Custom styles for this template -->
-	<link href="${root}/resources/css/modern-business.css" rel="stylesheet">
+	<link type="text/css" href="${root}/resources/css/modern-business.css" rel="stylesheet">
 
 	<!-- Movie Card CSS -->
-	<link href="${root}/resources/css/movie-card.css" rel="stylesheet">
+	<link type="text/css" href="${root}/resources/css/movie-card.css" rel="stylesheet">
 
 	<!-- DropBox -->
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-	<!-- Bootstrap core jquery -->
-	<script type="text/javascript" src="${root}/resources/vendor/jquery/jquery.min.js"></script>
-
-	<script type="text/javascript">
-
-		$(document).ready(function () {
-
-			$(".genreSearch").click(function () {
-				$("#genreSearch").show();
-				$("#yearSearch").hide();
-			});
-
-			$(".yearSearch").click(function () {
-				$("#genreSearch").hide();
-				$("#yearSearch").show();
-			});
-
-			var genreId = '<c:out value="${genreId}" />';
-
-			if (genreId != "") {
-
-				//alert(genreId);
-				
-				$("#genreSearch").show();
-				
-				if (document.getElementById(genreId).value == genreId) {
-					document.getElementById(genreId).checked = true;
-				}
-			}
-		});
-
-	</script>
 
 </head>
 
 <body>
 
 	<div class="container pb-4">
-
-		<div class="row p-3">
-
-			<!-- Drop Down -->
-			<div class="dropdown mx-3 float-left">
-				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">검색 분류</button>
-				<div class="dropdown-menu">
-					<!-- 인기도 내림차순 -->
-					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=0">인기도&nbsp;내림차순</a>
-					<!-- 인기도 오름차순 -->
-					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=1">인기도&nbsp;오름차순</a>
-					<!-- 최신순 -->
-					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=2">최신순</a>
-					<!-- 오래된순 -->
-					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=3">오래된순</a>
-					<!-- 장르별 검색 -->
-					<a class="dropdown-item genreSearch" href="#">장르별 검색</a>
-					<!-- 연도별 검색 -->
-					<a class="dropdown-item yearSearch" href="#">연도별 검색</a>
-				</div>
-			</div>
-
-			<!-- Year Search -->
-			<div id="yearSearch" class="dropdown mx-3 float-left" style="display:none">
-				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">연도 검색</button>
-				<div class="dropdown-menu">
-					<c:forEach var="year" begin="2010" end="2020">
-						<a class="dropdown-item" href="${root}/movie/setView.mn?condition=5&year=${year}">${year}</a>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
-
-		<!-- Genre Search -->
-		<div id="genreSearch" class="row px-3 pb-3" style="display:none">
-
-			<form id="genreSelector" class="mx-3" action="${root}/movie/setView.mn">
-
-				<c:forEach var="genre" items="${genres}">
-
-					<div class="custom-control custom-radio float-left mr-3">
-						<!-- 라디오 박스 -->
-						<input type="radio" class="custom-control-input" id="${genre.id}" name="genreId"
-							value="${genre.id}">
-						<!-- 장르명 -->
-						<label class="custom-control-label" for="${genre.id}">${genre.name}</label>
-					</div>
-
-				</c:forEach>
-
-				<input type="hidden" name="condition" value="4">
-
-				<input type="submit" value="검색" />
-			</form>
-
-		</div>
-
 
 		<div class="row">
 
@@ -143,22 +50,30 @@
 
 							<!-- Card body -->
 							<div class="card-body">
+
 								<!-- 제목 -->
 								<h4 class="card-title movie-title align-self-start">
 									<a href="#">${movie.title}</a>
 								</h4>
+
 								<div class="align-self-content">
+
 									<!-- 방영일 -->
 									<span class="card-text release-date">${movie.releaseDate}</span>
+
 									<!-- 상영시간 -->
 									<span class="card-text runtime">(${movie.runtime}분)</span>
+
 								</div>
+
 								<!-- 장르 -->
 								<p class="card-text genre align-self-end">
 									<c:forEach var="genre" items="${movie.genres}" varStatus="index">
-										${genre.name}<c:if test="${!index.last}">,&nbsp;</c:if>
+										${genre.name}
+										<c:if test="${!index.last}">,&nbsp;</c:if>
 									</c:forEach>
 								</p>
+
 							</div>
 
 						</div>
@@ -234,12 +149,14 @@
 
 					<!-- condition 4 -->
 					<c:if test="${condition == 4}">
-						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}&genreId=${genreId}">${i}</a>
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}&genreId=${genreId}">${i}</a>
 					</c:if>
 
 					<!-- condition 5 -->
 					<c:if test="${condition == 5}">
-						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}&year=${year}">${i}</a>
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${i}&condition=${condition}&year=${year}">${i}</a>
 					</c:if>
 				</li>
 			</c:forEach>
@@ -250,7 +167,8 @@
 
 					<!-- condition 0~3 -->
 					<c:if test="${condition != 4 && condition !=5}">
-						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}"
 							aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">Next</span>
@@ -259,7 +177,8 @@
 
 					<!-- condition 4 -->
 					<c:if test="${condition == 4}">
-						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}&genreId=${genreId}"
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}&genreId=${genreId}"
 							aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">Next</span>
@@ -268,7 +187,8 @@
 
 					<!-- condition 5 -->
 					<c:if test="${condition == 5}">
-						<a class="page-link" href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}&year=${year}"
+						<a class="page-link"
+							href="${root}/movie/setView.mn?pageNumber=${endPage+1}&condition=${condition}&year=${year}"
 							aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">Next</span>

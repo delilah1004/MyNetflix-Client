@@ -5,11 +5,10 @@
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!-- Bootstrap core CSS -->
-<link href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link type="text/css" href="${root}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS for topbar.jsp -->
-<link href="${root}/resources/css/topbar.css" rel="stylesheet">
+<link type="text/css" href="${root}/resources/css/topbar.css" rel="stylesheet">
 
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-black">

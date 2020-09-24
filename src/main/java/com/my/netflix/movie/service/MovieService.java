@@ -7,4 +7,6 @@ public interface MovieService {
 	public void setView(ModelAndView mav);
 
 	public void movieFullView(ModelAndView mav);
+	
+	public void movieMain(ModelAndView mav);
 }

@@ -20,7 +20,7 @@ public class MovieController {
 	@RequestMapping(value = "/movie/setView.mn", method = RequestMethod.GET)
 	public ModelAndView setView(HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("movie/main.mn");
+		System.out.println("movie/setView.mn");
 
 		ModelAndView mav = new ModelAndView();
 		
@@ -42,6 +42,20 @@ public class MovieController {
 		
 		movieService.movieFullView(mav);
 
+		return mav;
+	}
+	
+	@RequestMapping(value = "/movie/main.mn", method = RequestMethod.GET)
+	public ModelAndView movieMain(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("movie/main.mn");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		movieService.movieMain(mav);
+		
 		return mav;
 	}
 }

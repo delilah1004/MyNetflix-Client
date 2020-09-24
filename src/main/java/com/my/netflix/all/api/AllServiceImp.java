@@ -1,6 +1,8 @@
 package com.my.netflix.all.api;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,9 @@ import com.my.netflix.aop.StaticData;
 
 @Component
 public class AllServiceImp extends Reader implements AllService {
+	
+	
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 	/* ------ Movie ------- */
 
@@ -48,8 +53,10 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "/discover/movie";
 		url += "?api_key=" + StaticData.API_KEY;
 		url += "&language=" + StaticData.KOREAN;
+		url += "&region=KR";
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
+		url += "&release_date.lte=" + format.format(new Date());
 
 		return url;
 	}
@@ -61,8 +68,10 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "/discover/movie";
 		url += "?api_key=" + StaticData.API_KEY;
 		url += "&language=" + StaticData.KOREAN;
+		url += "&region=KR";
 		url += "&sort_by=popularity.asc";
 		url += "&page=" + pageNumber;
+		url += "&release_date.lte=" + format.format(new Date());
 
 		return url;
 	}
@@ -74,9 +83,10 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "/discover/movie";
 		url += "?api_key=" + StaticData.API_KEY;
 		url += "&language=" + StaticData.KOREAN;
+		url += "&region=KR";
 		url += "&sort_by=first_air_date.desc";
 		url += "&page=" + pageNumber;
-		url += "&with_genres=";
+		url += "&release_date.lte=" + format.format(new Date());
 
 		return url;
 	}
@@ -88,9 +98,10 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "/discover/movie";
 		url += "?api_key=" + StaticData.API_KEY;
 		url += "&language=" + StaticData.KOREAN;
+		url += "&region=KR";
 		url += "&sort_by=first_air_date.asc";
 		url += "&page=" + pageNumber;
-		url += "&with_genres=";
+		url += "&release_date.lte=" + format.format(new Date());
 
 		return url;
 	}
@@ -102,10 +113,11 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "/discover/movie";
 		url += "?api_key=" + StaticData.API_KEY;
 		url += "&language=" + StaticData.KOREAN;
+		url += "&region=KR";
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
-		url += "&with_genres=";
-		url += genreId;
+		url += "&with_genres=" + genreId;
+		url += "&release_date.lte=" + format.format(new Date());
 
 		return url;
 	}
@@ -117,9 +129,11 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "/discover/movie";
 		url += "?api_key=" + StaticData.API_KEY;
 		url += "&language=" + StaticData.KOREAN;
+		url += "&region=KR";
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
-		url += "&first_air_date_year=" + year;
+		url += "&primary_release_year=" + year;
+		url += "&release_date.lte=" + format.format(new Date());
 
 		return url;
 	}
@@ -149,6 +163,8 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
 		url += "&with_networks=213";
+		url += "&first_air_date.lte=" + format.format(new Date());
+		url += "&include_null_first_air_dates=false";
 
 		return url;
 	}
@@ -163,6 +179,8 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&sort_by=popularity.asc";
 		url += "&page=" + pageNumber;
 		url += "&with_networks=213";
+		url += "&first_air_date.lte=" + format.format(new Date());
+		url += "&include_null_first_air_dates=false";
 
 		return url;
 	}
@@ -176,8 +194,9 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&language=" + StaticData.KOREAN;
 		url += "&sort_by=first_air_date.desc";
 		url += "&page=" + pageNumber;
-		url += "&with_genres=";
 		url += "&with_networks=213";
+		url += "&first_air_date.lte=" + format.format(new Date());
+		url += "&include_null_first_air_dates=false";
 
 		return url;
 	}
@@ -191,8 +210,9 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&language=" + StaticData.KOREAN;
 		url += "&sort_by=first_air_date.asc";
 		url += "&page=" + pageNumber;
-		url += "&with_genres=";
 		url += "&with_networks=213";
+		url += "&first_air_date.lte=" + format.format(new Date());
+		url += "&include_null_first_air_dates=false";
 
 		return url;
 	}
@@ -206,9 +226,10 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&language=" + StaticData.KOREAN;
 		url += "&sort_by=popularity.desc";
 		url += "&page=" + pageNumber;
-		url += "&with_genres=";
-		url += genreId;
+		url += "&with_genres=" + genreId;
 		url += "&with_networks=213";
+		url += "&first_air_date.lte=" + format.format(new Date());
+		url += "&include_null_first_air_dates=false";
 
 		return url;
 	}
@@ -224,6 +245,8 @@ public class AllServiceImp extends Reader implements AllService {
 		url += "&page=" + pageNumber;
 		url += "&first_air_date_year=" + year;
 		url += "&with_networks=213";
+		url += "&first_air_date.lte=" + format.format(new Date());
+		url += "&include_null_first_air_dates=false";
 
 		return url;
 	}

@@ -43,6 +43,7 @@
 			});
 
 			var genreId = '<c:out value="${genreId}" />';
+			var year = '<c:out value="${year}" />';
 
 			if (genreId != "") {
 
@@ -53,6 +54,11 @@
 				if (document.getElementById(genreId).value == genreId) {
 					document.getElementById(genreId).checked = true;
 				}
+			}
+			
+			if (year != "") {
+				
+				$("#yearSearch").show();
 			}
 		});
 
@@ -70,18 +76,25 @@
 			<div class="dropdown mx-3 float-left">
 				<button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">검색 분류</button>
 				<div class="dropdown-menu">
+				
 					<!-- 인기도 내림차순 -->
 					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=0">인기도&nbsp;내림차순</a>
+					
 					<!-- 인기도 오름차순 -->
 					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=1">인기도&nbsp;오름차순</a>
+					
 					<!-- 최신순 -->
 					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=2">최신순</a>
+					
 					<!-- 오래된순 -->
 					<a class="dropdown-item" href="${root}/movie/setView.mn?condition=3">오래된순</a>
+					
 					<!-- 장르별 검색 -->
 					<a class="dropdown-item genreSearch" href="#">장르별 검색</a>
+					
 					<!-- 연도별 검색 -->
 					<a class="dropdown-item yearSearch" href="#">연도별 검색</a>
+					
 				</div>
 			</div>
 
